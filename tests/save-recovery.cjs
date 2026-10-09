@@ -66,13 +66,37 @@ for(const difficulty of [1,2,3,4,5]){
 }
 for(const invalid of [null,0,6,'invalid',2.5])assert.equal(fixture(saved(picks,{difficulty:invalid})).q.getRun().difficulty,3);
 const opening=fixture(saved([],{started:false})),paintCount=opening.c.renderCount;
-opening.node('game').oninput({target:{id:'difficultySlider',value:'5'}});
+const initialWrites=opening.writes.length;
+opening.node('game').oninput({target:{id:'difficultySlider',value:'3.22'}});
+assert.equal(opening.node('difficultySlider').value,'3.22','drag position remains continuous');
+assert(Math.abs(Number(opening.node('difficultySliderWrap').style['--difficulty-position'])-.555)<1e-9);
+assert.equal(opening.q.getRun().difficulty,3,'rules still use the nearest whole difficulty');
+assert.equal(opening.writes.length,initialWrites,'motion within one level does not rewrite storage');
+assert.equal(opening.node('difficultySliderWrap').dataset.snapping,'false');
+opening.node('game').oninput({target:{id:'difficultySlider',value:'4.84'}});
 assert.equal(opening.q.getRun().difficulty,5);
 assert.equal(opening.node('.start-screen').dataset.difficulty,'5');
+assert.equal(opening.node('difficultySlider').value,'4.84');
+assert.equal(opening.node('difficultySliderWrap').style['--difficulty-position'],'0.96');
+assert.equal(JSON.parse(opening.store.get(SAVE)).run.difficulty,5,'only whole difficulty levels are stored');
+opening.node('game').onchange({target:{id:'difficultySlider',value:'4.84'}});
+assert.equal(opening.node('difficultySlider').value,'5','release snaps to the nearest level');
+assert.equal(opening.node('difficultySliderWrap').dataset.snapping,'true');
 assert.equal(opening.node('difficultySliderWrap').style['--difficulty-position'],'1');
 assert.equal(opening.c.renderCount,paintCount,'dragging updates controls in place without replacing the slider');
 assert.equal(JSON.parse(opening.store.get(SAVE)).run.difficulty,5);
 assert.equal(fixture(opening.store.get(SAVE)).g.getState().stats.cash,500);
+for(const [key,level] of [['ArrowLeft',4],['ArrowDown',3],['ArrowRight',4],['ArrowUp',5],['ArrowUp',5],['Home',1],['ArrowLeft',1],['End',5]]){
+ let prevented=false;
+ opening.node('game').onkeydown({target:{id:'difficultySlider'},key,preventDefault(){prevented=true;}});
+ assert(prevented,'custom keyboard steps replace fractional native steps');
+ assert.equal(opening.q.getRun().difficulty,level);assert.equal(opening.node('difficultySlider').value,String(level));
+ assert.equal(opening.node('difficultySliderWrap').dataset.snapping,'true');
+ assert.equal(JSON.parse(opening.store.get(SAVE)).run.difficulty,level);
+}
+opening.node('game').oninput({target:{id:'difficultySlider',value:'4.9'}});
+assert.equal(opening.node('difficultySliderWrap').dataset.snapping,'false','a new drag tracks the pointer immediately');
+assert.equal(opening.node('difficultySlider').value,'4.9');
 opening.q.getRun().started=true;
 opening.node('game').oninput({target:{id:'difficultySlider',value:'1'}});
 assert.equal(opening.q.getRun().difficulty,5,'an ongoing run cannot change difficulty');

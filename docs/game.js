@@ -27,7 +27,7 @@ const STAT_ICONS={
 };
 function statIcon(key){return `<svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${STAT_ICONS[key]}</svg>`;}
 function statImpact(key,value){const label=STAT_LABELS[key],amount=signed(value);return `<span class="stat-impact" data-stat="${key}" title="${label} ${amount}">${statIcon(key)}<span class="sr-only">${label} </span><b>${amount}</b></span>`;}
-const BRANDS={google:{name:'Google / DeepMind',image:'assets/google.ico?v=ab5a0b54273d'},claude:{name:'Claude',image:'assets/claude.png?v=ab5a0b54273d'},deepseek:{name:'DeepSeek',image:'assets/deepseek.ico?v=ab5a0b54273d'},nvidia:{name:'NVIDIA',image:'assets/nvidia.svg?v=ab5a0b54273d'},xai:{name:'xAI',image:'assets/xai.ico?v=ab5a0b54273d'},openai:{"name": "OpenAI", "image": "assets/openai.svg?v=ab5a0b54273d"},kimi:{"name": "月之暗面 Kimi", "image": "assets/kimi.png?v=ab5a0b54273d"},gemini:{"name": "Google Gemini", "image": "assets/gemini.png?v=ab5a0b54273d"},qwen:{"name": "阿里千问", "image": "assets/qwen.png?v=ab5a0b54273d"},doubao:{"name": "字节豆包", "image": "assets/doubao.png?v=ab5a0b54273d"},wenxin:{"name": "百度文心", "image": "assets/wenxin.svg?v=ab5a0b54273d"},huawei:{"name": "华为盘古", "image": "assets/huawei.png?v=ab5a0b54273d"},hunyuan:{"name": "腾讯混元", "image": "assets/hunyuan.svg?v=ab5a0b54273d"},xiaomi:{name:'小米',image:'assets/xiaomi.png?v=ab5a0b54273d'}};
+const BRANDS={google:{name:'Google / DeepMind',image:'assets/google.ico?v=68ef1152c62d'},claude:{name:'Claude',image:'assets/claude.png?v=68ef1152c62d'},deepseek:{name:'DeepSeek',image:'assets/deepseek.ico?v=68ef1152c62d'},nvidia:{name:'NVIDIA',image:'assets/nvidia.svg?v=68ef1152c62d'},xai:{name:'xAI',image:'assets/xai.ico?v=68ef1152c62d'},openai:{"name": "OpenAI", "image": "assets/openai.svg?v=68ef1152c62d"},kimi:{"name": "月之暗面 Kimi", "image": "assets/kimi.png?v=68ef1152c62d"},gemini:{"name": "Google Gemini", "image": "assets/gemini.png?v=68ef1152c62d"},qwen:{"name": "阿里千问", "image": "assets/qwen.png?v=68ef1152c62d"},doubao:{"name": "字节豆包", "image": "assets/doubao.png?v=68ef1152c62d"},wenxin:{"name": "百度文心", "image": "assets/wenxin.svg?v=68ef1152c62d"},huawei:{"name": "华为盘古", "image": "assets/huawei.png?v=68ef1152c62d"},hunyuan:{"name": "腾讯混元", "image": "assets/hunyuan.svg?v=68ef1152c62d"},xiaomi:{name:'小米',image:'assets/xiaomi.png?v=68ef1152c62d'}};
 const STORAGE='agi-tomorrow-game', TOTAL=32, HISTORY_TURNS=24, OFFER_COUNT=9, STRATEGY_COUNT=3;
 const AGI={research:450,trust:55,team:40,scientists:2}, REVEAL_MS=1600;
 const TALENT_PROGRAM='open-talent-program', TALENT_BONUS={research:3,team:2}, TIBO_EXTRA_CHANCE=.18;
@@ -64,7 +64,7 @@ function makeDeck(){const used=new Set(),reserved=new Set(Object.values(DATA.fix
 function makeRun(difficulty=3){return {difficulty:difficultyFor(difficulty).level,started:false,picks:[],awaiting:false,eventIds:makeDeck(),offers:[],choiceOffers:[],choice:null,strategies:[],decisionStage:'event'};}
 let run=makeRun(),collected=[],revealTimer,introTransition=null,stageTransition=null,quarterTransition=null;
 const CHARACTER_SIDES={left:['gpt','deepseek','gemini','qwen','minimax'],right:['claude','grok','kimi','glm']};
-const CHARACTER_IMAGES={gpt:'assets/cover/gpt-action-v2.png?v=ab5a0b54273d',deepseek:'assets/cover/deepseek-action-v2.png?v=ab5a0b54273d',claude:'assets/cover/claude-action-v2.png?v=ab5a0b54273d',gemini:'assets/cover/gemini-action-v2.png?v=ab5a0b54273d',grok:'assets/cover/grok-action-v2.png?v=ab5a0b54273d',qwen:'assets/cover/qwen-action-v2.png?v=ab5a0b54273d',kimi:'assets/cover/kimi-action-v2.png?v=ab5a0b54273d',minimax:'assets/cover/minimax-action-v2.png?v=ab5a0b54273d',glm:'assets/cover/glm-action-v2.png?v=ab5a0b54273d'};
+const CHARACTER_IMAGES={gpt:'assets/cover/gpt-action-v2.png?v=68ef1152c62d',deepseek:'assets/cover/deepseek-action-v2.png?v=68ef1152c62d',claude:'assets/cover/claude-action-v2.png?v=68ef1152c62d',gemini:'assets/cover/gemini-action-v2.png?v=68ef1152c62d',grok:'assets/cover/grok-action-v2.png?v=68ef1152c62d',qwen:'assets/cover/qwen-action-v2.png?v=68ef1152c62d',kimi:'assets/cover/kimi-action-v2.png?v=68ef1152c62d',minimax:'assets/cover/minimax-action-v2.png?v=68ef1152c62d',glm:'assets/cover/glm-action-v2.png?v=68ef1152c62d'};
 const characterBags={left:[],right:[]},characterPreloads=new Map();
 let characterPair=null,nextCharacterPair=null,nextCharacterTurn=null;
 function drawCharacterPair(previous=characterPair){
@@ -424,15 +424,16 @@ function renderCharacterArt(prefix){
  return `<div class="${prefix}-art" aria-hidden="true">${characterPair.map((id,i)=>`<img class="${prefix}-character ${prefix}-${i?'right':'left'} ${prefix}-${id}" src="${CHARACTER_IMAGES[id]}" width="1024" height="1536" alt="" draggable="false">`).join('')}</div>`;
 }
 function difficultyDescription(d){return `第 ${d.level} 档，共 5 档，${d.name}，初始资金 ${money(d.cash/100,Number.isInteger(d.cash/100)?0:1)} 亿，风险上限 ${d.riskLimit}`;}
-function renderIntro(){const d=difficultyFor(run.difficulty);return renderCharacterArt('intro')+`<section class="start-screen" data-difficulty="${d.level}" aria-labelledby="startTitle"><h1 id="startTitle">明天 <span class="agi-title"><span class="agi-title-text">AGI</span><span class="agi-title-sparkles" aria-hidden="true"></span></span></h1><p><strong>2021年</strong>，你创建了一家人工智能公司，并向投资人承诺在<strong>2028年末</strong>前实现<strong>AGI</strong>。</p><div class="difficulty-selector"><div class="difficulty-heading"><label for="difficultySlider">难度</label></div><div class="difficulty-slider-wrap" id="difficultySliderWrap" style="--difficulty-position:${(d.level-1)/4}"><div class="difficulty-track" aria-hidden="true"><span class="difficulty-fill"></span><span class="difficulty-sparkles"></span></div><div class="difficulty-ticks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><input id="difficultySlider" type="range" min="1" max="5" step="1" value="${d.level}" aria-label="难度" aria-valuetext="${difficultyDescription(d)}"></div></div><button class="continue" id="startButton"><span class="start-button-text">开始创业<span aria-hidden="true"> →</span></span></button></section>`;}
-function selectDifficulty(value){
+function renderIntro(){const d=difficultyFor(run.difficulty);return renderCharacterArt('intro')+`<section class="start-screen" data-difficulty="${d.level}" aria-labelledby="startTitle"><h1 id="startTitle">明天 <span class="agi-title"><span class="agi-title-text">AGI</span><span class="agi-title-sparkles" aria-hidden="true"></span></span></h1><p><strong>2021年</strong>，你创建了一家人工智能公司，并向投资人承诺在<strong>2028年末</strong>前实现<strong>AGI</strong>。</p><div class="difficulty-selector"><div class="difficulty-heading"><label for="difficultySlider">难度</label></div><div class="difficulty-slider-wrap" id="difficultySliderWrap" style="--difficulty-position:${(d.level-1)/4}"><div class="difficulty-track" aria-hidden="true"><span class="difficulty-fill"></span><span class="difficulty-sparkles"></span></div><div class="difficulty-ticks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><span class="difficulty-thumb" aria-hidden="true"></span><input id="difficultySlider" type="range" min="1" max="5" step="0.01" value="${d.level}" aria-label="难度" aria-valuetext="${difficultyDescription(d)}"></div></div><button class="continue" id="startButton"><span class="start-button-text">开始创业<span aria-hidden="true"> →</span></span></button></section>`;}
+function selectDifficulty(value,snap=false){
  if(run.started||introTransition)return;
- const d=difficultyFor(value);run.difficulty=d.level;
- const screen=$('game').querySelector('.start-screen'),slider=$('difficultySlider');
+ const raw=Number(value),position=Number.isFinite(raw)?clamp(raw,1,5):difficultyFor(run.difficulty).level;
+ const d=difficultyFor(Math.round(position)),changed=run.difficulty!==d.level;run.difficulty=d.level;
+ const screen=$('game').querySelector('.start-screen'),slider=$('difficultySlider'),wrap=$('difficultySliderWrap');
  if(screen)screen.dataset.difficulty=String(d.level);
- if(slider){slider.value=String(d.level);slider.setAttribute('aria-valuetext',difficultyDescription(d));}
- if($('difficultySliderWrap'))$('difficultySliderWrap').style.setProperty('--difficulty-position',String((d.level-1)/4));
- save();
+ if(slider){slider.value=String(snap?d.level:position);slider.setAttribute('aria-valuetext',difficultyDescription(d));}
+ if(wrap){wrap.dataset.snapping=String(snap);wrap.style.setProperty('--difficulty-position',String(((snap?d.level:position)-1)/4));}
+ if(changed)save();
 }
 function renderChoiceAffinities(choice,index){
  const peers=CORE_PEERS.filter(p=>peerActive(p,index)&&choice.affinities?.[p.id]).sort((a,b)=>Number(b.id===choice.brand)-Number(a.id===choice.brand));
@@ -635,7 +636,13 @@ function next(){
 }
 function restart(){if(isRevealing()||introTransition||stageTransition||quarterTransition)return;run=makeRun(run.difficulty);characterPair=null;nextCharacterPair=null;nextCharacterTurn=null;render();focusMain();}
 $('game').addEventListener('input',ev=>{if(ev.target.id==='difficultySlider')selectDifficulty(ev.target.value);});
-$('game').addEventListener('change',ev=>{if(ev.target.name==='strategyChoice')selectStrategy(ev.target.value,ev.target.checked);else if(ev.target.id==='difficultySlider')selectDifficulty(ev.target.value);});
+$('game').addEventListener('change',ev=>{if(ev.target.name==='strategyChoice')selectStrategy(ev.target.value,ev.target.checked);else if(ev.target.id==='difficultySlider')selectDifficulty(ev.target.value,true);});
+$('game').addEventListener('keydown',ev=>{
+ if(ev.target.id!=='difficultySlider'||ev.ctrlKey||ev.metaKey||ev.altKey)return;
+ const current=difficultyFor(run.difficulty).level,values={ArrowLeft:current-1,ArrowDown:current-1,ArrowRight:current+1,ArrowUp:current+1,Home:1,End:5};
+ if(!Object.hasOwn(values,ev.key))return;
+ ev.preventDefault();selectDifficulty(values[ev.key],true);
+});
 $('game').addEventListener('click',ev=>{const btn=ev.target.closest('button');if(!btn)return;if(stageTransition||quarterTransition||introTransition||isRevealing())return;if(btn.dataset.choice)selectChoice(btn.dataset.choice);else if(btn.id==='startButton')start();else if(btn.id==='backToEvent')changeDecisionStage('event');else if(btn.id==='commitButton')commit();else if(btn.id==='nextButton')next();else if(btn.id==='replayButton')restart();});
 $('restartButton').onclick=restart;
 $('relationsToggle').onclick=()=>{relationsCollapsed=!relationsCollapsed;updateRelationsDrawer();try{localStorage.setItem(RELATIONS_PREFERENCE,String(relationsCollapsed));}catch{}};

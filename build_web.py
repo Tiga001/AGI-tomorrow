@@ -19,7 +19,7 @@ def build():
     # Include the notices alongside the exact assets served to players.
     notices = {p.relative_to(ROOT).as_posix() for p in (ROOT / 'assets').rglob('*')
                if p.is_file() and (p.name == 'CREDITS.txt' or 'LICENSE' in p.name
-                                   or p.name == 'sources.json')}
+                                   or p.name in {'sources.json', 'action-sources.json'})}
     digest = hashlib.sha256()
     for name in sorted(sources):
         digest.update(sources[name].encode('utf-8'))

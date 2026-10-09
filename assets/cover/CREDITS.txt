@@ -17,3 +17,25 @@ GPT 公开角色参考：https://github.com/Apprentice-Geo/AI-Fanworks/blob/main
 许可证：https://creativecommons.org/licenses/by-nc-sa/4.0/
 此说明仅适用于上述同人角色图，不改变游戏其他素材的许可。
 角色为非官方同人，不代表 DeepSeek、Anthropic 或 OpenAI 的参与或认可。
+
+
+2026-10-09 · 动作立绘第二版
+新增并接入以下 9 张透明动作图（1024 × 1536，RGBA）：
+gpt-action-v2.png：GPT 龙娘，侧身迎接、掌心示意。
+deepseek-action-v2.png：DeepSeek 鲸鱼娘，探身呈上研究笔记。
+claude-action-v2.png：Claude 娘，翻开书页。
+gemini-action-v2.png：Gemini 娘，展示星形饰物。
+grok-action-v2.png：Grok 娘，扶杖叉腰。
+qwen-action-v2.png：Qwen 娘，展扇示意。
+kimi-action-v2.png：Kimi 娘，双手观察棱镜。
+minimax-action-v2.png：MiniMax 娘，举起场记板。
+glm-action-v2.png：GLM 娘，执笔记录。
+
+以上均由 Codex 内置 image_gen 根据既有角色参考重新生成新姿势；
+没有直接将参考原图裁切后用作新立绘，也没有水平镜像徽记。
+来源沿用上方 ZipZipPipe《大 AI 与小 AI 们》及 DeepSeek 原作者署名。
+参考资料镜像固定版本：
+https://github.com/Apprentice-Geo/AI-Fanworks/tree/e815a9726b928063c40ef59f55e585169daafb0c/ApprenTice/references
+逐张输入、动作要求与完整提示词见 action-sources.json。
+新立绘同样采用 CC BY-NC-SA 4.0。旧版 PNG 保留作历史素材，不再用于封面或过场。
+角色轮换仅为装饰演出，不代表游戏年份中对应产品已发布或厂商已发生合作。

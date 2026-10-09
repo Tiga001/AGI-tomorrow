@@ -43,10 +43,11 @@ def build():
 
 
 if __name__ == '__main__':
-    build()
     import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--pages', action='store_true', help='Also update main/docs for GitHub Pages')
-    if parser.parse_args().pages:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--pages', action='store_true', help='Copy the web build into docs for GitHub Pages.')
+    args = parser.parse_args()
+    build()
+    if args.pages:
         shutil.copytree(OUTPUT, ROOT / 'docs', dirs_exist_ok=True)
-        print('Updated docs/ for GitHub Pages; existing documentation is preserved')
+        print('Updated docs for GitHub Pages.')

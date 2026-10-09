@@ -19,7 +19,7 @@ const STAT_ICONS={
 };
 function statIcon(key){return `<svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${STAT_ICONS[key]}</svg>`;}
 function statImpact(key,value){const label=STAT_LABELS[key],amount=signed(value);return `<span class="stat-impact" data-stat="${key}" title="${label} ${amount}">${statIcon(key)}<span class="sr-only">${label} </span><b>${amount}</b></span>`;}
-const BRANDS={google:{name:'Google / DeepMind',image:'assets/google.ico?v=02b602fa0927'},claude:{name:'Claude',image:'assets/claude.png?v=02b602fa0927'},deepseek:{name:'DeepSeek',image:'assets/deepseek.ico?v=02b602fa0927'},nvidia:{name:'NVIDIA',image:'assets/nvidia.svg?v=02b602fa0927'},xai:{name:'xAI',image:'assets/xai.ico?v=02b602fa0927'},openai:{"name": "OpenAI", "image": "assets/openai.svg?v=02b602fa0927"},kimi:{"name": "月之暗面 Kimi", "image": "assets/kimi.png?v=02b602fa0927"},gemini:{"name": "Google Gemini", "image": "assets/gemini.png?v=02b602fa0927"},qwen:{"name": "阿里千问", "image": "assets/qwen.png?v=02b602fa0927"},doubao:{"name": "字节豆包", "image": "assets/doubao.png?v=02b602fa0927"},wenxin:{"name": "百度文心", "image": "assets/wenxin.svg?v=02b602fa0927"},huawei:{"name": "华为盘古", "image": "assets/huawei.png?v=02b602fa0927"},hunyuan:{"name": "腾讯混元", "image": "assets/hunyuan.svg?v=02b602fa0927"},xiaomi:{name:'小米',image:'assets/xiaomi.png?v=02b602fa0927'}};
+const BRANDS={google:{name:'Google / DeepMind',image:'assets/google.ico?v=ad81f8bde38b'},claude:{name:'Claude',image:'assets/claude.png?v=ad81f8bde38b'},deepseek:{name:'DeepSeek',image:'assets/deepseek.ico?v=ad81f8bde38b'},nvidia:{name:'NVIDIA',image:'assets/nvidia.svg?v=ad81f8bde38b'},xai:{name:'xAI',image:'assets/xai.ico?v=ad81f8bde38b'},openai:{"name": "OpenAI", "image": "assets/openai.svg?v=ad81f8bde38b"},kimi:{"name": "月之暗面 Kimi", "image": "assets/kimi.png?v=ad81f8bde38b"},gemini:{"name": "Google Gemini", "image": "assets/gemini.png?v=ad81f8bde38b"},qwen:{"name": "阿里千问", "image": "assets/qwen.png?v=ad81f8bde38b"},doubao:{"name": "字节豆包", "image": "assets/doubao.png?v=ad81f8bde38b"},wenxin:{"name": "百度文心", "image": "assets/wenxin.svg?v=ad81f8bde38b"},huawei:{"name": "华为盘古", "image": "assets/huawei.png?v=ad81f8bde38b"},hunyuan:{"name": "腾讯混元", "image": "assets/hunyuan.svg?v=ad81f8bde38b"},xiaomi:{name:'小米',image:'assets/xiaomi.png?v=ad81f8bde38b'}};
 const STORAGE='agi-tomorrow-game', TOTAL=32, HISTORY_TURNS=24, OFFER_COUNT=9, STRATEGY_COUNT=3;
 const AGI={research:450,trust:55,team:40,scientists:2}, REVEAL_MS=1600;
 const TALENT_PROGRAM='open-talent-program', TALENT_BONUS={research:3,team:2}, TIBO_EXTRA_CHANCE=.18;
@@ -57,7 +57,7 @@ function makeDeck(){const used=new Set(),reserved=new Set(Object.values(DATA.fix
 function makeRun(){return {started:false,picks:[],awaiting:false,eventIds:makeDeck(),offers:[],choiceOffers:[],choice:null,strategies:[],decisionStage:'event'};}
 let run=makeRun(),collected=[],revealTimer,introTransition=null,stageTransition=null,quarterTransition=null;
 const CHARACTER_SIDES={left:['gpt','deepseek','gemini','qwen','minimax'],right:['claude','grok','kimi','glm']};
-const CHARACTER_IMAGES={gpt:'assets/cover/gpt-action-v2.png?v=02b602fa0927',deepseek:'assets/cover/deepseek-action-v2.png?v=02b602fa0927',claude:'assets/cover/claude-action-v2.png?v=02b602fa0927',gemini:'assets/cover/gemini-action-v2.png?v=02b602fa0927',grok:'assets/cover/grok-action-v2.png?v=02b602fa0927',qwen:'assets/cover/qwen-action-v2.png?v=02b602fa0927',kimi:'assets/cover/kimi-action-v2.png?v=02b602fa0927',minimax:'assets/cover/minimax-action-v2.png?v=02b602fa0927',glm:'assets/cover/glm-action-v2.png?v=02b602fa0927'};
+const CHARACTER_IMAGES={gpt:'assets/cover/gpt-action-v2.png?v=ad81f8bde38b',deepseek:'assets/cover/deepseek-action-v2.png?v=ad81f8bde38b',claude:'assets/cover/claude-action-v2.png?v=ad81f8bde38b',gemini:'assets/cover/gemini-action-v2.png?v=ad81f8bde38b',grok:'assets/cover/grok-action-v2.png?v=ad81f8bde38b',qwen:'assets/cover/qwen-action-v2.png?v=ad81f8bde38b',kimi:'assets/cover/kimi-action-v2.png?v=ad81f8bde38b',minimax:'assets/cover/minimax-action-v2.png?v=ad81f8bde38b',glm:'assets/cover/glm-action-v2.png?v=ad81f8bde38b'};
 const characterBags={left:[],right:[]},characterPreloads=new Map();
 let characterPair=null,nextCharacterPair=null,nextCharacterTurn=null;
 function drawCharacterPair(previous=characterPair){
@@ -308,6 +308,17 @@ function selectedChanges(s){
  if(s.ending||!run.choice&&!run.strategies.length)return null;
  return decisionPreview(s).changes;
 }
+const RELATIONS_PREFERENCE='agi-tomorrow-relations-collapsed';
+let relationsCollapsed=false;
+try{relationsCollapsed=localStorage.getItem(RELATIONS_PREFERENCE)==='true';}catch{}
+function updateRelationsDrawer(){
+ const button=$('relationsToggle'),content=$('relationsContent');
+ $('relationsPanel').classList.toggle('is-collapsed',relationsCollapsed);
+ button.setAttribute('aria-expanded',String(!relationsCollapsed));
+ button.setAttribute('aria-label',relationsCollapsed?'展开友商态度':'收起友商态度');
+ button.title=relationsCollapsed?'展开友商态度':'收起友商态度';
+ content.inert=relationsCollapsed;content.setAttribute('aria-hidden',String(relationsCollapsed));
+}
 function renderRelations(s){
  const previous=isRevealing()?calculate(run.picks.slice(0,-1)):s;
  const index=Math.max(0,Math.min(TOTAL-1,s.index-(run.awaiting||s.ending?1:0)));
@@ -543,6 +554,8 @@ $('game').addEventListener('change',ev=>{if(ev.target.name==='strategyChoice')se
 $('game').addEventListener('click',ev=>{const btn=ev.target.closest('button');if(!btn)return;if(stageTransition||quarterTransition||introTransition||isRevealing())return;if(btn.dataset.choice)selectChoice(btn.dataset.choice);else if(btn.id==='startButton')start();else if(btn.id==='commitButton')commit();else if(btn.id==='nextButton')next();else if(btn.id==='replayButton')restart();});
 $('restartButton').onclick=()=>{if(isRevealing()||introTransition||stageTransition||quarterTransition)return;if(!run.picks.length&&!run.choice&&!run.strategies.length||calculate(run.picks).ending&&!run.awaiting)return restart();$('restartConfirm').hidden=false;$('game').inert=true;$('cancelRestart').focus();};
 $('cancelRestart').onclick=()=>{closeRestart();$('restartButton').focus();};$('confirmRestart').onclick=restart;
+$('relationsToggle').onclick=()=>{relationsCollapsed=!relationsCollapsed;updateRelationsDrawer();try{localStorage.setItem(RELATIONS_PREFERENCE,String(relationsCollapsed));}catch{}};
+updateRelationsDrawer();
 $('scientists').onclick=()=>{if(!$('scientistDialog').open)$('scientistDialog').showModal();};
 $('closeScientists').onclick=()=>$('scientistDialog').close();
 $('scientistDialog').addEventListener('click',ev=>{const box=$('scientistDialog').getBoundingClientRect();if(ev.target===$('scientistDialog')&&(ev.clientX<box.left||ev.clientX>box.right||ev.clientY<box.top||ev.clientY>box.bottom))$('scientistDialog').close();});

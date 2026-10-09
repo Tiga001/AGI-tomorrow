@@ -643,3 +643,31 @@ body.is-starting .text-button{color:#eee7ff}
 @media(max-width:600px){
  .decision-screen .choice-impact .choice-affinities{margin-left:0;flex-basis:auto;margin-top:0}
 }
+
+/* A small handle keeps the left relationship drawer within reach. */
+.relations-heading{display:flex;align-items:center;gap:8px;min-width:0;margin-bottom:8px}
+.relations-panel .relations-heading h2{flex:1;min-width:0;margin:0;white-space:nowrap;overflow:hidden;transition:opacity .2s,transform .26s}
+.relations-toggle{display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;padding:6px;border:1px solid #d5cadf;border-radius:9px;background:#ebe5f0;color:#655078;box-shadow:inset 0 1px 0 #ffffffa6,0 1px 2px #33234314;transition:background .16s,border-color .16s,color .16s,box-shadow .16s,transform .16s}
+.relations-toggle:hover{background:#ded3e8;border-color:#bca8cd;color:#49335e;box-shadow:inset 0 1px 0 #ffffffa6,0 2px 4px #3323431f;transform:translateY(-1px)}
+.relations-toggle:active{background:#d7cadf;box-shadow:inset 0 1px 3px #33234324;transform:translateY(0)}
+.relations-toggle svg{width:17px;height:17px;stroke-width:2;transition:transform .26s}
+.relations-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
+.relations-panel.is-collapsed .relations-toggle svg{transform:rotate(180deg)}
+.relations-content{display:grid;grid-template-rows:1fr;overflow:hidden;transition:grid-template-rows .26s,opacity .2s,visibility 0s}
+.relations-content>#relationsList{min-height:0;overflow:hidden;transition:transform .26s}
+.relations-panel.is-collapsed .relations-content{grid-template-rows:0fr;opacity:0;visibility:hidden;transition:grid-template-rows .26s,opacity .2s,visibility 0s .26s}
+.relations-panel.is-collapsed .relations-content>#relationsList{transform:translateX(-100%)}
+@media(min-width:761px){
+ .play-layout:has(.relations-panel:not([hidden])){grid-template-columns:160px minmax(0,1fr);transition:grid-template-columns .26s ease,gap .26s ease}
+ .play-layout:has(.relations-panel.is-collapsed:not([hidden])){grid-template-columns:32px minmax(0,1fr);gap:18px}
+ .relations-panel{min-width:0;overflow:visible;padding-right:12px;transition:padding .26s,border-color .26s}
+ .relations-content>#relationsList{width:147px}
+ .relations-panel.is-collapsed{padding-right:0;border-right:0}
+ .relations-panel.is-collapsed .relations-heading{gap:0}
+ .relations-panel.is-collapsed .relations-heading h2{opacity:0;transform:translateX(-100%)}
+}
+@media(max-width:760px){
+ .relations-heading{justify-content:flex-start;margin-bottom:0}
+ .relations-panel .relations-heading h2{flex:0 1 auto}
+ .relations-panel.is-collapsed .relations-content>#relationsList{margin-top:0}
+}

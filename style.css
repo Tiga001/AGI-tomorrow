@@ -690,18 +690,6 @@ body.is-starting .text-button{color:#eee7ff}
 .back-to-event{min-height:40px;padding:8px 2px;border:0;border-radius:3px;background:transparent;color:var(--accent);font-size:14px;line-height:1.5;white-space:nowrap}
 .back-to-event:hover{text-decoration:underline;text-underline-offset:4px}
 .back-to-event:disabled{color:var(--muted);cursor:wait;text-decoration:none}
-.cash-ledger{margin:14px 0 0;border-top:1px solid var(--rule);color:var(--muted);text-align:left;font-size:13px;line-height:1.5}
-.cash-ledger summary{width:fit-content;padding:10px 0 2px;cursor:pointer;list-style-position:inside}
-.cash-ledger summary:hover{color:var(--accent)}
-.cash-ledger summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.cash-ledger dl{margin:9px 0 0;padding:0}
-.cash-ledger dl>div{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:8px 20px;padding:7px 0;border-bottom:1px solid var(--rule)}
-.cash-ledger dl>div:last-child{border-bottom:0;font-weight:650}
-.cash-ledger dt{color:var(--ink);overflow-wrap:anywhere}
-.cash-ledger dd{margin:0;color:var(--ink);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
-.cash-ledger dd[data-cash-flow="in"]{color:var(--stat-cash)}
-.cash-ledger dd[data-cash-flow="out"]{color:#b14742}
-.cash-ledger dd[data-cash-flow="flat"]{color:var(--muted)}
 .ending-screen .ending-gaps{max-width:520px;margin:22px auto;padding-top:15px;border-top:1px solid var(--rule);text-align:left}
 .ending-gaps h2{margin:0 0 8px;color:var(--muted);font-size:14px;font-weight:600;line-height:1.5}
 .ending-gaps ul{margin:0;padding-left:1.25em;color:#4a464f;font-size:14px;line-height:1.8}
@@ -715,5 +703,4 @@ body.is-starting .text-button{color:#eee7ff}
  .decision-screen .stage-actions .continue{min-width:0;min-height:44px;padding:9px 14px;font-size:14px;white-space:normal}
  .back-to-event{min-height:44px;font-size:13px}
  .goal-checklist li{gap:8px;padding:11px 0}
- .cash-ledger dl>div{column-gap:12px}
 }

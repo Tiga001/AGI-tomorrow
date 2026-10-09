@@ -13,7 +13,7 @@ function gameContext(seed=42){
  vm.createContext(context);
  for(const file of ['story.js','strategies.js','partners.js','worldlines.js','worldline-engine.js'])vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),context,{filename:file});
  let source=fs.readFileSync(path.join(root,'game.js'),'utf8');
- source=source.replace('window.AGIGame={','window.__quality={failureReason,renderCashLedger,goalItems,syncMusicScene,renderDecision,renderEnding,ensureOffers,currentChoices,updatePreview,setRun:value=>run=value,getRun:()=>run};window.AGIGame={');
+ source=source.replace('window.AGIGame={','window.__quality={failureReason,goalItems,syncMusicScene,renderDecision,renderEnding,ensureOffers,currentChoices,updatePreview,setRun:value=>run=value,getRun:()=>run};window.AGIGame={');
  source=source.replace('render();if(isRevealing())scheduleReveal();addEventListener', 'if(isRevealing())scheduleReveal();addEventListener');
  vm.runInContext(source,context,{filename:'game.js'});return context;
 }
@@ -29,8 +29,6 @@ const selected=['deduplicate-data','social-feed-smear','anonymous-rival-snark'].
 const settled=g.settleQuarter(before,12,choice,selected);
 assert.equal(settled.rawCash,before.cash+settled.eventCash+settled.revenue-settled.operation);
 assert.equal(settled.overhead,20);assert.equal(settled.recurring,15);
-const ledger=q.renderCashLedger({...settled,before,after:settled.stats});
-for(const label of ['策略收入','策略支出','持续业务收入','固定开销','期初资金','期末资金'])assert(ledger.includes(label));
 for(const [stats,reason] of [[{...before,cash:0},'bankrupt'],[{...before,team:0},'burnout'],[{...before,risk:70},'lawsuit']]){
  assert.equal(q.failureReason(stats,8),reason);
  assert.equal(g.getEnding(stats,{},8,[],false,{route:'nvidia'}),'world_nvidia_fracture');
@@ -71,5 +69,5 @@ for(let index=0;index<24;index++){
  assert(ids.every(id=>g.eligibleStrategy(strategy(id),index)));
 }
 const gateway=g.worldlines.event('world:crossroads:28:openai,deepseek');assert(gateway);assert(!gateway.body.includes('两年的时间'));assert(gateway.body.includes('最后一年'));
-console.log('PASS game-quality: economics, cash ledger, route failures, goals, audio scenes, purchased assets, and 24 quarters of legal offers');
+console.log('PASS game-quality: economics, route failures, goals, audio scenes, purchased assets, and 24 quarters of legal offers');
 module.exports={gameContext};

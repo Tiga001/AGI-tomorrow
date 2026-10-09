@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta name="agi-build" content="61b544f4f3ce">
+<meta name="agi-build" content="64bfcc3d77e5">
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#f3f1eb">
 <meta name="description" content="一款关于研发 AGI 的极简文字游戏。做选择，管理资金，走向不同结局。">
@@ -409,7 +409,7 @@ main.quarter-switching[aria-busy="true"]{opacity:1;transition:none}
 ::selection{background:#ded5eb;color:#28262c}
 .page{max-width:1240px;padding:28px 36px 48px}
 header{min-height:42px;margin-bottom:20px;gap:24px}
-.report-brand{display:flex;align-items:baseline;gap:15px;color:var(--accent);font-weight:750;font-size:18px;letter-spacing:-.03em;white-space:nowrap}
+
 #turnLabel{margin-left:auto;color:var(--ink);gap:10px}
 #turnLabel b{font-size:21px}
 #turnLabel>span{border-color:var(--rule);color:var(--muted);font-size:12px;padding-left:10px}
@@ -511,7 +511,7 @@ h1,.decision-screen .event-section h1,.result-title h1{font-family:"Songti SC","
 .start-screen p strong{color:var(--accent)}
 .start-screen .continue{border-radius:3px;box-shadow:none}
 .start-screen .continue:active{box-shadow:none}
-body.is-starting .report-brand,body.is-starting .text-button{color:#eee7ff}
+body.is-starting .text-button{color:#eee7ff}
 @media(max-width:1059px){
  .page{padding:22px 26px 40px}.play-layout{grid-template-columns:138px minmax(0,1fr);gap:26px}
  .status-panel .stat{padding-left:16px;grid-template-columns:1fr;grid-template-rows:auto auto auto}
@@ -519,7 +519,7 @@ body.is-starting .report-brand,body.is-starting .text-button{color:#eee7ff}
  .decision-screen .strategies{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:760px){
- .page{padding:18px 20px 32px}header{gap:13px;margin-bottom:15px}.report-brand{font-size:16px}#turnLabel b{font-size:19px}.header-actions{gap:0}
+ .page{padding:18px 20px 32px}header{gap:13px;margin-bottom:15px}#turnLabel b{font-size:19px}.header-actions{gap:0}
  .play-layout{display:grid;grid-template-columns:1fr;gap:24px;padding-top:25px}
  .relations-panel{border-right:0;border-bottom:1px solid var(--rule);padding:0 0 13px}.relations-panel h2{display:inline;margin-right:10px}.peer-guide{display:inline;font-size:11px}
  #relationsList{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:8px}.peer-row{display:flex;gap:6px;min-height:26px;font-size:12px}.peer-score{margin-left:3px;font-size:12px}.peer-name{font-size:12px}
@@ -531,7 +531,7 @@ body.is-starting .report-brand,body.is-starting .text-button{color:#eee7ff}
 }
 @media(max-width:600px){
  .page{padding:14px 18px 30px}header{flex-wrap:wrap;gap:6px 12px}#turnLabel{gap:8px}#turnLabel>span{padding-left:8px}.header-actions{margin-left:auto}.text-button{padding:7px;font-size:12px}
- .report-brand{font-size:15px}.status-panel{padding-top:14px}.status-panel .stats{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:16px;padding-bottom:13px}
+ .status-panel{padding-top:14px}.status-panel .stats{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:16px;padding-bottom:13px}
  .status-panel .stat{grid-template-columns:1fr;grid-template-rows:18px 31px auto;padding-left:16px;gap:2px}.status-panel .stat:nth-child(4){padding-left:0}
  .status-panel .stat b,.status-panel .stat[data-stat="cash"] b{font-size:26px}.status-panel .stat-change{font-size:11px;min-height:14px}
  .scientists{gap:12px;line-height:1.6}.scientist-label{font-size:11px}
@@ -542,15 +542,28 @@ body.is-starting .report-brand,body.is-starting .text-button{color:#eee7ff}
  .strategy-heading h1{font-size:28px}.decision-screen .strategy-heading{margin-bottom:21px}.decision-screen .stage-actions{align-items:stretch;gap:13px}.strategy-instruction{text-align:center}
  .result-strategy{padding:17px 18px}.result-strategy h3{font-size:15px}.result-strategy p{font-size:15px}
 }
-@media(max-width:380px){.page{padding-left:14px;padding-right:14px}.report-brand{font-size:14px}header{column-gap:8px}.status-panel .stat b,.status-panel .stat[data-stat="cash"] b{font-size:23px}.status-panel .stat{padding-left:10px}}
-header:has(#turnLabel[hidden]){justify-content:space-between}
+@media(max-width:380px){.page{padding-left:14px;padding-right:14px}header{column-gap:8px}.status-panel .stat b,.status-panel .stat[data-stat="cash"] b{font-size:23px}.status-panel .stat{padding-left:10px}}
+
 @media(max-width:600px){.decision-screen .event-cash{margin-left:auto}}
+
+/* Keep the quarter centered and the event labels direct. */
+.page header{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px}
+.page header #turnLabel{grid-column:2;justify-self:center;margin:0}
+.page header .header-actions{grid-column:3;justify-self:end;margin:0}
+.decision-screen .event-eyebrow{font-size:16px;font-weight:600;letter-spacing:.06em}
+.response-heading>span:first-child{font-size:16px}
+@media(max-width:480px){
+ .page header{row-gap:4px}
+ .page header .header-actions{grid-column:1/-1;grid-row:2}
+ .page header:has(#turnLabel[hidden]) .header-actions{grid-row:1}
+ .decision-screen .event-eyebrow{font-size:15px}
+}
 
 </style>
 </head>
 <body>
 <div class="page">
-<header><span class="report-brand">明天 AGI</span><span id="turnLabel">2021 · Q1</span><div class="header-actions"><button id="musicButton" class="text-button" aria-label="开启声音" aria-pressed="false">♫ 声音关</button><button id="restartButton" class="text-button">重开</button></div></header>
+<header><span id="turnLabel">2021 · Q1</span><div class="header-actions"><button id="musicButton" class="text-button" aria-label="开启声音" aria-pressed="false">♫ 声音关</button><button id="restartButton" class="text-button">重开</button></div></header>
 <div id="restartConfirm" class="restart-confirm" hidden>结束当前这一局？ <button id="cancelRestart">继续玩</button><button id="confirmRestart">确认重开</button></div>
 <div id="statusPanel" class="status-panel"><div id="stats" class="stats" aria-label="当前状态"></div><div id="scientists" class="scientists">顶级科学家：暂无</div></div>
 <div class="play-layout"><aside id="relationsPanel" class="relations-panel" aria-label="友商好感度" hidden><h2 title="好感越高，合作机会越多；联合发布需要60好感。仅显示有实际往来的厂商，好感回到0仍保留。">友商好感</h2><p class="peer-guide">60 好感 · 联合发布</p><div id="relationsList"></div></aside><main id="game" tabindex="-1"></main></div>
@@ -23954,7 +23967,7 @@ function renderStrategyCard(t,s){
 function renderDecision(s){
  const e=currentEvent(s),milestone=DATA.milestones?.[s.index],intro=!e.worldline&&milestone&&milestone.eventId!==e.memeId?milestone.text+'\n\n':'';
  const q=quarter(s.index),eyebrow=`${q.year} / Q${q.quarter}`;
- if(run.decisionStage!=='strategy')return `<div class="decision-screen" data-stage="event"><section class="event-section" aria-labelledby="eventTitle"><p class="report-eyebrow">${eyebrow}<span>行业事件</span></p><h1 id="eventTitle">${esc(e.title)}</h1><p class="story">${esc(intro+e.body)}</p><div class="response-heading"><span>本季回应</span><span>选择一项，进入策略安排</span></div><div class="choices" role="group" aria-label="事件回应">${currentChoices(s).map((c,i)=>{const changes=eventChanges(c);return `<button type="button" class="choice${run.choice===c.id?' is-selected':''}" data-choice="${esc(c.id)}" data-brand="${esc(c.brand||'')}"><span class="choice-number" aria-hidden="true">${String(i+1).padStart(2,'0')}</span><span class="choice-content"><span class="choice-label"><span class="choice-title">${esc(c.label)}</span><span class="event-cash" data-cash-flow="${changes.cash<0?'out':changes.cash>0?'in':'flat'}"><span class="sr-only">资金 </span>${cashText(changes.cash||0,true)}</span></span><span class="choice-impact">${Object.entries(STAT_LABELS).filter(([key])=>key!=='cash'&&changes[key]).map(([key,label])=>`<span data-stat="${key}">${label} <b>${signed(changes[key])}</b></span>`).join('')}${renderChoiceAffinities(c,s.index)}</span>${c.hint?'<span class="choice-condition">'+esc(c.hint)+'</span>':''}</span><span class="choice-arrow" aria-hidden="true">↗</span></button>`;}).join('')}</div></section></div>`;
+ if(run.decisionStage!=='strategy')return `<div class="decision-screen" data-stage="event"><section class="event-section" aria-labelledby="eventTitle"><p class="report-eyebrow event-eyebrow">行业事件</p><h1 id="eventTitle">${esc(e.title)}</h1><p class="story">${esc(intro+e.body)}</p><div class="response-heading"><span>您的态度：</span></div><div class="choices" role="group" aria-label="事件回应">${currentChoices(s).map((c,i)=>{const changes=eventChanges(c);return `<button type="button" class="choice${run.choice===c.id?' is-selected':''}" data-choice="${esc(c.id)}" data-brand="${esc(c.brand||'')}"><span class="choice-number" aria-hidden="true">${String(i+1).padStart(2,'0')}</span><span class="choice-content"><span class="choice-label"><span class="choice-title">${esc(c.label)}</span><span class="event-cash" data-cash-flow="${changes.cash<0?'out':changes.cash>0?'in':'flat'}"><span class="sr-only">资金 </span>${cashText(changes.cash||0,true)}</span></span><span class="choice-impact">${Object.entries(STAT_LABELS).filter(([key])=>key!=='cash'&&changes[key]).map(([key,label])=>`<span data-stat="${key}">${label} <b>${signed(changes[key])}</b></span>`).join('')}${renderChoiceAffinities(c,s.index)}</span>${c.hint?'<span class="choice-condition">'+esc(c.hint)+'</span>':''}</span><span class="choice-arrow" aria-hidden="true">↗</span></button>`;}).join('')}</div></section></div>`;
  return `<div class="decision-screen" data-stage="strategy"><section class="strategy-section" aria-labelledby="strategyTitle"><div class="strategy-heading"><div><p class="report-eyebrow">${eyebrow}<span>经营安排</span></p><h1 id="strategyTitle">本季策略</h1></div><p id="selectionStatus" role="status">已钉选 ${run.strategies.length} / ${STRATEGY_COUNT}</p></div><div class="strategies" role="group" aria-label="本季策略，选择三项">${run.offers[s.index].map(id=>renderStrategyCard(strategyById(id),s)).join('')}</div></section><div class="commit-row stage-actions"><span class="strategy-instruction">钉选三项策略，安排本季资源。</span><button class="continue" id="commitButton" disabled>执行本季决策</button></div></div>`;
 }
 function updatePreview(){

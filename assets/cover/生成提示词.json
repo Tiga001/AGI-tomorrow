@@ -1,0 +1,38 @@
+{
+  "method": "built-in image_gen",
+  "date": "2026-10-08",
+  "assets": [
+    {
+      "name": "deepseek",
+      "prompt": "Use case: identity-preserve. Create one polished anime character cutout for the LEFT edge of a purple website hero. Image 1 is the exact DeepSeek whale-maid identity/design reference; Image 2 is a companion style reference only. Draw ONLY the DeepSeek character. Preserve her blue-to-pale-blue long wavy hair, blue eyes, prominent curved ahoge, whale fin ears (not cat ears), white maid headband, navy blue and white modest long-sleeved maid dress, dark bow with blue gem at collar, white apron with small whale emblem, a glimpse of whale tail curling behind her OUTER left side. Adult anime proportions matching the reference, clean fine linework, elegant cel shading and soft highlights. New pose: she is peeking and leaning into a scene from the LEFT screen boundary, body diagonally inclined to the RIGHT; hips/lower torso toward the lower LEFT, head toward upper RIGHT. Her face and both eyes look unmistakably to the RIGHT toward the center of a webpage, 3/4 profile, warm playful smile. One hand near her collar in a curious pose, the other rests lightly near the imagined LEFT boundary. Compose an upper-thigh-up portrait with generous transparent margins; preserve whole head, hair tips and fingers, lower skirt may leave the bottom edge. Overall silhouette tall and compact, no arm extending far right. This must look like a character entering from offscreen, not a standing full-length front-facing portrait. TRUE transparent RGBA background with clean alpha edges, NO white background, NO checkerboard, no background scenery, no monitor/window/frame, no ground, no text, no typography, no drop shadow or glow. Match the reference identity closely; keep normal anatomy and five fingers. Only ONE character. Portrait 1024x1536.",
+      "transparent_background": true,
+      "referenced_image_paths": [
+        "参考图/DeepSeek-Girl.png",
+        "参考图/Claude-Girl.png"
+      ],
+      "output": "deepseek-left.png"
+    },
+    {
+      "name": "claude",
+      "prompt": "Use case: identity-preserve. Create one polished anime character cutout for the RIGHT edge of a purple website hero. Image 1 is the exact Claude identity/design reference; Image 2 is a companion style reference only. Draw ONLY the Claude character. Preserve her very long copper-orange hair, amber eyes, orange flower/starburst hair ornament with black ribbon, cream white high-neck blouse and elegant cream/black/burnt-orange scholarly dress, small capelet bearing an orange starburst, black collar bow and starburst brooch, fine gold details, brown hardbound book bearing a small orange starburst. Adult anime proportions matching the reference, clean fine linework, elegant cel shading and soft highlights. New pose: she is peeking and leaning into a scene from the RIGHT screen boundary, body diagonally inclined to the LEFT; hips/lower torso toward the lower RIGHT, head toward upper LEFT. Her face and both eyes look unmistakably to the LEFT toward the center of a webpage, 3/4 profile. A calm intelligent slightly amused expression, soft small smile. Hold the closed book close to her chest with natural hands; hair streams toward outer RIGHT. Compose an upper-thigh-up portrait with generous transparent margins; preserve whole head, hair tips and fingers, lower skirt may leave the bottom edge. Overall silhouette tall and compact, no arm extending far left. This must look like a character entering from offscreen, not a standing full-length front-facing portrait. TRUE transparent RGBA background with clean alpha edges, NO white background, NO checkerboard, no background scenery, no monitor/window/frame, no ground, no text, no typography, no drop shadow or glow. Match the reference identity closely; keep normal anatomy and five fingers. Only ONE character. Portrait 1024x1536.",
+      "transparent_background": true,
+      "referenced_image_paths": [
+        "参考图/Claude-Girl.png",
+        "参考图/DeepSeek-Girl.png"
+      ],
+      "output": "claude-right.png"
+    },
+    {
+      "method": "built-in image_gen",
+      "date": "2026-10-09",
+      "prompt": "Use case: identity-preserve. Asset type: transparent anime character sprite for the Chinese indie game 明天 AGI, to appear alongside existing DeepSeek and Claude characters on a rich purple start screen. Image 1 is the exact identity and outfit reference for the GPT dragon woman; image 2 is only the companion illustration style and rendering polish reference, do not draw the orange-haired character. Redraw ONE adult GPT dragon woman as a beautiful clean cutout, from head to upper thighs, not a full-length illustration. Preserve the reference's silver-white very long hair with pale lavender shading, lavender eyes, pointed elf-like ears, two curved white segmented dragon horns, delicate white high-collar fantasy dress with silver diamond-shaped jewelry, separate white flowing sleeve pieces, small black-and-white interwoven OpenAI knot emblems on the hair ornament and clothing, white dragon wings and a hint of fluffy white-scaled dragon tail curving close behind her. Adult, nonsexual presentation, keep the costume elegant and fully covered at the chest. Frontal composition, head held upright, a soft knowing small smile and calm intelligent expression; eyes look subtly upward toward a title just above her, not down. One relaxed hand near the collar and the other gently lifted near waist height; natural anatomy and five fingers. Compact silhouette suitable for appearing from the bottom center of a webpage. Both horns, the head, shoulders and hands fully within frame with transparent margin, lower costume extends toward bottom. Match the precise flowing linework, refined anime cel shading and soft highlights of the companion sprite. Cool white and pale lavender remain dominant. No other people, no floating ghost, no scenery, no text, no caption, no frame, no ground, no glow, no cast shadow, no white rectangle and no checkerboard. Genuine transparent RGBA background with clean alpha edges. Portrait 1024x1536.",
+      "references": [
+        "用户提供的 GPT 龙娘参考图",
+        "assets/cover/claude-right.png（画风参考）"
+      ],
+      "transparent_background": true,
+      "output": "assets/cover/gpt.png",
+      "name": "gpt"
+    }
+  ]
+}

@@ -1,0 +1,183 @@
+{
+  "version": "early-story-v12",
+  "verifiedOn": "2026-10-09",
+  "scope": "2021年开局与两个Q3事件的纯叙事更新；为兼容存档，沿用历史事件ID。未变更选项ID、事件年份季度、数值、厂商、关系、标签、模式、里程碑排期或游戏规则。",
+  "fictionBoundary": "比赛、论文和发布时间来自原始来源。玩家公司、员工台词、工具用途、厂商交流、收入和结果均为游戏情节；不代表现实人物或企业参与了这些活动。",
+  "history": [
+    {
+      "fact": "AlphaGo与李世石的比赛发生于2016年3月，最终4比1；李世石赢下第四局。",
+      "sourceUrls": [
+        "https://deepmind.google/research/alphago/"
+      ]
+    },
+    {
+      "fact": "AlphaGo与柯洁的比赛发生于2017年5月，故事于2021年回看录像，未把赛事改期。",
+      "sourceUrls": [
+        "https://deepmind.google/blog/alphagos-next-move/"
+      ]
+    },
+    {
+      "fact": "AlphaGo Zero在2017年公开了不依赖人类棋谱、从规则开始自我对弈学习的研究。玩家仅做小棋盘实验，不直接获得其模型。",
+      "sourceUrls": [
+        "https://deepmind.google/blog/alphago-zero-starting-from-scratch/"
+      ]
+    },
+    {
+      "fact": "AlphaFold方法论文和源码在2021年7月公开，结构数据库于7月22日由DeepMind与EMBL-EBI推出；预测结构需要结合置信度与实验理解。",
+      "sourceUrls": [
+        "https://deepmind.google/blog/enabling-high-accuracy-protein-structure-prediction-at-the-proteome-scale/",
+        "https://www.ebi.ac.uk/about/news/announcements/alphafold-database-launch/"
+      ]
+    },
+    {
+      "fact": "Spinning Up是OpenAI于2018年发布的强化学习教学资源。",
+      "sourceUrls": [
+        "https://github.com/openai/spinningup"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "eventId": "dalle_avocado_chair_2021q1",
+      "title": "AlphaGo 赢了，你准备怎么开局",
+      "year": 2021,
+      "quarter": 1,
+      "historicalNote": "2021年的玩家公司回看旧比赛；AlphaGo与李世石的五番棋发生于2016年3月，李世石赢下第四局，最终AlphaGo以4比1获胜；与柯洁的比赛发生于2017年5月。玩家会议、台词、围棋产品及合作行为均为虚构。",
+      "offers": [
+        {
+          "offerId": "dalle_avocado_chair_2021q1-openai",
+          "label": "用OpenAI的训练工具搭小棋盘",
+          "sourceUrls": [
+            "https://github.com/openai/spinningup",
+            "https://deepmind.google/blog/alphago-zero-starting-from-scratch/"
+          ],
+          "rationale": "OpenAI的Spinning Up于2018年发布，提供强化学习教学与算法实现；小棋盘环境、对弈训练和反馈为玩家自建项目，不声称取得AlphaGo模型或与DeepMind签约。"
+        },
+        {
+          "offerId": "dalle_avocado_chair_2021q1-wenxin",
+          "label": "用百度工具，把复盘写成人话",
+          "sourceUrls": [
+            "https://arxiv.org/abs/1904.09223"
+          ],
+          "rationale": "2019年ERNIE研究已覆盖中文知识增强；玩家用获授权的人工棋谱注释做检索与理解实验，不声称ERNIE能读取AlphaGo内部推理。"
+        },
+        {
+          "offerId": "dalle_avocado_chair_2021q1-nvidia",
+          "label": "买英伟达显卡，让陪练多练几盘",
+          "sourceUrls": [
+            "https://nvidianews.nvidia.com/news/nvidias-new-ampere-data-center-gpu-in-full-production",
+            "https://deepmind.google/blog/alphago-zero-starting-from-scratch/"
+          ],
+          "rationale": "A100于2020年进入量产，可用于玩家自建训练实验；自我对弈借鉴公开研究，不暗示购卡即可复现AlphaGo完整实力。"
+        },
+        {
+          "offerId": "dalle_avocado_chair_2021q1-huawei",
+          "label": "用华为视觉工具，让摄像头认棋子",
+          "sourceUrls": [
+            "https://www.huawei.com/cn/news/2020/3/huawei-hdc-computer-vision-plan"
+          ],
+          "rationale": "华为2020年已公开计算视觉计划与MindSpore；棋子识别是玩家自建视觉任务，不提前使用盘古或后续产品。"
+        }
+      ]
+    },
+    {
+      "eventId": "anthropic_codex_2021",
+      "title": "DeepMind 开始研究生命，你还在研究报销",
+      "year": 2021,
+      "quarter": 3,
+      "historicalNote": "AlphaFold方法论文与源码于2021年7月发布；DeepMind和EMBL-EBI于7月22日推出蛋白质结构数据库。结构预测不是药物疗效验证；玩家咨询、实验、产品和对话为虚构。",
+      "offers": [
+        {
+          "offerId": "anthropic_codex_2021-openai",
+          "label": "做专业论文工具，挑战通用模型",
+          "sourceUrls": [
+            "https://arxiv.org/abs/2005.14165",
+            "https://deepmind.google/blog/enabling-high-accuracy-protein-structure-prediction-at-the-proteome-scale/"
+          ],
+          "rationale": "2020年GPT-3论文提供少样本文本任务基线；玩家设计生物论文检索与人工核验工具，属竞争性独立实验，不把文本模型当结构预测器。"
+        },
+        {
+          "offerId": "anthropic_codex_2021-nvidia",
+          "label": "用英伟达显卡，先跑通一条序列",
+          "sourceUrls": [
+            "https://deepmind.google/blog/enabling-high-accuracy-protein-structure-prediction-at-the-proteome-scale/",
+            "https://nvidianews.nvidia.com/news/nvidias-new-ampere-data-center-gpu-in-full-production"
+          ],
+          "rationale": "2021年7月公开的AlphaFold代码支持在GPU上做结构预测；仅承诺玩家小规模复现与验证，不宣称发现新药或替代实验。"
+        },
+        {
+          "offerId": "anthropic_codex_2021-wenxin",
+          "label": "用百度工具，整理生物研究档案",
+          "sourceUrls": [
+            "https://arxiv.org/abs/2107.02137",
+            "https://www.ebi.ac.uk/about/news/announcements/alphafold-database-launch/"
+          ],
+          "rationale": "2021年7月ERNIE 3.0的知识增强方法用于玩家文献与实体整理，AlphaFold数据库作为科学背景；不声称ERNIE提供蛋白质结构预测。"
+        },
+        {
+          "offerId": "anthropic_codex_2021-huawei",
+          "label": "用昇腾搭数据管线，先把样本理顺",
+          "sourceUrls": [
+            "https://www.huawei.com/en/news/2020/9/kunpeng-ascend-keynote",
+            "https://deepmind.google/blog/enabling-high-accuracy-protein-structure-prediction-at-the-proteome-scale/"
+          ],
+          "rationale": "2020年已有昇腾与MindSpore工具链；本选项是玩家自建数据处理试验，不虚构2021年已有可直接商用的昇腾AlphaFold整套适配或已获临床成果。"
+        }
+      ]
+    },
+    {
+      "eventId": "codex_copilot_2021",
+      "title": "模型宣布盈利，财务还没同意",
+      "year": 2021,
+      "quarter": 3,
+      "historicalNote": "GPT-3于2020年公开少样本文本生成研究，2021年API仍在分阶段开放；本事件为虚构公司对文本模型的商业计划与账本测试，不把它描述成2021年已有的ChatGPT。",
+      "offers": [
+        {
+          "offerId": "codex_copilot_2021-openai",
+          "label": "申请GPT-3权限，用账本戳破画饼",
+          "sourceUrls": [
+            "https://arxiv.org/abs/2005.14165",
+            "https://openai.com/index/openai-api/"
+          ],
+          "rationale": "2020年已提供需申请的GPT-3测试API；2021Q3不使用11月取消候补名单的政策，获批测试与财务题目均为玩家虚构情节。"
+        },
+        {
+          "offerId": "codex_copilot_2021-zhipu",
+          "label": "用智谱的填空方法，抽查收入与成本",
+          "sourceUrls": [
+            "https://arxiv.org/abs/2103.10360"
+          ],
+          "rationale": "2021年3月GLM论文已公开自回归填空方法；脱敏账本检查是玩家自行设计的实验，不虚构成熟财会产品。"
+        },
+        {
+          "offerId": "codex_copilot_2021-wenxin",
+          "label": "用百度工具，核对客户和合同",
+          "sourceUrls": [
+            "https://arxiv.org/abs/2107.02137"
+          ],
+          "rationale": "2021年7月ERNIE 3.0研究包括中文理解与知识增强；玩家将其用于文本实体与合同信息对照，不声称自动完成财务审计。"
+        },
+        {
+          "offerId": "codex_copilot_2021-huawei",
+          "label": "拿盘古α作对照，做更懂账本的小模型",
+          "sourceUrls": [
+            "https://arxiv.org/abs/2104.12369"
+          ],
+          "rationale": "2021年4月盘古α中文自回归研究已公开；以其方法做独立对照，玩家专用账本任务体现原有竞争选项，非声称可获得未公开权重。"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "mechanicsUnchanged": true,
+    "changedEvents": 3,
+    "rewrittenLegacyChoices": 9,
+    "rewrittenNeutralChoices": 6,
+    "rewrittenPartnerChoices": 12,
+    "keptEvents": [
+      "liang_gpu_piano",
+      "webgpt_browsing_2021q4"
+    ],
+    "preservedCompanyEras": true
+  }
+}

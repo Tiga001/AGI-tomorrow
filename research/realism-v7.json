@@ -1,0 +1,22 @@
+{
+  "updated": "2026-10-08",
+  "rulesVersion": 7,
+  "scope": "local only",
+  "checksPassed": 32,
+  "completePaths": 10,
+  "note": "Optimized legal playthroughs demonstrate reachability, not player win rate.",
+  "changes": [
+    "Fixed lessons and first architecture work are one-shot; periodic actions have cooldowns.",
+    "Model weights require an unpublished trained version; rental requires owned compute; support renewal requires customers.",
+    "2028 validation follows latest model; early evaluation setup is not final certification.",
+    "Legacy quarters and earned rewards replay under their original rules.",
+    "Anonymous result copy and duplicate outcomes revised.",
+    "New-company intro gate and refreshed five-metric dashboard; no visible turn counter.",
+    "Six commercialization strategies with initial-release milestones, business prerequisites and stage-based receipts."
+  ],
+  "introChecksPassed": 12,
+  "businessChecksPassed": 9,
+  "availableStrategies": 135,
+  "oneShotMilestones": 20,
+  "periodicStrategies": 24
+}

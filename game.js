@@ -9,7 +9,7 @@ const isCorePeer=id=>CORE_IDS.has(id);
 const coreAffinities=values=>Object.fromEntries(Object.entries(values||{}).filter(([id])=>isCorePeer(id)));
 const INITIAL={cash:1000,research:6,trust:50,team:70,risk:0};
 const STAT_LABELS={cash:'资金',research:'研发',team:'士气',trust:'风评',risk:'风险'};
-const BRANDS={google:{name:'Google / DeepMind',image:'assets/google.ico?v=c44644f52cf8'},claude:{name:'Claude',image:'assets/claude.png?v=c44644f52cf8'},deepseek:{name:'DeepSeek',image:'assets/deepseek.ico?v=c44644f52cf8'},nvidia:{name:'NVIDIA',image:'assets/nvidia.svg?v=c44644f52cf8'},xai:{name:'xAI',image:'assets/xai.ico?v=c44644f52cf8'},openai:{"name": "OpenAI", "image": "assets/openai.svg?v=c44644f52cf8"},kimi:{"name": "月之暗面 Kimi", "image": "assets/kimi.png?v=c44644f52cf8"},gemini:{"name": "Google Gemini", "image": "assets/gemini.png?v=c44644f52cf8"},qwen:{"name": "阿里千问", "image": "assets/qwen.png?v=c44644f52cf8"},doubao:{"name": "字节豆包", "image": "assets/doubao.png?v=c44644f52cf8"},wenxin:{"name": "百度文心", "image": "assets/wenxin.svg?v=c44644f52cf8"},huawei:{"name": "华为盘古", "image": "assets/huawei.png?v=c44644f52cf8"},hunyuan:{"name": "腾讯混元", "image": "assets/hunyuan.svg?v=c44644f52cf8"},xiaomi:{name:'小米',image:'assets/xiaomi.png?v=c44644f52cf8'}};
+const BRANDS={google:{name:'Google / DeepMind',image:'assets/google.ico'},claude:{name:'Claude',image:'assets/claude.png'},deepseek:{name:'DeepSeek',image:'assets/deepseek.ico'},nvidia:{name:'NVIDIA',image:'assets/nvidia.svg'},xai:{name:'xAI',image:'assets/xai.ico'},openai:{"name": "OpenAI", "image": "assets/openai.svg"},kimi:{"name": "月之暗面 Kimi", "image": "assets/kimi.png"},gemini:{"name": "Google Gemini", "image": "assets/gemini.png"},qwen:{"name": "阿里千问", "image": "assets/qwen.png"},doubao:{"name": "字节豆包", "image": "assets/doubao.png"},wenxin:{"name": "百度文心", "image": "assets/wenxin.svg"},huawei:{"name": "华为盘古", "image": "assets/huawei.png"},hunyuan:{"name": "腾讯混元", "image": "assets/hunyuan.svg"},xiaomi:{name:'小米',image:'assets/xiaomi.png'}};
 const STORAGE='agi-tomorrow-game', TOTAL=32, HISTORY_TURNS=24, OFFER_COUNT=9, STRATEGY_COUNT=3;
 const AGI={research:450,trust:55,team:40,scientists:2}, REVEAL_MS=1600;
 const TALENT_PROGRAM='open-talent-program', TALENT_BONUS={research:3,team:2}, TIBO_EXTRA_CHANCE=.18;
@@ -47,7 +47,7 @@ function makeDeck(){const used=new Set(),reserved=new Set(Object.values(DATA.fix
 function makeRun(){return {started:false,picks:[],awaiting:false,eventIds:makeDeck(),offers:[],choiceOffers:[],choice:null,strategies:[],decisionStage:'event'};}
 let run=makeRun(),collected=[],revealTimer,introTransition=null,stageTransition=null,quarterTransition=null;
 const CHARACTER_PAIRS=[['deepseek','claude'],['gpt','claude'],['deepseek','gpt']];
-const CHARACTER_IMAGES={deepseek:'assets/cover/deepseek-left.png?v=c44644f52cf8',claude:'assets/cover/claude-right.png?v=c44644f52cf8',gpt:'assets/cover/gpt.png?v=c44644f52cf8'};
+const CHARACTER_IMAGES={deepseek:'assets/cover/deepseek-left.png',claude:'assets/cover/claude-right.png',gpt:'assets/cover/gpt.png'};
 let characterPair=null;
 function isRevealing(){return run.awaiting&&Number.isFinite(run.revealAt)&&Date.now()<run.revealAt;}
 function goalStatus(s){return {research:s.stats.research>=AGI.research,trust:s.stats.trust>=AGI.trust,team:s.stats.team>=AGI.team,scientists:s.hired.length>=AGI.scientists,validated:s.validated};}

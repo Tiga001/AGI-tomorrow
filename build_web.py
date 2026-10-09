@@ -44,3 +44,9 @@ def build():
 
 if __name__ == '__main__':
     build()
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--pages', action='store_true', help='Also update main/docs for GitHub Pages')
+    if parser.parse_args().pages:
+        shutil.copytree(OUTPUT, ROOT / 'docs', dirs_exist_ok=True)
+        print('Updated docs/ for GitHub Pages; existing documentation is preserved')

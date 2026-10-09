@@ -1,0 +1,109 @@
+[
+  {
+    "company": "Claude / Anthropic",
+    "file": "assets/claude.png",
+    "type": "favicon",
+    "url": "https://assets.claude.com/95a868946ac8a31e5ff832e2899f294aa368b836.png?w=32&h=32",
+    "page": "https://claude.com"
+  },
+  {
+    "company": "DeepSeek",
+    "file": "assets/deepseek.ico",
+    "type": "favicon",
+    "url": "https://www.deepseek.com/favicon.ico",
+    "page": "https://www.deepseek.com"
+  },
+  {
+    "company": "NVIDIA",
+    "file": "assets/nvidia.svg",
+    "type": "logo",
+    "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/about-nvidia/nvidia-brochure/images/nvidia-logo-black.svg",
+    "page": "https://www.nvidia.com/en-us/"
+  },
+  {
+    "company": "xAI",
+    "file": "assets/xai.ico",
+    "type": "favicon",
+    "url": "https://x.ai/favicon.ico",
+    "page": "https://x.ai"
+  },
+  {
+    "company": "OpenAI",
+    "file": "assets/openai.svg",
+    "type": "logo",
+    "url": "https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/openai.svg",
+    "page": "https://github.com/lobehub/lobe-icons",
+    "license": "Lobe Icons MIT; underlying brand marks belong to their respective owners."
+  },
+  {
+    "company": "月之暗面 Kimi",
+    "file": "assets/kimi.png",
+    "type": "logo",
+    "url": "https://www.kimi.com/favicon-light.ico",
+    "page": "https://www.kimi.com/"
+  },
+  {
+    "company": "Google Gemini",
+    "file": "assets/gemini.png",
+    "type": "logo",
+    "url": "https://www.gstatic.com/lamda/images/gemini_sparkle_4g_512_lt_f94943af3be039176192d.png",
+    "page": "https://gemini.google.com/"
+  },
+  {
+    "company": "阿里千问",
+    "file": "assets/qwen.png",
+    "type": "logo",
+    "url": "https://img.alicdn.com/imgextra/i2/O1CN01taBbMS1CfyJoOt0lB_!!6000000000109-2-tps-80-80.png",
+    "page": "https://www.qianwen.com/"
+  },
+  {
+    "company": "字节豆包",
+    "file": "assets/doubao.png",
+    "type": "logo",
+    "url": "https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/favicon/128x128.png",
+    "page": "https://www.doubao.com/about"
+  },
+  {
+    "company": "百度文心",
+    "file": "assets/wenxin.svg",
+    "type": "logo",
+    "url": "https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/wenxin-color.svg",
+    "page": "https://github.com/lobehub/lobe-icons",
+    "license": "Lobe Icons MIT; underlying brand marks belong to their respective owners."
+  },
+  {
+    "company": "华为盘古",
+    "file": "assets/huawei.png",
+    "type": "logo",
+    "url": "https://www.huawei.com/-/media/htemplate-home/1.0.1.20251205144752/components/assets/img/apple-touch-icon-180.png",
+    "page": "https://www.huawei.com/cn/"
+  },
+  {
+    "company": "腾讯混元",
+    "file": "assets/hunyuan.svg",
+    "type": "logo",
+    "url": "https://hunyuan-blog-web-prod-1258344703.cos.ap-guangzhou.myqcloud.com/logo.svg",
+    "page": "https://hunyuan.tencent.com/"
+  },
+  {
+    "company": "智谱",
+    "file": "assets/zhipu.png",
+    "type": "logo",
+    "url": "https://www.zhipuai.cn/favicon.png",
+    "page": "https://www.zhipuai.cn/zh"
+  },
+  {
+    "company": "小米",
+    "file": "assets/xiaomi.png",
+    "type": "logo",
+    "url": "https://i02.appmifile.com/i18n/scm/favicon.png",
+    "page": "https://www.mi.com/global/"
+  },
+  {
+    "company": "Google / DeepMind（Gemini发布前）",
+    "file": "assets/google.ico",
+    "type": "favicon",
+    "url": "https://www.google.com/favicon.ico",
+    "page": "https://www.google.com/"
+  }
+]

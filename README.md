@@ -30,7 +30,7 @@
 
 运行 `python3 build_web.py` 生成 `web-dist/`，把该目录完整上传到静态网站托管服务。网页版本分开加载图片和音乐，入口约 3.5 KB；不依赖外部字体、CDN 或后端。
 
-GitHub Pages 使用 `codex/mobile-web` 分支的静态文件。更新游戏后，重新构建并同步 `web-dist/` 到发布分支。运行 `python3 build.py` 可另外生成 `dist/index.html` 离线单文件。
+源码和网页发布文件统一维护在 `main`。更新游戏后运行 `python3 build_web.py --pages`，将源码与生成的 `docs/` 一起提交；GitHub Pages 从 `main` 的 `/docs` 发布。`docs/RULES.md` 和截图保留。运行 `python3 build.py` 可另外生成 `dist/index.html` 离线单文件。
 
 ## 结局截图
 

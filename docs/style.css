@@ -636,3 +636,10 @@ body.is-starting .text-button{color:#eee7ff}
  .decision-screen .strategy-deltas{gap:6px 16px}
  .decision-screen .choice-impact{gap:5px 14px}
 }
+
+/* Keep each response and its costs within one short reading span. */
+.decision-screen .choices,.decision-screen .response-heading{width:100%;max-width:660px}
+.decision-screen .choice-impact .choice-affinities{margin-left:3px;justify-content:flex-start}
+@media(max-width:600px){
+ .decision-screen .choice-impact .choice-affinities{margin-left:0;flex-basis:auto;margin-top:0}
+}

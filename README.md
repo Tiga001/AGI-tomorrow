@@ -6,6 +6,8 @@
 
 每个季度，先处理一件行业事件，再选择三项公司策略。研发、现金、团队士气、公众评价和厂商关系，会把公司带向不同的未来。
 
+![明天 AGI 游戏启动页面](docs/screenshots/start-screen.jpg)
+
 ## 下载与打开
 
 **普通玩家无需安装 Python、Node.js 或任何依赖。**
@@ -18,54 +20,16 @@
 
 如果没有声音，点击右上角的声音开关；浏览器通常需要一次点击后才允许播放音频。
 
-## 怎么玩
+## 结局截图
 
-- 共 32 个季度，从 2021 Q1 到 2028 Q4。
-- 每季先从 5 个事件回应中选 1 个，再从 9 项策略中选 3 个，统一结算。
-- 招募科学家、采购算力、研发模型、服务客户，也要按时发工资。
-- 2027 年开始，可以独立冲击 AGI，或选择合作伙伴，进入不同的故事路线。
-- 当前包含 77 个历史背景事件、148 项策略、10 家可互动公司和 67 种结局。
+<details>
+<summary>展开查看 DeepSeek 开放 AGI 结局（含剧透）</summary>
 
-详细数值与触发条件见[玩法与规则](docs/RULES.md)。`dist/endings.html` 是完整结局文案页，**包含剧透**。
+**大肥鱼，游向全世界**
 
-## 存档说明
+![DeepSeek 开放 AGI 结局：大肥鱼，游向全世界](docs/screenshots/deepseek-agi-ending.jpg)
 
-游戏进度和声音偏好保存在当前浏览器的本地存储中，无需账号，也不会上传到服务器。
-
-- 刷新页面可以继续当前进度。
-- 不同浏览器、设备或网址之间不自动同步；移动离线文件也可能影响浏览器对存档的识别。
-- 清除浏览器网站数据或退出隐私模式，可能丢失存档。
-- 本仓库不包含任何玩家的个人存档。
-
-## 开发与构建
-
-构建只需要 Python 3 标准库，无需安装第三方包：
-
-```bash
-git clone git@github.com:Tiga001/AGI-tomorrow.git
-cd AGI-tomorrow
-python3 build.py
-```
-
-构建结果位于 `dist/`。本地网页预览：
-
-```bash
-python3 -m http.server 8766 --directory dist
-```
-
-然后访问 <http://127.0.0.1:8766/>。修改源码后，重新执行 `python3 build.py`。
-
-| 文件 | 用途 |
-| --- | --- |
-| `dist/index.html` | 可直接打开的完整离线游戏 |
-| `index.html`、`style.css` | 页面结构与样式 |
-| `game.js` | 回合、结算、存档和交互 |
-| `story.js`、`partners.js` | 历史背景事件与厂商关系 |
-| `strategies.js` | 公司策略、招募与技术解锁 |
-| `worldlines.js`、`worldline-engine.js` | 分支故事与结局 |
-| `assets/` | 图片、音乐、音效及来源和许可证 |
-| `research/` | 公开资料来源与考据记录 |
-| `build.py`、`export_endings.py` | 离线打包与结局导出 |
+</details>
 
 ## 免责声明
 

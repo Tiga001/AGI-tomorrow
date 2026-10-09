@@ -424,7 +424,16 @@ function renderCharacterArt(prefix){
  return `<div class="${prefix}-art" aria-hidden="true">${characterPair.map((id,i)=>`<img class="${prefix}-character ${prefix}-${i?'right':'left'} ${prefix}-${id}" src="${CHARACTER_IMAGES[id]}" width="1024" height="1536" alt="" draggable="false">`).join('')}</div>`;
 }
 function difficultyDescription(d){return `第 ${d.level} 档，共 5 档，${d.name}，初始资金 ${money(d.cash/100,Number.isInteger(d.cash/100)?0:1)} 亿，风险上限 ${d.riskLimit}`;}
-function renderIntro(){const d=difficultyFor(run.difficulty);return renderCharacterArt('intro')+`<section class="start-screen" data-difficulty="${d.level}" aria-labelledby="startTitle"><h1 id="startTitle">明天 <span class="agi-title"><span class="agi-title-text">AGI</span><span class="agi-title-sparkles" aria-hidden="true"></span></span></h1><p><strong>2021年</strong>，你创建了一家人工智能公司，并向投资人承诺在<strong>2028年末</strong>前实现<strong>AGI</strong>。</p><div class="difficulty-selector"><div class="difficulty-heading"><label for="difficultySlider">难度</label></div><div class="difficulty-slider-wrap" id="difficultySliderWrap" style="--difficulty-position:${(d.level-1)/4}"><div class="difficulty-track" aria-hidden="true"><span class="difficulty-fill"></span><span class="difficulty-sparkles"></span></div><div class="difficulty-ticks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><span class="difficulty-thumb" aria-hidden="true"></span><input id="difficultySlider" type="range" min="1" max="5" step="0.01" value="${d.level}" aria-label="难度" aria-valuetext="${difficultyDescription(d)}"></div></div><button class="continue" id="startButton"><span class="start-button-text">开始创业<span aria-hidden="true"> →</span></span></button></section>`;}
+const STARTUP_RESOURCE_IMAGES={cash:'assets/intro/cash-bundles.png',gpu:'assets/intro/graphics-card.png'};
+const STARTUP_RESOURCES=Array.from({length:24},(_,order)=>({kind:order%3===0?'gpu':'cash',order,base:order<3,cutoff:order<3?5:5-(order-3)*11/60}));
+function startupResourceOpacity(base,cutoff,position){return base?1:clamp((cutoff-position)*3,0,1);}
+function renderStartupResources(position){return `<div id="startupResources" class="startup-resources" aria-hidden="true" style="--resource-density:${(5-position)/4}">${STARTUP_RESOURCES.map(piece=>`<img class="resource-piece" data-resource="${piece.kind}" data-base="${piece.base}" data-cutoff="${piece.cutoff}" src="${STARTUP_RESOURCE_IMAGES[piece.kind]}" alt="" draggable="false" decoding="async" style="--resource-order:${piece.order};--resource-opacity:${startupResourceOpacity(piece.base,piece.cutoff,position)}">`).join('')}</div>`;}
+function updateStartupResources(position){
+ const pile=$('startupResources');if(!pile)return;
+ pile.style.setProperty('--resource-density',String((5-position)/4));
+ for(const piece of pile.children)piece.style.setProperty('--resource-opacity',String(startupResourceOpacity(piece.dataset.base==='true',Number(piece.dataset.cutoff),position)));
+}
+function renderIntro(){const d=difficultyFor(run.difficulty);return renderCharacterArt('intro')+`<section class="start-screen" data-difficulty="${d.level}" aria-labelledby="startTitle"><h1 id="startTitle">明天 <span class="agi-title"><span class="agi-title-text">AGI</span><span class="agi-title-sparkles" aria-hidden="true"></span></span></h1><p><strong>2021年</strong>，你创建了一家人工智能公司，并向投资人承诺在<strong>2028年末</strong>前实现<strong>AGI</strong>。</p><div class="difficulty-selector"><div class="difficulty-heading"><label for="difficultySlider">难度</label></div><div class="difficulty-slider-wrap" id="difficultySliderWrap" style="--difficulty-position:${(d.level-1)/4}"><div class="difficulty-track" aria-hidden="true"><span class="difficulty-fill"></span><span class="difficulty-sparkles"></span></div><div class="difficulty-ticks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><span class="difficulty-thumb" aria-hidden="true"></span><input id="difficultySlider" type="range" min="1" max="5" step="0.01" value="${d.level}" aria-label="难度" aria-valuetext="${difficultyDescription(d)}"></div></div><button class="continue" id="startButton"><span class="start-button-text">开始创业<span aria-hidden="true"> →</span></span></button></section>${renderStartupResources(d.level)}`;}
 function selectDifficulty(value,snap=false){
  if(run.started||introTransition)return;
  const raw=Number(value),position=Number.isFinite(raw)?clamp(raw,1,5):difficultyFor(run.difficulty).level;
@@ -433,6 +442,7 @@ function selectDifficulty(value,snap=false){
  if(screen)screen.dataset.difficulty=String(d.level);
  if(slider){slider.value=String(snap?d.level:position);slider.setAttribute('aria-valuetext',difficultyDescription(d));}
  if(wrap){wrap.dataset.snapping=String(snap);wrap.style.setProperty('--difficulty-position',String(((snap?d.level:position)-1)/4));}
+ updateStartupResources(snap?d.level:position);
  if(changed)save();
 }
 function renderChoiceAffinities(choice,index){

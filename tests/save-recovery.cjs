@@ -66,6 +66,9 @@ for(const difficulty of [1,2,3,4,5]){
 }
 for(const invalid of [null,0,6,'invalid',2.5])assert.equal(fixture(saved(picks,{difficulty:invalid})).q.getRun().difficulty,3);
 const opening=fixture(saved([],{started:false})),paintCount=opening.c.renderCount;
+const baseResource=opening.node('baseResource'),fadingResource=opening.node('fadingResource');
+baseResource.dataset={base:'true',cutoff:'5'};fadingResource.dataset={base:'false',cutoff:'3.4'};
+opening.node('startupResources').children=[baseResource,fadingResource];
 const initialWrites=opening.writes.length;
 opening.node('game').oninput({target:{id:'difficultySlider',value:'3.22'}});
 assert.equal(opening.node('difficultySlider').value,'3.22','drag position remains continuous');
@@ -73,6 +76,9 @@ assert(Math.abs(Number(opening.node('difficultySliderWrap').style['--difficulty-
 assert.equal(opening.q.getRun().difficulty,3,'rules still use the nearest whole difficulty');
 assert.equal(opening.writes.length,initialWrites,'motion within one level does not rewrite storage');
 assert.equal(opening.node('difficultySliderWrap').dataset.snapping,'false');
+assert.equal(baseResource.style['--resource-opacity'],'1');
+assert(Math.abs(Number(fadingResource.style['--resource-opacity'])-.54)<1e-9,'resource piles fade continuously with the actual drag position');
+assert(Math.abs(Number(opening.node('startupResources').style['--resource-density'])-.445)<1e-9);
 opening.node('game').oninput({target:{id:'difficultySlider',value:'4.84'}});
 assert.equal(opening.q.getRun().difficulty,5);
 assert.equal(opening.node('.start-screen').dataset.difficulty,'5');
@@ -83,6 +89,9 @@ opening.node('game').onchange({target:{id:'difficultySlider',value:'4.84'}});
 assert.equal(opening.node('difficultySlider').value,'5','release snaps to the nearest level');
 assert.equal(opening.node('difficultySliderWrap').dataset.snapping,'true');
 assert.equal(opening.node('difficultySliderWrap').style['--difficulty-position'],'1');
+assert.equal(opening.node('startupResources').style['--resource-density'],'0');
+assert.equal(fadingResource.style['--resource-opacity'],'0');
+assert.equal(baseResource.style['--resource-opacity'],'1');
 assert.equal(opening.c.renderCount,paintCount,'dragging updates controls in place without replacing the slider');
 assert.equal(JSON.parse(opening.store.get(SAVE)).run.difficulty,5);
 assert.equal(fixture(opening.store.get(SAVE)).g.getState().stats.cash,500);

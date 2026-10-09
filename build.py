@@ -13,7 +13,7 @@ for asset in (root / 'assets').rglob('*'):
         mime = {'.m4a':'audio/mp4','.wav':'audio/wav','.ogg':'audio/ogg','.png':'image/png','.svg':'image/svg+xml','.ico':'image/x-icon'}[asset.suffix]
         data = base64.b64encode(asset.read_bytes()).decode('ascii')
         html = html.replace('assets/' + asset.relative_to(root / 'assets').as_posix(), f'data:{mime};base64,{data}')
-credit_files = ['assets/cover/CREDITS.txt', 'assets/music/CREDITS.txt', 'assets/sfx/CREDITS.txt', 'assets/LOBE-ICONS-LICENSE.txt']
+credit_files = ['assets/intro/CREDITS.txt', 'assets/cover/CREDITS.txt', 'assets/music/CREDITS.txt', 'assets/sfx/CREDITS.txt', 'assets/LOBE-ICONS-LICENSE.txt']
 notices = '\n\n'.join((root / name).read_text(encoding='utf-8') for name in credit_files)
 html = html.replace('</body>', '<template id="agi-third-party-notices"><pre>' + escape(notices) + '</pre></template>\n</body>')
 (root / 'dist').mkdir(exist_ok=True)

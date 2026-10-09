@@ -1,0 +1,8 @@
+封面资源装饰素材
+
+cash-bundles.png — 二次元画风美金捆
+graphics-card.png — 二次元画风显卡
+
+以上素材由本项目使用 OpenAI 内置 image_gen 工具生成，作为游戏封面的装饰道具。
+生成日期：2026-10-09
+未使用品牌标识或真实钞票复刻。生成提示词见同目录 GENERATION.md。

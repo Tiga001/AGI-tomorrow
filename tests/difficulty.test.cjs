@@ -22,6 +22,17 @@ assert.match(q.renderIntro(),/<label for="difficultySlider">难度<\/label>/);
 assert.match(q.renderIntro(),/aria-label="难度" aria-valuetext="第 5 档，共 5 档，极限，初始资金 5 亿，风险上限 50"/);
 assert.match(q.renderIntro(),/<span class="difficulty-thumb" aria-hidden="true"><\/span>/);
 assert.doesNotMatch(q.renderIntro(),/difficultyName|difficultyStats|aria-describedby=/);
+const resourcePieces=()=>[...q.renderIntro().matchAll(/<img class="resource-piece"[^>]*>/g)].map(match=>match[0]);
+const hardPile=resourcePieces();
+assert.equal(hardPile.length,24);
+assert.equal(hardPile.filter(piece=>piece.includes('--resource-opacity:1"')).length,3,'hardest difficulty keeps two cash bundles and one GPU');
+q.setRun({...q.getRun(),difficulty:1});
+const easyPile=resourcePieces();
+assert.equal(easyPile.filter(piece=>piece.includes('--resource-opacity:1"')).length,24);
+assert.equal(easyPile.filter(piece=>piece.includes('data-resource="cash"')).length,16);
+assert.equal(easyPile.filter(piece=>piece.includes('data-resource="gpu"')).length,8);
+assert.equal(g.calculate([],1).assets.length,0,'cover resources remain decorative');
+assert.match(q.renderIntro(),/id="startupResources" class="startup-resources" aria-hidden="true"/);
 
 const boosted=g.settleQuarter({...g.initial,trust:98,team:98,risk:98},0,{quarterDelta:{trust:20,team:20,risk:20}},[]);
 assert.equal(boosted.stats.trust,118);assert.equal(boosted.changes.trust,20);

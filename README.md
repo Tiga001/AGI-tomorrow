@@ -4,7 +4,7 @@
 
 **距离 AGI 只剩最后一步。距离发工资也只剩最后一天。**
 
-一款中文 AI 创业经营文字游戏。你带着 10 亿元，从 2021 年出发，在 2028 年之前向投资人兑现 AGI 的承诺。
+一款中文 AI 创业经营文字游戏。你带着 10 亿元，从 2021 年出发，在 2028 年末前向投资人兑现 AGI 的承诺。
 
 每个季度，先处理一件行业事件，再选择三项公司策略。研发、现金、团队士气、公众评价和厂商关系，会把公司带向不同的未来。
 
@@ -28,9 +28,9 @@
 
 ### 自己运行或部署
 
-运行 `python3 build_web.py` 生成 `web-dist/`，把该目录完整上传到静态网站托管服务。网页版本分开加载图片和音乐，入口约 3.5 KB；不依赖外部字体、CDN 或后端。
+运行 `python3 build_web.py` 生成 `web-dist/`，把该目录完整上传到静态网站托管服务。网页版本分开加载图片和音乐，不依赖外部字体、CDN 或后端。
 
-源码和网页发布文件统一维护在 `main`。更新游戏后运行 `python3 build_web.py --pages`，将源码与生成的 `docs/` 一起提交；GitHub Pages 从 `main` 的 `/docs` 发布。`docs/RULES.md` 和截图保留。运行 `python3 build.py` 可另外生成 `dist/index.html` 离线单文件。
+本仓库的 GitHub Pages 使用 `main` 分支的 `/docs` 目录。更新游戏后，运行 `python3 build_web.py --pages`，将构建结果同步到 `docs/`，再把源文件和 `docs/` 一起提交到 `main`。运行 `python3 build.py` 可另外生成 `dist/index.html` 离线单文件。
 
 ## 结局截图
 
@@ -58,9 +58,10 @@
 
 | 内容 | 来源与许可 |
 | --- | --- |
-| DeepSeek、Claude、GPT 同人角色图 | 参考上善无形与 ZipZipPipe 的角色设计，经 AI 辅助重新绘制；**CC BY-NC-SA 4.0**，含非商业限制。见[完整署名](assets/cover/CREDITS.txt)。 |
+| GPT、DeepSeek、Claude、Gemini、Grok、Qwen、Kimi、MiniMax、GLM 同人角色图 | 参考 ZipZipPipe《大 AI 与小 AI 们》的角色设计；DeepSeek 鲸鱼娘原设为上善无形、二次设计为 ZipZipPipe。经 AI 辅助重新绘制；**CC BY-NC-SA 4.0**，含非商业限制。见[完整署名](assets/cover/CREDITS.txt)与[逐张参考记录](assets/cover/action-sources.json)。 |
 | 背景音乐与事件结算声 | Millennium Dawn；**CC BY-SA 4.0**。见[音乐署名](assets/music/CREDITS.txt)、[音效署名](assets/sfx/CREDITS.txt)及各目录许可证。 |
 | 部分品牌图标 | Lobe Icons，**MIT**；标识相关权利仍归原权利人。见[许可证](assets/LOBE-ICONS-LICENSE.txt)与[图标来源](assets/sources.json)。 |
 | 事件选择确认音 | 为本游戏原创合成，并非《钢铁雄心 IV》的原版录音；详见[音效说明](assets/sfx/CREDITS.txt)。 |
+| 结局音乐 | 为本游戏原创编排，通过 Web Audio 实时合成；未使用外部录音采样。详见[音乐说明](assets/music/CREDITS.txt)。 |
 
 离线 HTML 中也保留了素材署名和许可证链接。

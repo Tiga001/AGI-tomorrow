@@ -51,7 +51,9 @@ window.AGI_WORLDLINE_ENGINE = (() => {
   if(!ids.includes('independent'))options.push(enter('independent','open','world:join:independent'));
   if(options.length<5)options.push(enter(ids[0],'open','world:join:open'));
   if(options.length<5)options.push(enter('independent','pragmatic','world:join:pragmatic'));
-  return {memeId:id,year:2021+Math.floor(index/4),availableQuarter:index%4+1,title:'旧伙伴，新来信',body:'上一年的合作已经改变了公司。原来的伙伴仍在等你，另一封邀请却带着更熟悉的签名。'+'\n\n'+ids.map(x=>byId(x).invitation).join('\n\n')+'\n\n这些往来不会替你签字。接下来，公司要把两年的时间交给哪一种未来？',choices:options,worldline:{gateway:true,index,routes:ids}};
+  // An independent company with one invitation still needs five distinct offers.
+  if(options.length<5)options.push(enter(ids[0],'control','world:join:control'));
+  return {memeId:id,year:2021+Math.floor(index/4),availableQuarter:index%4+1,title:'旧伙伴，新来信',body:'上一年的合作已经改变了公司。原来的伙伴仍在等你，另一封邀请却带着更熟悉的签名。'+'\n\n'+ids.map(x=>byId(x).invitation).join('\n\n')+'\n\n这些往来不会替你签字。接下来，公司要把最后一年的时间交给哪一种未来？',choices:options,worldline:{gateway:true,index,routes:ids}};
  }
  function event(id){
   if(typeof id!=='string'||!id.startsWith('world:'))return null;

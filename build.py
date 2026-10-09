@@ -1,5 +1,5 @@
 from pathlib import Path
-import base64, mimetypes, hashlib
+import base64, hashlib
 from html import escape
 root = Path(__file__).resolve().parent
 html = (root / 'index.html').read_text()
@@ -9,7 +9,8 @@ for name in ['story.js', 'strategies.js', 'partners.js', 'worldlines.js', 'world
     html = html.replace(f'<script src="{name}"></script>', '<script>\n' + script + '\n</script>')
 for asset in (root / 'assets').rglob('*'):
     if asset.suffix in {'.png', '.svg', '.ico', '.ogg', '.m4a', '.wav'}:
-        mime = mimetypes.guess_type(asset.name)[0] or 'application/octet-stream'
+        # Host MIME registries can label .m4a as LATM even though it is an MP4 container.
+        mime = {'.m4a':'audio/mp4','.wav':'audio/wav','.ogg':'audio/ogg','.png':'image/png','.svg':'image/svg+xml','.ico':'image/x-icon'}[asset.suffix]
         data = base64.b64encode(asset.read_bytes()).decode('ascii')
         html = html.replace('assets/' + asset.relative_to(root / 'assets').as_posix(), f'data:{mime};base64,{data}')
 credit_files = ['assets/cover/CREDITS.txt', 'assets/music/CREDITS.txt', 'assets/sfx/CREDITS.txt', 'assets/LOBE-ICONS-LICENSE.txt']

@@ -35,15 +35,14 @@ const eventById=id=>WORLD?.event(id)||DATA.catalog.find(e=>e.memeId===id);
 const strategyById=id=>STRATEGIES.find(e=>e.id===id);
 const endingById=id=>WORLD?.endings.find(e=>e.id===id)||DATA.endings.find(e=>e.id===id);
 function inStrategyEra(t,index){const q=quarter(index),now=q.year*4+q.quarter,start=t.fromYear*4+(t.fromQuarter||1),end=(t.toYear||9999)*4+(t.toQuarter||4);return now>=start&&now<=end;}
-function companyAssets(completed){return [...new Set(completed.flatMap(id=>strategyById(id)?.produces||[]))];}
+function companyAssets(completed,eventAssets=[]){return [...new Set([...eventAssets,...completed.flatMap(id=>strategyById(id)?.produces||[])])];}
 function latestUse(completed,usage,test){return Math.max(-1,...completed.filter(id=>test(strategyById(id))).map(id=>usage[id]?.lastTurn??-1));}
-function eligibleStrategy(t,index,hired=[],completed=[],usage={}){
+function eligibleStrategy(t,index,hired=[],completed=[],usage={},assets=companyAssets(completed)){
  if(!t||!inStrategyEra(t,index)||t.once&&hired.includes(t.id)||t.requiresScientist&&!hired.includes(t.requiresScientist))return false;
  if(t.requiresPeer&&!peerActive(peerById(t.requiresPeer),index))return false;
  if(t.oncePerRun&&completed.includes(t.id))return false;
  if(t.requiresStrategy&&!completed.includes(t.requiresStrategy))return false;
  if(t.cooldownQuarters&&usage[t.id]&&index-usage[t.id].lastTurn<=t.cooldownQuarters)return false;
- const assets=companyAssets(completed);
  if(t.requiredAssets?.some(asset=>!assets.includes(asset)))return false;
  if(t.requiresUnreleasedModel&&latestUse(completed,usage,s=>s?.produces?.includes('model'))<=latestUse(completed,usage,s=>s?.releasesModel))return false;
  return true;
@@ -81,9 +80,10 @@ function prepareQuarterArt(turn){
 }
 function isRevealing(){return run.awaiting&&Number.isFinite(run.revealAt)&&Date.now()<run.revealAt;}
 function goalStatus(s){return {research:s.stats.research>=AGI.research,trust:s.stats.trust>=AGI.trust,team:s.stats.team>=AGI.team,scientists:s.hired.length>=AGI.scientists,validated:s.validated};}
+function failureReason(stats,turns){return stats.cash<=0?'bankrupt':stats.team<=0?'burnout':stats.risk>=70&&turns>=6?'lawsuit':null;}
 function getEnding(stats,relations,turns,hired=[],validated=false,worldline=null){
- if(worldline?.route==='nvidia'&&(stats.cash<=0||stats.team<=0||stats.risk>=70&&turns>=6))return 'world_nvidia_fracture';
- if(stats.cash<=0)return 'bankrupt';if(stats.team<=0)return 'burnout';if(stats.risk>=70&&turns>=6)return 'lawsuit';if(turns<TOTAL)return null;
+ if(worldline?.route==='nvidia'&&failureReason(stats,turns))return 'world_nvidia_fracture';
+ const failure=failureReason(stats,turns);if(failure)return failure;if(turns<TOTAL)return null;
  const ready=stats.research>=AGI.research&&stats.trust>=AGI.trust&&stats.team>=AGI.team&&hired.length>=AGI.scientists&&validated;
  return WORLD.ending(worldline,stats,relations,ready);
 }
@@ -180,18 +180,18 @@ function settleQuarter(before,index,choice,strategies,discoveredScientist=null){
  const changes=Object.fromEntries(Object.keys(STAT_LABELS).map(key=>[key,stats[key]-before[key]]));
  return {stats,overhead,operation,recurring,revenue,eventCash,rawCash,shortfall:Math.max(0,-rawCash),changes};
 }
-function calculate(picks){const stats={...INITIAL},relations=Object.fromEntries(CORE_PEERS.map(p=>[p.id,0])),exposure={},contacts=new Set(),hired=[],completed=[],usage={},log=[];let ending=null,validated=false,validationTurn=-1,lastModelChange=-1,worldline=null;
+function calculate(picks){const stats={...INITIAL},relations=Object.fromEntries(CORE_PEERS.map(p=>[p.id,0])),exposure={},contacts=new Set(),hired=[],completed=[],eventAssets=[],usage={},log=[];let ending=null,validated=false,validationTurn=-1,lastModelChange=-1,worldline=null;
  if(!Array.isArray(picks))return {stats,relations,exposure,worldline,contacted:[],hired,completed,usage,assets:[],log,ending,validated,validationTurn,lastModelChange,index:0};
  for(let i=0;i<picks.length&&i<TOTAL&&!ending;i++){
   const pick=picks[i],event=eventById(pick?.eventId),ids=pick?.strategies;
   if(!Array.isArray(ids)||ids.length!==STRATEGY_COUNT||new Set(ids).size!==ids.length||!eligibleEvent(event,i))break;
-  const strategies=ids.map(strategyById);if(strategies.some(t=>!eligibleStrategy(t,i,hired,completed,usage)))break;
+  const strategies=ids.map(strategyById);if(strategies.some(t=>!eligibleStrategy(t,i,hired,completed,usage,companyAssets(completed,eventAssets))))break;
   if(strategies.filter(t=>t.releasesModel).length>1)break;
   const candidates=choiceCandidates(event,i,hired);
   if(!validChoiceOffers(pick.choiceOffers,event,i,candidates)||!pick.choiceOffers.includes(pick.choice))break;
   const choice=candidates.find(c=>c.id===pick.choice);if(!choice)break;
   const eventRecruit=choice.recruitScientist?strategyById(choice.recruitScientist):null;
-  if(choice.recruitScientist&&(!eventRecruit||!eventRecruit.once||eventRecruit.category!=='recruit'||!eligibleStrategy(eventRecruit,i,hired,completed,usage)||ids.includes(eventRecruit.id)))break;
+  if(choice.recruitScientist&&(!eventRecruit||!eventRecruit.once||eventRecruit.category!=='recruit'||!eligibleStrategy(eventRecruit,i,hired,completed,usage,companyAssets(completed,eventAssets))||ids.includes(eventRecruit.id)))break;
   strategies.sort((a,b)=>a.id.localeCompare(b.id));
   const hasDiscovery=Object.hasOwn(pick,'discoveredScientist'),discoveredScientist=hasDiscovery?strategyById(pick.discoveredScientist):null;
   if(hasDiscovery&&(!ids.includes(TALENT_PROGRAM)||!talentCandidates(i,hired,[...ids,...(eventRecruit?[eventRecruit.id]:[])]).some(t=>t.id===pick.discoveredScientist)))break;
@@ -212,20 +212,22 @@ function calculate(picks){const stats={...INITIAL},relations=Object.fromEntries(
    if(t.produces?.includes('model'))lastModelChange=i;
   }
   log.push({event,choice,strategies,strategyOutcomes,discoveredScientist,pick,before,after:{...stats},relationsBefore,relationsAfter:{...relations},relationChanges:Object.fromEntries(Object.keys(relations).map(id=>[id,relations[id]-(relationsBefore[id]||0)])),...settled});
+  for(const asset of choice.produces||[])if(!eventAssets.includes(asset))eventAssets.push(asset);
+  if(choice.produces?.includes('model'))lastModelChange=i;
   const publicTest=strategies.some(t=>t.validatesAGI||t.id==='red-team-review')||choice.validatesAGI===true;
-  if(publicTest&&companyAssets(completed).includes('model'))validationTurn=i;
-  validated=validationTurn>=28&&validationTurn>=lastModelChange&&companyAssets(completed).includes('model');
+  if(publicTest&&companyAssets(completed,eventAssets).includes('model'))validationTurn=i;
+  validated=validationTurn>=28&&validationTurn>=lastModelChange&&companyAssets(completed,eventAssets).includes('model');
   if(event.worldline)worldline=WORLD.advance(worldline,event,choice,i);
   ending=getEnding(stats,relations,i+1,hired,validated,worldline);
- }return {stats,relations,exposure,worldline,contacted:[...contacts],hired,completed,usage,assets:companyAssets(completed),log,ending,validated,validationTurn,lastModelChange,index:log.length};
+ }return {stats,relations,exposure,worldline,contacted:[...contacts],hired,completed,usage,assets:companyAssets(completed,eventAssets),log,ending,validated,validationTurn,lastModelChange,index:log.length};
 }
-function drawStrategies(index,hired=[],keep=[],stats=INITIAL,completed=[],usage={},excluded=[]){
- const pool=STRATEGIES.filter(t=>!excluded.includes(t.id)&&eligibleStrategy(t,index,hired,completed,usage));
+function drawStrategies(index,hired=[],keep=[],stats=INITIAL,completed=[],usage={},excluded=[],assets=companyAssets(completed)){
+ const pool=STRATEGIES.filter(t=>!excluded.includes(t.id)&&eligibleStrategy(t,index,hired,completed,usage,assets));
  const chosen=[...new Set(keep)].filter(id=>pool.some(t=>t.id===id)).slice(0,OFFER_COUNT);
  function ensure(test,count,recruits=false){while(chosen.length<OFFER_COUNT&&chosen.filter(id=>test(strategyById(id))).length<count){const t=randomItem(pool.filter(t=>!chosen.includes(t.id)&&(recruits||t.category!=='recruit')&&test(t)));if(!t)break;chosen.push(t.id);}}
  ensure(t=>(t.revenue||0)>t.cost&&t.delta.risk<10,2);
  // The final-year validation must be available, rather than a lucky draw.
- if(index>=28&&companyAssets(completed).includes('model'))ensure(t=>t.id==='agi-cross-domain-trials',1);
+ if(index>=28&&assets.includes('model'))ensure(t=>t.id==='agi-cross-domain-trials',1);
  ensure(t=>t.category==='research'&&t.evolving,1);
  ensure(t=>t.category==='research',2);
  ensure(t=>(t.delta.risk||0)>=10,1);
@@ -238,7 +240,47 @@ function drawStrategies(index,hired=[],keep=[],stats=INITIAL,completed=[],usage=
  ensure(()=>true,OFFER_COUNT);
  for(let i=chosen.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[chosen[i],chosen[j]]=[chosen[j],chosen[i]];}return chosen;
 }
-function save(){try{localStorage.setItem(STORAGE,JSON.stringify({run,collected}));}catch{}}
+const RECOVERY_STORAGE='agi-tomorrow-game-recovery';
+let protectedRun=null;
+function showSaveRecovery(message){
+ const notice=$('saveRecoveryNotice'),text=$('saveRecoveryText');
+ if(notice&&text){text.textContent=message;notice.hidden=false;}
+}
+function preserveOriginalSave(raw){
+ try{
+  const existing=localStorage.getItem(RECOVERY_STORAGE);
+  if(existing!==null)return existing===raw;
+  localStorage.setItem(RECOVERY_STORAGE,raw);
+  return localStorage.getItem(RECOVERY_STORAGE)===raw;
+ }catch{return false;}
+}
+function save(){
+ // A failed backup must never destroy the source save. Only an explicit new
+ // game replaces this run object and permits saving again; dismissing does not.
+ if(protectedRun===run)return;
+ if(protectedRun){protectedRun=null;if($('saveRecoveryNotice'))$('saveRecoveryNotice').hidden=true;}
+ try{localStorage.setItem(STORAGE,JSON.stringify({run,collected}));}catch{}
+}
+function recoverRun(saved,count,raw){
+ const picks=saved?.run?.picks?.slice(0,count)||[],next=makeRun(),used=new Set(picks.map(p=>p.eventId));
+ next.started=saved?.run?.started===true||count>0;next.picks=picks;
+ for(let i=0;i<count;i++)next.eventIds[i]=picks[i].eventId;
+ for(let i=count;i<HISTORY_TURNS;i++){
+  const previous=saved?.run?.eventIds?.[i];
+  if(eligibleEvent(eventById(previous),i)&&!used.has(previous))next.eventIds[i]=previous;
+  else if(used.has(next.eventIds[i])){
+   const pool=DATA.catalog.filter(e=>eligibleEvent(e,i)&&!used.has(e.memeId));
+   next.eventIds[i]=randomItem(pool).memeId;
+  }
+  used.add(next.eventIds[i]);
+ }
+ run=next;
+ const backedUp=preserveOriginalSave(raw),state=calculate(picks),q=quarter(Math.min(state.ending?Math.max(0,count-1):count,TOTAL-1));
+ if(!backedUp)protectedRun=run;
+ const position=state.ending?`已保留至 ${q.year} Q${q.quarter} 的结局`:`已恢复到 ${q.year} Q${q.quarter}，请重新选择本季决策`;
+ showSaveRecovery(`存档规则已更新，${position}。`+(backedUp?'原存档已备份。':'原存档仍保留；当前进度暂不自动保存，重开后恢复保存。'));
+}
+$('dismissSaveRecovery')?.addEventListener('click',()=>{if($('saveRecoveryNotice'))$('saveRecoveryNotice').hidden=true;});
 function ensureOffers(s){
  if(!run.started||s.ending||run.awaiting)return;
  // Update only unseen scheduled quarters; preserve the event already on the player's screen.
@@ -251,8 +293,8 @@ function ensureOffers(s){
  if(worldId&&run.eventIds[s.index]!==worldId){run.eventIds[s.index]=worldId;run.choiceOffers[s.index]=[];run.choice=null;run.decisionStage='event';}
  const event=currentEvent(s),pendingRecruit=choiceCandidates(event,s.index,s.hired).find(c=>c.id===run.choice)?.recruitScientist;
  const offers=run.offers[s.index],excluded=pendingRecruit?[pendingRecruit]:[];
- const legal=id=>!excluded.includes(id)&&eligibleStrategy(strategyById(id),s.index,s.hired,s.completed,s.usage);
- if(!Array.isArray(offers)||offers.length!==OFFER_COUNT||new Set(offers).size!==OFFER_COUNT||offers.some(id=>!legal(id)))run.offers[s.index]=drawStrategies(s.index,s.hired,pendingRecruit&&Array.isArray(offers)?offers.filter(legal):[],s.stats,s.completed,s.usage,excluded);
+ const legal=id=>!excluded.includes(id)&&eligibleStrategy(strategyById(id),s.index,s.hired,s.completed,s.usage,s.assets);
+ if(!Array.isArray(offers)||offers.length!==OFFER_COUNT||new Set(offers).size!==OFFER_COUNT||offers.some(id=>!legal(id)))run.offers[s.index]=drawStrategies(s.index,s.hired,pendingRecruit&&Array.isArray(offers)?offers.filter(legal):[],s.stats,s.completed,s.usage,excluded,s.assets);
  run.strategies=[...new Set(run.strategies||[])].filter(id=>run.offers[s.index].includes(id)).slice(0,STRATEGY_COUNT);
  const choicesValid=validChoiceOffers(run.choiceOffers[s.index],event,s.index);
  const tooManyHardware=!event.worldline&&choicesValid&&run.choiceOffers[s.index].filter(id=>isHardwarePeer(choiceCandidates(event,s.index).find(c=>c.id===id)?.brand)).length>1;
@@ -263,19 +305,24 @@ function ensureOffers(s){
 }
 // Remove only obsolete game progress keys; audio preferences and unrelated storage are preserved.
 try{for(const key of Object.keys(localStorage))if(key==='agi-tomorrow-event-v9'||/^agi-tomorrow-(?:v\d+|quarterly(?:-v\d+)?)$/.test(key))localStorage.removeItem(key);}catch{}
-try{const saved=JSON.parse(localStorage.getItem(STORAGE)||'null');
+let originalSave=null;
+try{
+ originalSave=localStorage.getItem(STORAGE);
+ const saved=JSON.parse(originalSave||'null');
+ if(Array.isArray(saved?.collected))collected=[...new Set(saved.collected.filter(endingById))];
  if(saved?.run&&Array.isArray(saved.run.picks)&&saved.run.picks.length<=TOTAL&&Array.isArray(saved.run.eventIds)&&saved.run.eventIds.length===TOTAL){
   const n=calculate(saved.run.picks).index;
   const validDeck=saved.run.eventIds.every((id,i)=>i>=HISTORY_TURNS&&i>=n&&id===null||eligibleEvent(eventById(id),i));
   if(n===saved.run.picks.length&&validDeck){
    run={started:saved.run.started===true||n>0||!!saved.run.choice||!!saved.run.strategies?.length,picks:saved.run.picks,awaiting:!!saved.run.awaiting&&n>0,eventIds:saved.run.eventIds,offers:Array.isArray(saved.run.offers)?saved.run.offers:[],choiceOffers:Array.isArray(saved.run.choiceOffers)?saved.run.choiceOffers:[],revealAt:Number.isFinite(saved.run.revealAt)?Math.min(saved.run.revealAt,Date.now()+REVEAL_MS):null,choice:saved.run.choice||null,strategies:Array.isArray(saved.run.strategies)?saved.run.strategies:[],decisionStage:saved.run.decisionStage==='strategy'?'strategy':'event'};
    for(let i=0;i<n;i++)run.eventIds[i]=run.picks[i].eventId;
-  }
- }
- if(Array.isArray(saved?.collected))collected=[...new Set(saved.collected.filter(endingById))];
-}catch{run=makeRun();}
+  }else recoverRun(saved,n,originalSave);
+ }else if(originalSave)recoverRun(saved,0,originalSave);
+}catch{
+ if(originalSave)recoverRun(null,0,originalSave);
+}
 function currentEvent(s){return eventById(run.eventIds[s.index]);}
-function stateView(){const s=calculate(run.picks),active=run.started&&!introTransition&&!s.ending&&!run.awaiting;return {...quarter(Math.min(Math.max(0,s.index+(active?0:-1)),TOTAL-1)),turn:Math.min(s.index+(active?1:0),TOTAL),totalTurns:TOTAL,phase:introTransition?'starting':quarterTransition?'advancing':!run.started?'intro':isRevealing()?'settling':run.awaiting?'result':s.ending?'ending':'decision',decisionStage:active?run.decisionStage:null,transitioning:!!(stageTransition||quarterTransition),stats:s.stats,worldline:s.worldline,currencyUnit:'百万元人民币',agi:{requirements:AGI,conditions:goalStatus(s),validated:s.validated,release:'2028 Q4独立、开放或联合发布'},relations:coreAffinities(s.relations),contacted:s.contacted.filter(isCorePeer),peers:CORE_PEERS.filter(p=>s.contacted.includes(p.id)).map(p=>({id:p.id,name:peerName(p,Math.max(0,s.index-(run.awaiting?1:0))),active:peerActive(p,Math.max(0,s.index-(run.awaiting?1:0))),affinity:s.relations[p.id]})),hired:s.hired,completed:s.completed,ending:s.ending,event:active?{id:currentEvent(s).memeId,title:currentEvent(s).title}:null,choices:active?currentChoices(s).map(c=>({id:c.id,label:c.label,brand:c.brand,affinities:coreAffinities(c.affinities),delta:eventChanges(c)})):[],strategies:active?run.offers[s.index].map(id=>({...strategyById(id),cost:strategyCost(strategyById(id),s.stats),affinities:coreAffinities(strategyAffinities(strategyById(id),s.index))})):[],selectedChoice:run.choice,selectedStrategies:[...run.strategies],requiredStrategies:STRATEGY_COUNT};}
+function stateView(){const s=calculate(run.picks),active=run.started&&!introTransition&&!s.ending&&!run.awaiting;return {...quarter(Math.min(Math.max(0,s.index+(active?0:-1)),TOTAL-1)),turn:Math.min(s.index+(active?1:0),TOTAL),totalTurns:TOTAL,phase:introTransition?'starting':quarterTransition?'advancing':!run.started?'intro':isRevealing()?'settling':run.awaiting?'result':s.ending?'ending':'decision',decisionStage:active?run.decisionStage:null,transitioning:!!(stageTransition||quarterTransition),stats:s.stats,worldline:s.worldline,currencyUnit:'百万元人民币',agi:{requirements:AGI,conditions:goalStatus(s),validated:s.validated,release:'2028 Q4独立、开放或联合发布'},relations:coreAffinities(s.relations),contacted:s.contacted.filter(isCorePeer),peers:CORE_PEERS.filter(p=>s.contacted.includes(p.id)).map(p=>({id:p.id,name:peerName(p,Math.max(0,s.index-(run.awaiting?1:0))),active:peerActive(p,Math.max(0,s.index-(run.awaiting?1:0))),affinity:s.relations[p.id]})),hired:s.hired,completed:s.completed,assets:s.assets,ending:s.ending,event:active?{id:currentEvent(s).memeId,title:currentEvent(s).title}:null,choices:active?currentChoices(s).map(c=>({id:c.id,label:c.label,brand:c.brand,affinities:coreAffinities(c.affinities),delta:eventChanges(c)})):[],strategies:active?run.offers[s.index].map(id=>({...strategyById(id),cost:strategyCost(strategyById(id),s.stats),affinities:coreAffinities(strategyAffinities(strategyById(id),s.index))})):[],selectedChoice:run.choice,selectedStrategies:[...run.strategies],requiredStrategies:STRATEGY_COUNT};}
 function focusMain(){$('game').focus({preventScroll:true});}
 function impactText(changes){return Object.entries(STAT_LABELS).filter(([key])=>changes[key]).map(([key,label])=>`${label} ${key==='cash'?cashText(changes[key],true):signed(changes[key])}`).join(' · ');}
 function brandImage(key,index=TOTAL-1){if(key==='gemini'&&index<11)key='google';const extra=peerById(key);if(extra?.monogram)return `<span class="logo logo-monogram" role="img" aria-label="${esc(extra.name)}">${esc(extra.monogram)}</span>`;const b=BRANDS[key];return b?`<img class="logo" src="${b.image}" alt="${b.name} logo" width="24" height="24">`:'';}
@@ -337,9 +384,20 @@ function renderRelations(s){
  }
 }
 
+function goalItems(s){return [
+ {label:'研发',value:`${s.stats.research} / ${AGI.research}`,met:s.stats.research>=AGI.research},
+ {label:'风评',value:`${s.stats.trust} / ${AGI.trust}`,met:s.stats.trust>=AGI.trust},
+ {label:'士气',value:`${s.stats.team} / ${AGI.team}`,met:s.stats.team>=AGI.team},
+ {label:'顶级科学家',value:`${s.hired.length} / ${AGI.scientists}`,met:s.hired.length>=AGI.scientists},
+ {label:'最新模型独立评测',value:s.validated?'已通过':s.validationTurn>=28&&s.validationTurn<s.lastModelChange?'模型更新后待重测':s.index<28?'2028 年完成':'尚未完成',met:s.validated}
+];}
+function updateGoalProgress(s){
+ $('goalProgress').innerHTML='<ul class="goal-checklist">'+goalItems(s).map(item=>`<li class="${item.met?'is-met':''}"><span class="goal-marker" aria-hidden="true">${item.met?'✓':'○'}</span><span>${item.label}</span><b>${item.value}</b></li>`).join('')+'</ul><p class="goal-note">2028 年末结算时需同时满足以上条件。2028 年完成独立跨任务评测或红队评审；之后更新模型，需要重新评测。合作结局还会受到友商态度与路线选择影响。</p>';
+}
 function renderStats(s){
- if(!$('stats').children.length)$('stats').innerHTML=Object.entries(STAT_LABELS).map(([key,label])=>`<div class="stat" data-stat="${key}" ${key==='risk'?'title="第6季度起，风险达到70将被追责清盘"':''}><span class="stat-label">${statIcon(key)}${label}</span><b><span class="rolling-number stat-value"></span><span class="stat-unit">${key==='cash'?'亿':key==='risk'?'/70':''}</span></b><span class="stat-change"><span class="rolling-number"></span>${key==='cash'?'亿':''}</span></div>`).join('');
+ if(!$('stats').children.length)$('stats').innerHTML=Object.entries(STAT_LABELS).map(([key,label])=>`<${key==='research'?'button type="button" aria-haspopup="dialog" aria-controls="goalDialog"':'div'} class="stat${key==='research'?' stat-goal-trigger':''}" data-stat="${key}" ${key==='risk'?'title="第6季度起，风险达到70将被追责清盘"':key==='research'?'title="查看 AGI 目标"':''}><span class="stat-label">${statIcon(key)}${label}</span><b><span class="rolling-number stat-value"></span><span class="stat-unit">${key==='cash'?'亿':key==='risk'?'/70':''}</span></b><span class="stat-change"><span class="rolling-number"></span>${key==='cash'?'亿':''}</span></${key==='research'?'button':'div'}>`).join('');
  const shown=isRevealing()?calculate(run.picks.slice(0,-1)):s,changes=selectedChanges(s);
+ updateGoalProgress(shown);
  $('scientists').innerHTML=statIcon('scientists')+'<span>顶级科学家</span><b>'+shown.hired.length+'</b><span aria-hidden="true">›</span>';
  $('scientists').setAttribute('aria-label',`顶级科学家，${shown.hired.length} 人，查看名单`);
  $('scientistRoster').innerHTML=shown.hired.length?'<ul class="scientist-roster">'+shown.hired.map(id=>'<li>'+statIcon('scientists')+'<span>'+esc(strategyById(id).label.replace(/^招募\s*/,''))+'</span></li>').join('')+'</ul>':'<p class="scientist-empty-state">暂未招募顶级科学家</p>';
@@ -348,7 +406,7 @@ function renderStats(s){
   node.classList.toggle('warning',key==='cash'&&shown.stats[key]<150||key==='team'&&shown.stats[key]<20||key==='risk'&&shown.stats[key]>=50);
   rollNumber(node.querySelector('.stat-value'),key==='cash'?shown.stats[key]/100:shown.stats[key],false,key==='cash'?2:0);
   change.classList.toggle('positive',key==='risk'?amount<0:amount>0);change.classList.toggle('negative',key==='risk'?amount>0:amount<0);change.hidden=!changes;
-  change.title=run.awaiting?'本季实际变化':'本季预计变化（含固定开销）';rollNumber(change.querySelector('.rolling-number'),key==='cash'?amount/100:amount,true,key==='cash'?2:0);
+  change.title=run.awaiting?'本季实际变化':'本季预计变化';if(key==='cash'&&changes){const cash=run.awaiting?s.log.at(-1):decisionPreview(s);change.title+=`（固定开销 ${cashText(-cash.overhead,true)} · 持续业务收入 ${cashText(cash.recurring,true)}）`;}rollNumber(change.querySelector('.rolling-number'),key==='cash'?amount/100:amount,true,key==='cash'?2:0);
  }
  const i=s.index+(run.awaiting||s.ending?-1:0),q=quarter(Math.max(0,Math.min(i,TOTAL-1)));$('turnLabel').innerHTML=`<b>${q.year}</b><span>Q${q.quarter}</span>`;renderRelations(s);
 }
@@ -356,7 +414,7 @@ function renderCharacterArt(prefix){
  if(!characterPair)characterPair=drawCharacterPair();
  return `<div class="${prefix}-art" aria-hidden="true">${characterPair.map((id,i)=>`<img class="${prefix}-character ${prefix}-${i?'right':'left'} ${prefix}-${id}" src="${CHARACTER_IMAGES[id]}" width="1024" height="1536" alt="" draggable="false">`).join('')}</div>`;
 }
-function renderIntro(){return renderCharacterArt('intro')+'<section class="start-screen" aria-labelledby="startTitle"><h1 id="startTitle">明天 AGI</h1><p><strong>2021年</strong>，你创建了一家人工智能公司，并向投资人承诺在<strong>2028年</strong>之前实现<strong>AGI</strong>。</p><button class="continue" id="startButton">开始创业<span aria-hidden="true"> →</span></button></section>';}
+function renderIntro(){return renderCharacterArt('intro')+'<section class="start-screen" aria-labelledby="startTitle"><h1 id="startTitle">明天 AGI</h1><p><strong>2021年</strong>，你创建了一家人工智能公司，并向投资人承诺在<strong>2028年末</strong>前实现<strong>AGI</strong>。</p><button class="continue" id="startButton">开始创业<span aria-hidden="true"> →</span></button></section>';}
 function renderChoiceAffinities(choice,index){
  const peers=CORE_PEERS.filter(p=>peerActive(p,index)&&choice.affinities?.[p.id]).sort((a,b)=>Number(b.id===choice.brand)-Number(a.id===choice.brand));
  if(!peers.length)return '';
@@ -371,7 +429,7 @@ function renderStrategyCard(t,s){
 function renderDecision(s){
  const e=currentEvent(s),milestone=DATA.milestones?.[s.index],intro=!e.worldline&&milestone&&milestone.eventId!==e.memeId?milestone.text+'\n\n':'';
  if(run.decisionStage!=='strategy')return `<div class="decision-screen" data-stage="event"><section class="event-section" aria-labelledby="eventTitle"><p class="report-eyebrow event-eyebrow">行业事件</p><h1 id="eventTitle">${esc(e.title)}</h1><p class="story">${esc(intro+e.body)}</p><div class="response-heading"><span>您的态度：</span></div><div class="choices" role="group" aria-label="事件回应">${currentChoices(s).map((c,i)=>{const changes=eventChanges(c);return `<button type="button" class="choice${run.choice===c.id?' is-selected':''}" data-choice="${esc(c.id)}" data-brand="${esc(c.brand||'')}"><span class="choice-number" aria-hidden="true">${String(i+1).padStart(2,'0')}</span><span class="choice-content"><span class="choice-label"><span class="choice-title">${esc(c.label)}</span><span class="event-cash" data-cash-flow="${changes.cash<0?'out':changes.cash>0?'in':'flat'}">${statIcon('cash')}<span class="sr-only">资金 </span>${cashText(changes.cash||0,true)}</span></span><span class="choice-impact">${Object.entries(STAT_LABELS).filter(([key])=>key!=='cash'&&changes[key]).map(([key])=>statImpact(key,changes[key])).join('')}${renderChoiceAffinities(c,s.index)}</span>${c.hint?'<span class="choice-condition">'+esc(c.hint)+'</span>':''}</span><span class="choice-arrow" aria-hidden="true">↗</span></button>`;}).join('')}</div></section></div>`;
- return `<div class="decision-screen" data-stage="strategy"><section class="strategy-section" aria-labelledby="strategyTitle"><div class="strategy-heading"><div><h1 id="strategyTitle">本季策略</h1></div><p id="selectionStatus" role="status">已钉选 ${run.strategies.length} / ${STRATEGY_COUNT}</p></div><div class="strategies" role="group" aria-label="本季策略，选择三项">${run.offers[s.index].map(id=>renderStrategyCard(strategyById(id),s)).join('')}</div></section><div class="commit-row stage-actions"><button class="continue" id="commitButton" disabled>执行本季决策</button></div></div>`;
+ return `<div class="decision-screen" data-stage="strategy"><section class="strategy-section" aria-labelledby="strategyTitle"><div class="strategy-heading"><div><h1 id="strategyTitle">本季策略</h1></div><p id="selectionStatus" role="status">已钉选 ${run.strategies.length} / ${STRATEGY_COUNT}</p></div><div class="strategies" role="group" aria-label="本季策略，选择三项">${run.offers[s.index].map(id=>renderStrategyCard(strategyById(id),s)).join('')}</div></section><div class="commit-row stage-actions"><button type="button" class="back-to-event" id="backToEvent">← 修改事件</button><button class="continue" id="commitButton" disabled>执行本季决策</button></div></div>`;
 }
 function updatePreview(){
  const s=calculate(run.picks);if(!run.started||run.awaiting||s.ending)return;
@@ -379,7 +437,7 @@ function updatePreview(){
  if($('selectionStatus'))$('selectionStatus').textContent=`已钉选 ${count} / ${STRATEGY_COUNT}`;
  if(button){
   let warning='';
-  if(ready){const p=calculate([...run.picks,{eventId:run.eventIds[s.index],choice:run.choice,strategies:[...run.strategies],choiceOffers:[...run.choiceOffers[s.index]]}]);warning=p.ending==='bankrupt'?'将破产':p.ending==='burnout'?'团队将散伙':p.ending==='lawsuit'?'将被追责清盘':'';}
+  if(ready){const p=calculate([...run.picks,{eventId:run.eventIds[s.index],choice:run.choice,strategies:[...run.strategies],choiceOffers:[...run.choiceOffers[s.index]]}]);const failure=failureReason(p.stats,p.index);warning=failure==='bankrupt'?'将破产':failure==='burnout'?'团队将散伙':failure==='lawsuit'?'将被追责清盘':'';}
   button.disabled=!ready;
   button.textContent=warning?`执行本季决策 · ${warning}`:'执行本季决策';
   button.title=ready?'':`还需选择 ${STRATEGY_COUNT-count} 项策略`;
@@ -420,13 +478,25 @@ function changeDecisionStage(target){
  },140));
  return stateView();
 }
-function renderResult(s){const l=s.log.at(-1);return `<div class="result quarter-result"><section class="result-event" aria-labelledby="resultTitle"><h2 class="section-label">事件结果</h2><div class="result-title">${brandImage(l.choice.brand,s.index-1)}<h1 id="resultTitle">${esc(l.choice.label)}</h1></div><p class="story">${esc(l.choice.result)}</p></section><section class="result-strategies" aria-labelledby="resultStrategies"><h2 class="section-label" id="resultStrategies">公司近期策略</h2><div class="result-strategy-list">${l.strategies.map(t=>`<article class="result-strategy"><h3>${esc(t.label)}</h3><p>${esc(t.id===TALENT_PROGRAM&&l.discoveredScientist?'公司的人才计划招来了个年轻人，叫：'+l.discoveredScientist.label.replace(/^招募\s*/, ''):l.strategyOutcomes[t.id])}</p></article>`).join('')}</div></section>${l.shortfall?`<p class="warning result-shortfall">现金缺口 ${cashText(l.shortfall)}。</p>`:''}<button class="continue" id="nextButton">${s.ending?'查看结局':'下一季度'}</button></div>`;
+function renderCashLedger(l){
+ const entries=[['期初资金',l.before.cash],['事件收支',l.eventCash],['策略收入',l.revenue-l.recurring],['策略支出',-(l.operation-l.overhead)],['持续业务收入',l.recurring],['固定开销',-l.overhead],['本季净收支',l.rawCash-l.before.cash],['期末资金',l.after.cash]];
+ return '<details class="cash-ledger"><summary>收支明细</summary><dl>'+entries.map(([label,value])=>`<div><dt>${label}</dt><dd data-cash-flow="${value<0?'out':value>0?'in':'flat'}">${cashText(value,!['期初资金','期末资金'].includes(label))}</dd></div>`).join('')+'</dl></details>';
 }
-function renderEnding(s){const e=endingById(s.ending);return `<div class="result">${e.brand?`<div class="ending-brand">${brandImage(e.brand)}</div>`:''}<h1>${esc(e.title)}</h1><p class="story">${esc(e.body)}</p><button class="continue" id="replayButton">再来一局</button></div>`;}
+function renderResult(s){const l=s.log.at(-1);return `<div class="result quarter-result"><section class="result-event" aria-labelledby="resultTitle"><h2 class="section-label">事件结果</h2><div class="result-title">${brandImage(l.choice.brand,s.index-1)}<h1 id="resultTitle">${esc(l.choice.label)}</h1></div><p class="story">${esc(l.choice.result)}</p></section><section class="result-strategies" aria-labelledby="resultStrategies"><h2 class="section-label" id="resultStrategies">公司近期策略</h2><div class="result-strategy-list">${l.strategies.map(t=>`<article class="result-strategy"><h3>${esc(t.label)}</h3><p>${esc(t.id===TALENT_PROGRAM&&l.discoveredScientist?'公司的人才计划招来了个年轻人，叫：'+l.discoveredScientist.label.replace(/^招募\s*/, ''):l.strategyOutcomes[t.id])}</p></article>`).join('')}</div></section>${renderCashLedger(l)}${l.shortfall?`<p class="warning result-shortfall">现金缺口 ${cashText(l.shortfall)}。</p>`:''}<button class="continue" id="nextButton">${s.ending?'查看结局':'下一季度'}</button></div>`;
+}
+function renderEnding(s){const e=endingById(s.ending),missing=goalItems(s).filter(item=>!item.met);return `<div class="result ending-screen">${e.brand?`<div class="ending-brand">${brandImage(e.brand)}</div>`:''}<h1>${esc(e.title)}</h1><p class="story">${esc(e.body)}</p>${missing.length?`<section class="ending-gaps" aria-label="未达成的AGI条件"><h2>尚未达到的条件</h2><ul>${missing.map(item=>`<li>${item.label} · ${item.value}</li>`).join('')}</ul></section>`:''}<button class="continue" id="replayButton">再来一局</button></div>`;}
+function syncMusicScene(s=null){
+ const scene=!run.started?'cover':s?.ending&&!run.awaiting?'ending':'game',id=scene==='ending'?s.ending:'';
+ const mood=scene!=='ending'?'neutral':failureReason(s.stats,s.index)||id.endsWith('_fracture')?'failure':Object.values(goalStatus(s)).every(Boolean)?'success':'neutral';
+ const data=document.documentElement.dataset;
+ if(data.musicScene===scene&&data.endingId===id&&data.endingMood===mood)return;
+ data.musicScene=scene;data.endingId=id;data.endingMood=mood;
+ window.dispatchEvent(new Event('agi:music-scene'));
+}
 function render(){
  const intro=!run.started;$('relationsPanel').hidden=intro;$('statusPanel').hidden=intro;$('turnLabel').hidden=intro;$('restartButton').hidden=intro;$('game').classList.toggle('intro',intro);
- if(intro){$('game').innerHTML=renderIntro();$('game').inert=false;$('game').setAttribute('aria-busy','false');save();return;}
- const s=calculate(run.picks);ensureOffers(s);if(run.awaiting&&!isRevealing())prepareQuarterArt(s.index);if(s.ending&&!run.awaiting&&!collected.includes(s.ending))collected.push(s.ending);renderStats(s);$('game').innerHTML=isRevealing()?'<div class="result"><p>正在结算…</p></div>':run.awaiting?renderResult(s):s.ending?renderEnding(s):renderDecision(s);if(!s.ending&&!run.awaiting)updatePreview();$('game').inert=isRevealing()||!!stageTransition||!!quarterTransition;$('game').setAttribute('aria-busy',String(isRevealing()||!!stageTransition||!!quarterTransition));$('restartButton').disabled=isRevealing()||!!stageTransition||!!quarterTransition;save();
+ if(intro){syncMusicScene();$('game').innerHTML=renderIntro();$('game').inert=false;$('game').setAttribute('aria-busy','false');save();return;}
+ const s=calculate(run.picks);ensureOffers(s);syncMusicScene(s);if(run.awaiting&&!isRevealing())prepareQuarterArt(s.index);if(s.ending&&!run.awaiting&&!collected.includes(s.ending))collected.push(s.ending);renderStats(s);$('game').innerHTML=isRevealing()?'<div class="result"><p>正在结算…</p></div>':run.awaiting?renderResult(s):s.ending?renderEnding(s):renderDecision(s);if(!s.ending&&!run.awaiting)updatePreview();$('game').inert=isRevealing()||!!stageTransition||!!quarterTransition;$('game').setAttribute('aria-busy',String(isRevealing()||!!stageTransition||!!quarterTransition));$('restartButton').disabled=isRevealing()||!!stageTransition||!!quarterTransition;save();
 }
 function lockIntro(){
  $('game').inert=true;$('game').setAttribute('aria-busy','true');$('relationsPanel').inert=true;$('restartButton').disabled=true;
@@ -551,15 +621,18 @@ function next(){
 function closeRestart(){$('restartConfirm').hidden=true;$('game').inert=false;}
 function restart(){if(isRevealing()||introTransition||stageTransition)return;finishQuarterTransition(true);closeRestart();run=makeRun();characterPair=null;nextCharacterPair=null;nextCharacterTurn=null;render();focusMain();}
 $('game').addEventListener('change',ev=>{if(ev.target.name==='strategyChoice')selectStrategy(ev.target.value,ev.target.checked);});
-$('game').addEventListener('click',ev=>{const btn=ev.target.closest('button');if(!btn)return;if(stageTransition||quarterTransition||introTransition||isRevealing())return;if(btn.dataset.choice)selectChoice(btn.dataset.choice);else if(btn.id==='startButton')start();else if(btn.id==='commitButton')commit();else if(btn.id==='nextButton')next();else if(btn.id==='replayButton')restart();});
+$('game').addEventListener('click',ev=>{const btn=ev.target.closest('button');if(!btn)return;if(stageTransition||quarterTransition||introTransition||isRevealing())return;if(btn.dataset.choice)selectChoice(btn.dataset.choice);else if(btn.id==='startButton')start();else if(btn.id==='backToEvent')changeDecisionStage('event');else if(btn.id==='commitButton')commit();else if(btn.id==='nextButton')next();else if(btn.id==='replayButton')restart();});
 $('restartButton').onclick=()=>{if(isRevealing()||introTransition||stageTransition||quarterTransition)return;if(!run.picks.length&&!run.choice&&!run.strategies.length||calculate(run.picks).ending&&!run.awaiting)return restart();$('restartConfirm').hidden=false;$('game').inert=true;$('cancelRestart').focus();};
 $('cancelRestart').onclick=()=>{closeRestart();$('restartButton').focus();};$('confirmRestart').onclick=restart;
 $('relationsToggle').onclick=()=>{relationsCollapsed=!relationsCollapsed;updateRelationsDrawer();try{localStorage.setItem(RELATIONS_PREFERENCE,String(relationsCollapsed));}catch{}};
 updateRelationsDrawer();
+$('stats').addEventListener('click',ev=>{if(ev.target.closest('.stat-goal-trigger')&&!$('goalDialog').open)$('goalDialog').showModal();});
+$('closeGoals').onclick=()=>$('goalDialog').close();
+$('goalDialog').addEventListener('click',ev=>{const box=$('goalDialog').getBoundingClientRect();if(ev.target===$('goalDialog')&&(ev.clientX<box.left||ev.clientX>box.right||ev.clientY<box.top||ev.clientY>box.bottom))$('goalDialog').close();});
 $('scientists').onclick=()=>{if(!$('scientistDialog').open)$('scientistDialog').showModal();};
 $('closeScientists').onclick=()=>$('scientistDialog').close();
 $('scientistDialog').addEventListener('click',ev=>{const box=$('scientistDialog').getBoundingClientRect();if(ev.target===$('scientistDialog')&&(ev.clientX<box.left||ev.clientX>box.right||ev.clientY<box.top||ev.clientY>box.bottom))$('scientistDialog').close();});
-document.addEventListener('keydown',ev=>{if($('scientistDialog').open)return;if(isRevealing()||introTransition||stageTransition||quarterTransition)return;if(ev.key==='Escape'&&!$('restartConfirm').hidden){closeRestart();$('restartButton').focus();return;}if(ev.repeat||ev.ctrlKey||ev.metaKey||ev.altKey||!$('restartConfirm').hidden||/^(INPUT|TEXTAREA|BUTTON|A)$/.test(document.activeElement.tagName))return;if(ev.key==='Enter'){if(run.awaiting){ev.preventDefault();next();}else if(run.started&&run.decisionStage==='event'&&run.choice){ev.preventDefault();changeDecisionStage('strategy');}else if(run.decisionStage==='strategy'&&run.choice&&run.strategies.length===STRATEGY_COUNT){ev.preventDefault();commit();}}});
+document.addEventListener('keydown',ev=>{if($('scientistDialog').open||$('goalDialog').open)return;if(isRevealing()||introTransition||stageTransition||quarterTransition)return;if(ev.key==='Escape'&&!$('restartConfirm').hidden){closeRestart();$('restartButton').focus();return;}if(ev.repeat||ev.ctrlKey||ev.metaKey||ev.altKey||!$('restartConfirm').hidden||/^(INPUT|TEXTAREA|BUTTON|A)$/.test(document.activeElement.tagName))return;if(ev.key==='Enter'){if(run.awaiting){ev.preventDefault();next();}else if(run.started&&run.decisionStage==='event'&&run.choice){ev.preventDefault();changeDecisionStage('strategy');}else if(run.decisionStage==='strategy'&&run.choice&&run.strategies.length===STRATEGY_COUNT){ev.preventDefault();commit();}}});
 window.AGIGame={calculate,getEnding,choiceCandidates,drawEventChoices,validChoiceOffers,peerWeight,peerActive,relationChanges,strategyAffinities,strategicAffinities,partners:PARTNERS,makeDeck,drawStrategies,eligibleStrategy,worldlines:WORLD,recruitChance,talentChance,talentCandidates,strategies:STRATEGIES,quarter,eventChanges,settleQuarter,strategyCost,goalStatus,agiRequirements:{...AGI},initial:{...INITIAL},getState:stateView};
 const ctx=document.modelContext;if(ctx?.registerTool){const lifecycle=new AbortController();for(const t of [
  {name:'read_agi_game',title:'读取季度经营状态',description:'读取当前季度、decisionStage（event事件或strategy策略）、切换状态、候选项及已选内容。',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true},execute:stateView},
@@ -570,4 +643,12 @@ const ctx=document.modelContext;if(ctx?.registerTool){const lifecycle=new AbortC
  {name:'advance_agi_round',title:'进入下一季度',description:'确认结果，通过1.6秒的过场进入下一季度或查看结局；transitioning结束后可操作。',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false},execute:next}
  ])try{Promise.resolve(ctx.registerTool(t,{signal:lifecycle.signal})).catch(()=>{});}catch{}addEventListener('pagehide',()=>lifecycle.abort(),{once:true});}
 render();if(isRevealing())scheduleReveal();addEventListener('pagehide',()=>{clearTimeout(revealTimer);finishIntro(true);finishStageTransition(true);finishQuarterTransition(true);});
+addEventListener('pageshow',event=>{
+ if(!event.persisted)return;
+ // A cached page keeps the settled pick, but pagehide cancelled its UI timer.
+ // Resume only the reveal; never commit or append the quarter a second time.
+ if(run.awaiting&&!isRevealing())run.revealAt=null;
+ render();if(isRevealing())scheduleReveal();
+ if(!$('restartConfirm').hidden)$('game').inert=true;
+});
 })();

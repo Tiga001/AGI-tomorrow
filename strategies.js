@@ -235,11 +235,11 @@ window.AGI_STRATEGIES = [
     "revenue": 48,
     "delta": {
       "research": 1,
-      "trust": -2,
+      "trust": 2,
       "team": -2,
-      "risk": 4
+      "risk": -1
     },
-    "result": "本季改进了付费引导和续费体验，更多老用户留下来了。取消订阅按钮没有藏起来，客服的血压也降了一点。",
+    "result": "团队加班重做了付费引导和续费流程，更多老用户留下来了。取消订阅按钮没有藏起来，投诉少了一些；客服松了口气，开发终于能补上这周的觉。",
     "produces": [
       "customers"
     ],
@@ -617,14 +617,14 @@ window.AGI_STRATEGIES = [
     "fromYear": 2021,
     "category": "risk",
     "cost": 4,
-    "revenue": 45,
+    "revenue": 0,
     "delta": {
       "research": 0,
-      "trust": -8,
+      "trust": 6,
       "team": -1,
       "risk": 10
     },
-    "result": "几位客户被流言吓来下单，法务把热搜截图收进了另一个文件夹。"
+    "result": "一轮流言把你们衬成了更可靠的选择，风评暂时上扬，账上却只有买水军的支出。员工避开了这场庆功会，法务把热搜截图收进了另一个文件夹。"
   },
   {
     "id": "anonymous-rival-snark",
@@ -632,14 +632,14 @@ window.AGI_STRATEGIES = [
     "fromYear": 2021,
     "category": "risk",
     "cost": 2,
-    "revenue": 26,
+    "revenue": 0,
     "delta": {
       "research": 0,
-      "trust": -5,
+      "trust": 3,
       "team": -1,
       "risk": 7
     },
-    "result": "匿名评论带来几笔订单，老板在例会上险些用回那个熟悉的语气。"
+    "result": "匿名评论让一部分围观者转而看好你们，没有客户因此付款。老板在例会上险些用回那个熟悉的语气，运营开始担心截图哪天会找回原主。"
   },
   {
     "id": "open-release-credit-grab",
@@ -2260,9 +2260,6 @@ window.AGI_STRATEGIES = [
     },
     "result": "用户领到一张可以自己决定何时使用的重置卡，额度不够时终于有了救急的办法。客服最常收到的新问题变成了：这张卡，能不能留到下周一？Tibo说可以，财务先叹了口气。",
     "cooldownQuarters": 1,
-    "produces": [
-      "harness"
-    ],
     "repeatResults": [
       "新一批重置卡发到了用户手里。有人当天就用掉了卡，也有人把它存成了电子传家宝。群里的抱怨少了，算力账单却一张也没少。"
     ]

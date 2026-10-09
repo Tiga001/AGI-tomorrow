@@ -12,3 +12,9 @@ The game plays the AAC copy at 25% volume and loops it.
 Downloaded: 2026-10-08
 SHA-256: cefacb4fd5478e5f7a7d9ab198ea186f031edb9afbc8907e319aefded7d1cedb
 User reference: https://www.bilibili.com/video/BV1r8411J71X/ (P1, Millennium Dawn Main Theme)
+
+Original ending music (2026-10-09)
+Three procedural arrangements: success, reflection, and setback.
+Written for 明天 AGI and synthesized live in music.js using oscillators, envelopes, and a short echo.
+These arrangements contain no samples from Growing Threat or any other recording.
+They follow the repository license; the separately attributed Millennium Dawn recording retains its upstream license.

@@ -1,0 +1,611 @@
+{
+  "date": "2026-10-09",
+  "scope": "人工核实的内容、数值、时间线与资产一致性；金额为游戏平衡值，不是现实报价。资产项逐条标记，不从文案关键词自动推断。",
+  "changes": [
+    {
+      "file": "strategies.js",
+      "id": "social-feed-smear",
+      "issue": "抹黑友商原本凭空产生收入且降低自己风评；按用户指定改为短期风评收益、实际营销支出和原有士气/风险代价。",
+      "before": {
+        "revenue": 45,
+        "delta": {
+          "research": 0,
+          "trust": -8,
+          "team": -1,
+          "risk": 10
+        },
+        "result": "几位客户被流言吓来下单，法务把热搜截图收进了另一个文件夹。"
+      },
+      "after": {
+        "revenue": 0,
+        "delta": {
+          "research": 0,
+          "trust": 6,
+          "team": -1,
+          "risk": 10
+        },
+        "result": "一轮流言把你们衬成了更可靠的选择，风评暂时上扬，账上却只有买水军的支出。员工避开了这场庆功会，法务把热搜截图收进了另一个文件夹。"
+      }
+    },
+    {
+      "file": "strategies.js",
+      "id": "anonymous-rival-snark",
+      "issue": "抹黑友商原本凭空产生收入且降低自己风评；按用户指定改为短期风评收益、实际营销支出和原有士气/风险代价。",
+      "before": {
+        "revenue": 26,
+        "delta": {
+          "research": 0,
+          "trust": -5,
+          "team": -1,
+          "risk": 7
+        },
+        "result": "匿名评论带来几笔订单，老板在例会上险些用回那个熟悉的语气。"
+      },
+      "after": {
+        "revenue": 0,
+        "delta": {
+          "research": 0,
+          "trust": 3,
+          "team": -1,
+          "risk": 7
+        },
+        "result": "匿名评论让一部分围观者转而看好你们，没有客户因此付款。老板在例会上险些用回那个熟悉的语气，运营开始担心截图哪天会找回原主。"
+      }
+    },
+    {
+      "file": "strategies.js",
+      "id": "consumer-app-launch",
+      "issue": "透明续费的正面结果与风评下降、风险上升矛盾；修正风评与风险，保留研发赶工的士气代价并明确写入结果。",
+      "before": {
+        "delta": {
+          "research": 1,
+          "trust": -2,
+          "team": -2,
+          "risk": 4
+        },
+        "result": "本季改进了付费引导和续费体验，更多老用户留下来了。取消订阅按钮没有藏起来，客服的血压也降了一点。"
+      },
+      "after": {
+        "delta": {
+          "research": 1,
+          "trust": 2,
+          "team": -2,
+          "risk": -1
+        },
+        "result": "团队加班重做了付费引导和续费流程，更多老用户留下来了。取消订阅按钮没有藏起来，投诉少了一些；客服松了口气，开发终于能补上这周的觉。"
+      }
+    },
+    {
+      "file": "strategies.js",
+      "id": "scientist-tibo-coding-agent",
+      "issue": "发放额度重置卡不等于搭建代理执行框架，不能凭空解锁harness资产。",
+      "before": {
+        "produces": [
+          "harness"
+        ]
+      },
+      "after": {
+        "produces": null
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "liang_gpu_piano-wenxin",
+      "issue": "内部研究/测试没有商业成交，原正资金变化凭空制造收入。",
+      "before": {
+        "quarterDelta": {
+          "cash": 12,
+          "research": 3,
+          "team": -1,
+          "trust": 2,
+          "risk": -1
+        },
+        "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。沿用 Google/DeepMind 同一关系ID；2023Q4之前不称Gemini。"
+      },
+      "after": {
+        "quarterDelta": {
+          "cash": -12,
+          "research": 3,
+          "team": -1,
+          "trust": 2,
+          "risk": -1
+        },
+        "rationale": "保留原事件历史背景；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。沿用 Google/DeepMind 同一关系ID；2023Q4之前不称Gemini。 质感修订：这是玩家的内部试验与调用开销，没有成交或外部付款，资金记为支出。"
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "autoglm_phone_food_delivery-doubao",
+      "issue": "内部研究/测试没有商业成交，原正资金变化凭空制造收入。",
+      "before": {
+        "quarterDelta": {
+          "cash": 16,
+          "research": 3,
+          "team": -2,
+          "trust": 2,
+          "risk": 1
+        },
+        "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+      },
+      "after": {
+        "quarterDelta": {
+          "cash": -16,
+          "research": 3,
+          "team": -2,
+          "trust": 2,
+          "risk": 1
+        },
+        "rationale": "保留原事件历史背景；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。 质感修订：这是玩家的内部试验与调用开销，没有成交或外部付款，资金记为支出。"
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "claude-yellowstone-break-wenxin",
+      "issue": "内部研究/测试没有商业成交，原正资金变化凭空制造收入。",
+      "before": {
+        "quarterDelta": {
+          "cash": 20,
+          "research": 2,
+          "team": -1,
+          "trust": 2,
+          "risk": -2
+        },
+        "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+      },
+      "after": {
+        "quarterDelta": {
+          "cash": -20,
+          "research": 2,
+          "team": -1,
+          "trust": 2,
+          "risk": -2
+        },
+        "rationale": "保留原事件历史背景；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。 质感修订：这是玩家的内部试验与调用开销，没有成交或外部付款，资金记为支出。"
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "anthropic_codex_2021/anthropic_codex_2021-nvidia",
+      "issue": "逐条确认结果已完成自有训练设备采购/集群建设，记录算力资产。不把预研、短租或共享机房视为自有资产。",
+      "before": {
+        "produces": null
+      },
+      "after": {
+        "produces": [
+          "compute"
+        ]
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "liang_gpu_piano/self",
+      "issue": "逐条确认结果已完成自有训练设备采购/集群建设，记录算力资产。不把预研、短租或共享机房视为自有资产。",
+      "before": {
+        "produces": null
+      },
+      "after": {
+        "produces": [
+          "compute"
+        ]
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "liang_gpu_piano/liang_gpu_piano-nvidia",
+      "issue": "逐条确认结果已完成自有训练设备采购/集群建设，记录算力资产。不把预研、短租或共享机房视为自有资产。",
+      "before": {
+        "produces": null
+      },
+      "after": {
+        "produces": [
+          "compute"
+        ]
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "liang_gpu_piano/liang_gpu_piano-huawei",
+      "issue": "逐条确认结果已完成自有训练设备采购/集群建设，记录算力资产。不把预研、短租或共享机房视为自有资产。",
+      "before": {
+        "produces": null
+      },
+      "after": {
+        "produces": [
+          "compute"
+        ]
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "chatgpt_launch_2022/nvidia-chat-capacity",
+      "issue": "逐条确认结果已完成自有训练设备采购/集群建设，记录算力资产。不把预研、短租或共享机房视为自有资产。",
+      "before": {
+        "produces": null
+      },
+      "after": {
+        "produces": [
+          "compute"
+        ]
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "dario-country-of-geniuses/self",
+      "issue": "逐条确认结果已完成自有训练设备采购/集群建设，记录算力资产。不把预研、短租或共享机房视为自有资产。",
+      "before": {
+        "produces": null
+      },
+      "after": {
+        "produces": [
+          "compute"
+        ]
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "huawei_cloudmatrix_384/self",
+      "issue": "逐条确认结果已完成自有训练设备采购/集群建设，记录算力资产。不把预研、短租或共享机房视为自有资产。",
+      "before": {
+        "produces": null
+      },
+      "after": {
+        "produces": [
+          "compute"
+        ]
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "huang_buy_more_save_more/self",
+      "issue": "逐条确认结果已完成自有训练设备采购/集群建设，记录算力资产。不把预研、短租或共享机房视为自有资产。",
+      "before": {
+        "produces": null
+      },
+      "after": {
+        "produces": [
+          "compute"
+        ]
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "deepseek_accidental_price_war/deepseek_accidental_price_war-qwen",
+      "issue": "逐条确认结果已完成商业交付并收款，记录客户资产。不把预研、短租或共享机房视为自有资产。",
+      "before": {
+        "produces": null
+      },
+      "after": {
+        "produces": [
+          "customers"
+        ]
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "leijun_are_you_ok_1999/leijun_are_you_ok_1999-doubao",
+      "issue": "逐条确认结果已完成商业交付并收款，记录客户资产。不把预研、短租或共享机房视为自有资产。",
+      "before": {
+        "produces": null
+      },
+      "after": {
+        "produces": [
+          "customers"
+        ]
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "claude-yellowstone-break/claude-yellowstone-break-qwen",
+      "issue": "逐条确认结果已完成商业交付并收款，记录客户资产。不把预研、短租或共享机房视为自有资产。",
+      "before": {
+        "produces": null
+      },
+      "after": {
+        "produces": [
+          "customers"
+        ]
+      }
+    },
+    {
+      "file": "worldline-engine.js",
+      "id": "gateway-2028-q1",
+      "issue": "2028年只剩最后一年，交叉路线邀请却称还有两年。",
+      "before": "接下来，公司要把两年的时间交给哪一种未来？",
+      "after": "接下来，公司要把最后一年的时间交给哪一种未来？"
+    },
+    {
+      "file": "partners.js",
+      "id": "tibo-double-reset-openai",
+      "issue": "额度福利用于清内部工单，仅节省调用开销，不产生到账现金。",
+      "before": {
+        "quarterDelta": {
+          "cash": 20,
+          "research": 3,
+          "team": 1,
+          "trust": 1,
+          "risk": 2
+        },
+        "rationale": "针对事件「重置卡舍不得用」中的具体瓶颈，采用「用Codex重置额度清旧工单」对应的公开技术能力。玩家实施、合同、成效和资源数值均为游戏虚构，不代表品牌背书。 时间依据：现代Codex云端编码Agent发布于2025-05-16。 帖子事实沿用输入研究中已完成的X官方嵌入核验；当次额度福利不构成长期承诺，公开挖角玩笑不等于正式谈判。"
+      },
+      "after": {
+        "quarterDelta": {
+          "cash": 0,
+          "research": 3,
+          "team": 1,
+          "trust": 1,
+          "risk": 2
+        },
+        "rationale": "针对事件「重置卡舍不得用」中的具体瓶颈，采用「用Codex重置额度清旧工单」对应的公开技术能力。玩家实施、合同、成效和资源数值均为游戏虚构，不代表品牌背书。 时间依据：现代Codex云端编码Agent发布于2025-05-16。 帖子事实沿用输入研究中已完成的X官方嵌入核验；当次额度福利不构成长期承诺，公开挖角玩笑不等于正式谈判。 质感修订：额度福利用于清内部工单，仅节省调用开销，不产生到账现金。"
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "tibo-not-going-anywhere-openai",
+      "issue": "把额度福利换成轮休，已通过士气体现收益，不能再无理由给一笔现金。",
+      "before": {
+        "quarterDelta": {
+          "cash": 16,
+          "research": 3,
+          "team": 3,
+          "trust": 2,
+          "risk": 1
+        },
+        "rationale": "针对事件「招聘失败，额度到账」中的具体瓶颈，采用「把Codex福利变成团队轮休窗口」对应的公开技术能力。玩家实施、合同、成效和资源数值均为游戏虚构，不代表品牌背书。 时间依据：现代Codex云端编码Agent发布于2025-05-16。 帖子事实沿用输入研究中已完成的X官方嵌入核验；当次额度福利不构成长期承诺，公开挖角玩笑不等于正式谈判。"
+      },
+      "after": {
+        "quarterDelta": {
+          "cash": 0,
+          "research": 3,
+          "team": 3,
+          "trust": 2,
+          "risk": 1
+        },
+        "rationale": "针对事件「招聘失败，额度到账」中的具体瓶颈，采用「把Codex福利变成团队轮休窗口」对应的公开技术能力。玩家实施、合同、成效和资源数值均为游戏虚构，不代表品牌背书。 时间依据：现代Codex云端编码Agent发布于2025-05-16。 帖子事实沿用输入研究中已完成的X官方嵌入核验；当次额度福利不构成长期承诺，公开挖角玩笑不等于正式谈判。 质感修订：把额度福利换成轮休，已通过士气体现收益，不能再无理由给一笔现金。"
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "openai-dots-cloud-colleague-hunyuan",
+      "issue": "匹配订单附件、生成催款草稿尚未催款收账，是内部工具的部署支出。",
+      "before": {
+        "quarterDelta": {
+          "cash": 18,
+          "research": 3,
+          "team": 1,
+          "trust": 2,
+          "risk": 1
+        },
+        "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+      },
+      "after": {
+        "quarterDelta": {
+          "cash": -8,
+          "research": 3,
+          "team": 1,
+          "trust": 2,
+          "risk": 1
+        },
+        "rationale": "保留原事件历史背景；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。 质感修订：匹配订单附件、生成催款草稿尚未催款收账，是内部工具的部署支出。"
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "dot-domain-grok-detour-hunyuan",
+      "issue": "整理本地成果包救场未发生签约回款，只计少量演示整理开销。",
+      "before": {
+        "quarterDelta": {
+          "cash": 15,
+          "research": 2,
+          "team": 1,
+          "trust": 2,
+          "risk": 1
+        },
+        "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+      },
+      "after": {
+        "quarterDelta": {
+          "cash": -5,
+          "research": 2,
+          "team": 1,
+          "trust": 2,
+          "risk": 1
+        },
+        "rationale": "保留原事件历史背景；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。 质感修订：整理本地成果包救场未发生签约回款，只计少量演示整理开销。"
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "deepseek_accidental_price_war-doubao",
+      "issue": "Grok API的调用账单/接单选项在公开API前出现。",
+      "before": {
+        "fromQuarter": 3,
+        "sourceUrls": null,
+        "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+      },
+      "after": {
+        "fromQuarter": 4,
+        "sourceUrls": [
+          "https://x.ai/news/api"
+        ],
+        "rationale": "xAI官方API Public Beta发表于2024-11-04；实测调用账单并接入商业订单的选择仅从2024Q4出现，不把2024Q3的网页试用当作公开API。玩家合同、实施与收入均为虚构。"
+      },
+      "sourceUrls": [
+        "https://x.ai/news/api"
+      ]
+    },
+    {
+      "file": "story.js",
+      "id": "lawsuit",
+      "issue": "通用高风险结局不应指责从未选过蒸馏的玩家使用未授权数据。",
+      "before": {
+        "subtitle": "知识被蒸馏了，责任没有。",
+        "condition": "触发未经授权数据路线的高风险后果；优先于正常发布结局。"
+      },
+      "after": {
+        "subtitle": "风险积成了山，责任不会清零。",
+        "condition": "至少经营六季后，累计风险达到70；优先于正常发布结局。"
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "kimi-claude-routing-allegation-claude",
+      "issue": "前文已有地区限制，后文不能无条件直接采购Claude恢复访问；改成明确收费的独立交付审阅。",
+      "before": {
+        "label": "直接采购Claude并标明服务方",
+        "result": "你们为需要Claude的客户直接配置对应服务，把模型提供方写进交付页面。接入更简单，长期成本更依赖外部账单；清楚购买了什么，比让模型自报姓名可靠。",
+        "sourceUrls": [
+          "https://www.anthropic.com/engineering/building-effective-agents",
+          "https://www.anthropic.com/threat-intelligence-report-september-2026"
+        ],
+        "rationale": "针对事件「好模型，也要有一本明白账」中的具体瓶颈，采用「直接采购Claude并标明服务方」对应的公开技术能力。玩家实施、合同、成效和资源数值均为游戏虚构，不代表品牌背书。 事实边界：事件事实仅为Anthropic已公开提出单方指控；不推断Moonshot承认，不用模型自我介绍或兼容接口证明路由。"
+      },
+      "after": {
+        "label": "核对客户自持 Claude 服务的交付账",
+        "result": "符合服务条件的客户交来授权导出的账单与任务记录，你们按约定核对费用、来源和交付，收取审阅服务费。客户继续自己管理账号，你们没有因此恢复访问权限；清楚买了什么，比让模型自报姓名可靠。",
+        "sourceUrls": [
+          "https://www.anthropic.com/engineering/building-effective-agents",
+          "https://www.anthropic.com/threat-intelligence-report-september-2026",
+          "https://www.anthropic.com/news/updating-restrictions-of-sales-to-unsupported-regions"
+        ],
+        "rationale": "针对事件「好模型，也要有一本明白账」中的具体瓶颈，采用「直接采购Claude并标明服务方」对应的公开技术能力。玩家实施、合同、成效和资源数值均为游戏虚构，不代表品牌背书。 事实边界：事件事实仅为Anthropic已公开提出单方指控；不推断Moonshot承认，不用模型自我介绍或兼容接口证明路由。 连续性修订：2025Q3地区限制仍成立，本选项仅审阅符合条件客户授权提供的材料，不代客户登录、不转售访问，也不暗示玩家公司自动恢复Claude服务。"
+      },
+      "sourceUrls": [
+        "https://www.anthropic.com/news/updating-restrictions-of-sales-to-unsupported-regions"
+      ]
+    },
+    {
+      "file": "partners.js",
+      "id": "chatgpt_launch_2022/self",
+      "issue": "首次订阅/席位费已明确到账，早期事件也须形成客户资产，后续续费策略才会解锁。",
+      "before": {
+        "produces": null
+      },
+      "after": {
+        "produces": [
+          "customers"
+        ]
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "chatgpt_launch_2022/chatgpt_launch_2022-openai",
+      "issue": "首次订阅/席位费已明确到账，早期事件也须形成客户资产，后续续费策略才会解锁。",
+      "before": {
+        "produces": null
+      },
+      "after": {
+        "produces": [
+          "customers"
+        ]
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "chatgpt_prompt_2022/self",
+      "issue": "首次订阅/席位费已明确到账，早期事件也须形成客户资产，后续续费策略才会解锁。",
+      "before": {
+        "produces": null
+      },
+      "after": {
+        "produces": [
+          "customers"
+        ]
+      }
+    },
+    {
+      "file": "partners.js",
+      "id": "chatgpt_prompt_2022/chatgpt_prompt_2022-openai",
+      "issue": "首次订阅/席位费已明确到账，早期事件也须形成客户资产，后续续费策略才会解锁。",
+      "before": {
+        "produces": null
+      },
+      "after": {
+        "produces": [
+          "customers"
+        ]
+      }
+    }
+  ],
+  "verifiedNoChange": [
+    {
+      "id": "buy-ascend-910c",
+      "reason": "泛称昇腾910C超节点可在2025Q1出现。华为官方回顾明确Atlas 900 A3含384颗910C于2025年3月发布；CloudMatrix 384云服务是2025-04-10发布，不能混为同一节点日期。",
+      "sourceUrls": [
+        "https://www.huawei.com/en/news/2025/9/hc-xu-keynote-speech",
+        "https://www.huaweicloud.com/intl/zh-cn/news/20250424094932570.html"
+      ]
+    },
+    {
+      "id": "gemini_demo_prompting-doubao",
+      "reason": "虽回顾2023年Gemini演示，游戏事件及选项实际从2025Q1出现，Grok API已于2024Q4开放，因此不误删收入、不改变日期。",
+      "sourceUrls": [
+        "https://x.ai/news/api"
+      ]
+    }
+  ],
+  "validation": [
+    {
+      "check": "Node vm loads strategies/partners/story/worldlines/worldline-engine",
+      "status": "passed"
+    },
+    {
+      "check": "148 strategy IDs unique; all strategy costs/revenues nonnegative and stat deltas finite",
+      "status": "passed"
+    },
+    {
+      "check": "All 477 choices across 77 events have finite numerical deltas",
+      "status": "passed"
+    },
+    {
+      "check": "Eight confirmed purchases yield compute; seven paid service choices yield customers",
+      "status": "passed"
+    },
+    {
+      "check": "Smear actions have no revenue, positive short-term reputation and existing team/risk cost; Tibo reset card no harness",
+      "status": "passed"
+    },
+    {
+      "check": "2028 crossroads says last year; 2027 cooperation gateway still says two years",
+      "status": "passed"
+    },
+    {
+      "check": "Seven noncommercial technical/welfare/presentation actions no longer add cash without a payer",
+      "status": "passed"
+    },
+    {
+      "check": "Grok API option starts 2024Q4; price-war event retains three eligible vendor options in 2024Q3 plus two routes",
+      "status": "passed"
+    },
+    {
+      "check": "Risk ending wording matches general risk>=70 after at least six quarters; no implicit unauthorized-data allegation",
+      "status": "passed"
+    },
+    {
+      "check": "No event/strategy removed: 148 strategies and 477 choices across 77 events preserved; context-offer IDs unique within each event",
+      "status": "passed"
+    }
+  ],
+  "summary": {
+    "changeRecords": 30,
+    "strategyFixes": 4,
+    "internalCashFlowFixes": 7,
+    "explicitAssetMarkers": 15,
+    "timelineFixes": 1,
+    "endingAndContinuityFixes": 3,
+    "verifiedNoChange": 2
+  },
+  "handoffFollowup": [
+    {
+      "issue": "无Web Audio时结局原生音乐被旧淡出降至静音",
+      "fix": "取消旧淡出，恢复原生音量，并覆盖重试和页面恢复测试"
+    },
+    {
+      "issue": "自主路线只有一家新伙伴的2028分岔缺少第五项，无法结算",
+      "fix": "仅对不足五项的入口补充当前路线经营选项，保留已有选项与顺序"
+    },
+    {
+      "issue": "自主末季选项提前断言AGI未达成，与成功结局冲突",
+      "fix": "改为如实公布验收结果，并明确现金来源为客户续约款"
+    }
+  ]
+}

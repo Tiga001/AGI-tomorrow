@@ -189,7 +189,10 @@ window.AGI_PARTNERSHIPS = {
             "https://deepmind.google/blog/enabling-high-accuracy-protein-structure-prediction-at-the-proteome-scale/",
             "https://nvidianews.nvidia.com/news/nvidias-new-ampere-data-center-gpu-in-full-production"
           ],
-          "rationale": "2021年7月公开的AlphaFold代码支持在GPU上做结构预测；仅承诺玩家小规模复现与验证，不宣称发现新药或替代实验。"
+          "rationale": "2021年7月公开的AlphaFold代码支持在GPU上做结构预测；仅承诺玩家小规模复现与验证，不宣称发现新药或替代实验。",
+          "produces": [
+            "compute"
+          ]
         },
         {
           "id": "anthropic_codex_2021-wenxin",
@@ -437,7 +440,10 @@ window.AGI_PARTNERSHIPS = {
             "trust": 2,
             "team": -1
           },
-          "affinities": {}
+          "affinities": {},
+          "produces": [
+            "compute"
+          ]
         },
         {
           "id": "public",
@@ -477,7 +483,10 @@ window.AGI_PARTNERSHIPS = {
           "sourceUrls": [
             "https://nvidianews.nvidia.com/news/nvidias-new-ampere-data-center-gpu-in-full-production"
           ],
-          "rationale": "A100于2020出货，符合2021万卡背景；金额是游戏项目支出。"
+          "rationale": "A100于2020出货，符合2021万卡背景；金额是游戏项目支出。",
+          "produces": [
+            "compute"
+          ]
         },
         {
           "id": "liang_gpu_piano-huawei",
@@ -504,7 +513,10 @@ window.AGI_PARTNERSHIPS = {
             "https://www.huawei.com/en/news/2020/9/kunpeng-ascend-keynote",
             "https://www.huawei.com/en/news/2025/9/hc-xu-keynote-speech"
           ],
-          "rationale": "昇腾910与CANN/MindSpore在2020已有；回应A100采购的替代工具链。"
+          "rationale": "昇腾910与CANN/MindSpore在2020已有；回应A100采购的替代工具链。",
+          "produces": [
+            "compute"
+          ]
         },
         {
           "id": "liang_gpu_piano-openai",
@@ -536,7 +548,7 @@ window.AGI_PARTNERSHIPS = {
           "result": "你们参考 Google 的公开研究，在现有机器上做一个范围有限的文本任务，先把训练和评测跑完整。第一份结果比新机柜更早交付；采购把钢琴房的预算表收好，注明：等有人会弹再扩建。",
           "mode": "cooperate",
           "quarterDelta": {
-            "cash": 12,
+            "cash": -12,
             "research": 3,
             "team": -1,
             "trust": 2,
@@ -547,7 +559,7 @@ window.AGI_PARTNERSHIPS = {
           },
           "fromYear": 2021,
           "fromQuarter": 2,
-          "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。沿用 Google/DeepMind 同一关系ID；2023Q4之前不称Gemini。",
+          "rationale": "保留原事件历史背景；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。沿用 Google/DeepMind 同一关系ID；2023Q4之前不称Gemini。 质感修订：这是玩家的内部试验与调用开销，没有成交或外部付款，资金记为支出。",
           "secondaryAffinities": {},
           "editorialSource": "research/company-balance-v21.json"
         },
@@ -596,7 +608,10 @@ window.AGI_PARTNERSHIPS = {
             "trust": 2,
             "team": -2
           },
-          "affinities": {}
+          "affinities": {},
+          "produces": [
+            "customers"
+          ]
         },
         {
           "id": "public",
@@ -634,7 +649,10 @@ window.AGI_PARTNERSHIPS = {
             "https://openai.com/index/instruction-following/",
             "https://openai.com/index/chatgpt/"
           ],
-          "rationale": "2022已存在InstructGPT API；明确不是尚未发布的ChatGPT API。"
+          "rationale": "2022已存在InstructGPT API；明确不是尚未发布的ChatGPT API。",
+          "produces": [
+            "customers"
+          ]
         },
         {
           "id": "nvidia-chat-capacity",
@@ -657,7 +675,10 @@ window.AGI_PARTNERSHIPS = {
           "sourceUrls": [
             "https://openai.com/index/chatgpt/"
           ],
-          "rationale": "以2022年已存在的GPU基础设施做玩家自建聊天原型容量试验，不声称英伟达当时提供等同聊天新品的现成模型。 所列来源仅作事件背景；具体实施、合作、收入与资源变化均为游戏虚构，不代表现实合作或品牌背书。"
+          "rationale": "以2022年已存在的GPU基础设施做玩家自建聊天原型容量试验，不声称英伟达当时提供等同聊天新品的现成模型。 所列来源仅作事件背景；具体实施、合作、收入与资源变化均为游戏虚构，不代表现实合作或品牌背书。",
+          "produces": [
+            "compute"
+          ]
         },
         {
           "id": "chatgpt_launch_2022-claude",
@@ -727,7 +748,10 @@ window.AGI_PARTNERSHIPS = {
             "trust": 2,
             "team": -2
           },
-          "affinities": {}
+          "affinities": {},
+          "produces": [
+            "customers"
+          ]
         },
         {
           "id": "public",
@@ -764,7 +788,10 @@ window.AGI_PARTNERSHIPS = {
           "sourceUrls": [
             "https://openai.com/index/instruction-following/"
           ],
-          "rationale": "已有指令跟随API用于稳定化提示服务，业务层自行验收。"
+          "rationale": "已有指令跟随API用于稳定化提示服务，业务层自行验收。",
+          "produces": [
+            "customers"
+          ]
         },
         {
           "id": "chatgpt_prompt_2022-claude",
@@ -2050,7 +2077,10 @@ window.AGI_PARTNERSHIPS = {
             "https://www.anthropic.com/research/developing-computer-use",
             "https://qwenlm.github.io/blog/qwen2.5-coder/"
           ],
-          "rationale": "Qwen2.5-Coder于2024Q3开放；玩家商业化限域编码服务与其生态服务商竞争，用验收替代泛桌面自主。"
+          "rationale": "Qwen2.5-Coder于2024Q3开放；玩家商业化限域编码服务与其生态服务商竞争，用验收替代泛桌面自主。",
+          "produces": [
+            "customers"
+          ]
         },
         {
           "id": "claude-yellowstone-break-wenxin",
@@ -2059,7 +2089,7 @@ window.AGI_PARTNERSHIPS = {
           "result": "你们用 Grok 把客户需求拆成检查清单，演示前逐项对照实际结果。去黄石的行程终于没混进交付文档；工具能帮忙找漏项，最后签字的人仍得坐在办公室。",
           "mode": "cooperate",
           "quarterDelta": {
-            "cash": 20,
+            "cash": -20,
             "research": 2,
             "team": -1,
             "trust": 2,
@@ -2070,7 +2100,7 @@ window.AGI_PARTNERSHIPS = {
           },
           "fromYear": 2024,
           "fromQuarter": 4,
-          "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。",
+          "rationale": "保留原事件历史背景；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。 质感修订：这是玩家的内部试验与调用开销，没有成交或外部付款，资金记为支出。",
           "secondaryAffinities": {},
           "editorialSource": "research/company-balance-v21.json"
         }
@@ -2097,7 +2127,10 @@ window.AGI_PARTNERSHIPS = {
             "trust": 3,
             "team": -3
           },
-          "affinities": {}
+          "affinities": {},
+          "produces": [
+            "compute"
+          ]
         },
         {
           "id": "public",
@@ -2340,7 +2373,7 @@ window.AGI_PARTNERSHIPS = {
           "result": "你们给 Gemini 看菜单截图，把菜名、数量和备注整理成订单草稿，交给人确认后再下单。第一顿午饭准时到了；第二天菜单换了版，大家又多饿了十分钟。",
           "mode": "cooperate",
           "quarterDelta": {
-            "cash": 16,
+            "cash": -16,
             "research": 3,
             "team": -2,
             "trust": 2,
@@ -2351,7 +2384,7 @@ window.AGI_PARTNERSHIPS = {
           },
           "fromYear": 2024,
           "fromQuarter": 4,
-          "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。",
+          "rationale": "保留原事件历史背景；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。 质感修订：这是玩家的内部试验与调用开销，没有成交或外部付款，资金记为支出。",
           "secondaryAffinities": {},
           "editorialSource": "research/company-balance-v21.json"
         }
@@ -3004,10 +3037,13 @@ window.AGI_PARTNERSHIPS = {
             "xai": 10
           },
           "fromYear": 2024,
-          "fromQuarter": 3,
-          "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。",
+          "fromQuarter": 4,
+          "rationale": "xAI官方API Public Beta发表于2024-11-04；实测调用账单并接入商业订单的选择仅从2024Q4出现，不把2024Q3的网页试用当作公开API。玩家合同、实施与收入均为虚构。",
           "secondaryAffinities": {},
-          "editorialSource": "research/company-balance-v21.json"
+          "editorialSource": "research/company-balance-v21.json",
+          "sourceUrls": [
+            "https://x.ai/news/api"
+          ]
         },
         {
           "id": "deepseek_accidental_price_war-qwen",
@@ -3031,7 +3067,10 @@ window.AGI_PARTNERSHIPS = {
             "https://www.36kr.com/p/2872793466982535",
             "https://qwenlm.github.io/blog/qwen2/"
           ],
-          "rationale": "2024Q2开放Qwen2可自托管，包年本地化是玩家商业策略。"
+          "rationale": "2024Q2开放Qwen2可自托管，包年本地化是玩家商业策略。",
+          "produces": [
+            "customers"
+          ]
         },
         {
           "id": "deepseek_accidental_price_war-gemini",
@@ -3698,7 +3737,10 @@ window.AGI_PARTNERSHIPS = {
           "fromQuarter": 2,
           "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。",
           "secondaryAffinities": {},
-          "editorialSource": "research/company-balance-v21.json"
+          "editorialSource": "research/company-balance-v21.json",
+          "produces": [
+            "customers"
+          ]
         },
         {
           "id": "leijun_are_you_ok_1999-deepseek",
@@ -5273,7 +5315,10 @@ window.AGI_PARTNERSHIPS = {
             "trust": 2,
             "team": -3
           },
-          "affinities": {}
+          "affinities": {},
+          "produces": [
+            "compute"
+          ]
         },
         {
           "id": "public",
@@ -5697,7 +5742,10 @@ window.AGI_PARTNERSHIPS = {
             "trust": 1,
             "team": -2
           },
-          "affinities": {}
+          "affinities": {},
+          "produces": [
+            "compute"
+          ]
         },
         {
           "id": "public",
@@ -6268,7 +6316,7 @@ window.AGI_PARTNERSHIPS = {
           "result": "你们趁当次额度恢复，把积压的小修复分批交给Codex，并给每单设截止时间。旧账清了一摞，新额度却不能当长期现金流；财务把免费二字从预算表里擦掉。",
           "mode": "cooperate",
           "quarterDelta": {
-            "cash": 20,
+            "cash": 0,
             "research": 3,
             "team": 1,
             "trust": 1,
@@ -6286,7 +6334,7 @@ window.AGI_PARTNERSHIPS = {
             "https://openai.com/index/introducing-codex/",
             "https://x.com/thsottiaux/status/2067399435009622521"
           ],
-          "rationale": "针对事件「重置卡舍不得用」中的具体瓶颈，采用「用Codex重置额度清旧工单」对应的公开技术能力。玩家实施、合同、成效和资源数值均为游戏虚构，不代表品牌背书。 时间依据：现代Codex云端编码Agent发布于2025-05-16。 帖子事实沿用输入研究中已完成的X官方嵌入核验；当次额度福利不构成长期承诺，公开挖角玩笑不等于正式谈判。"
+          "rationale": "针对事件「重置卡舍不得用」中的具体瓶颈，采用「用Codex重置额度清旧工单」对应的公开技术能力。玩家实施、合同、成效和资源数值均为游戏虚构，不代表品牌背书。 时间依据：现代Codex云端编码Agent发布于2025-05-16。 帖子事实沿用输入研究中已完成的X官方嵌入核验；当次额度福利不构成长期承诺，公开挖角玩笑不等于正式谈判。 质感修订：额度福利用于清内部工单，仅节省调用开销，不产生到账现金。"
         },
         {
           "id": "tibo-double-reset-xiaomi",
@@ -7378,8 +7426,8 @@ window.AGI_PARTNERSHIPS = {
         {
           "id": "kimi-claude-routing-allegation-claude",
           "brand": "claude",
-          "label": "直接采购Claude并标明服务方",
-          "result": "你们为需要Claude的客户直接配置对应服务，把模型提供方写进交付页面。接入更简单，长期成本更依赖外部账单；清楚购买了什么，比让模型自报姓名可靠。",
+          "label": "核对客户自持 Claude 服务的交付账",
+          "result": "符合服务条件的客户交来授权导出的账单与任务记录，你们按约定核对费用、来源和交付，收取审阅服务费。客户继续自己管理账号，你们没有因此恢复访问权限；清楚买了什么，比让模型自报姓名可靠。",
           "mode": "cooperate",
           "quarterDelta": {
             "cash": 17,
@@ -7395,9 +7443,10 @@ window.AGI_PARTNERSHIPS = {
           "fromQuarter": 3,
           "sourceUrls": [
             "https://www.anthropic.com/engineering/building-effective-agents",
-            "https://www.anthropic.com/threat-intelligence-report-september-2026"
+            "https://www.anthropic.com/threat-intelligence-report-september-2026",
+            "https://www.anthropic.com/news/updating-restrictions-of-sales-to-unsupported-regions"
           ],
-          "rationale": "针对事件「好模型，也要有一本明白账」中的具体瓶颈，采用「直接采购Claude并标明服务方」对应的公开技术能力。玩家实施、合同、成效和资源数值均为游戏虚构，不代表品牌背书。 事实边界：事件事实仅为Anthropic已公开提出单方指控；不推断Moonshot承认，不用模型自我介绍或兼容接口证明路由。"
+          "rationale": "针对事件「好模型，也要有一本明白账」中的具体瓶颈，采用「直接采购Claude并标明服务方」对应的公开技术能力。玩家实施、合同、成效和资源数值均为游戏虚构，不代表品牌背书。 事实边界：事件事实仅为Anthropic已公开提出单方指控；不推断Moonshot承认，不用模型自我介绍或兼容接口证明路由。 连续性修订：2025Q3地区限制仍成立，本选项仅审阅符合条件客户授权提供的材料，不代客户登录、不转售访问，也不暗示玩家公司自动恢复Claude服务。"
         },
         {
           "id": "kimi-claude-routing-allegation-huawei",
@@ -7833,7 +7882,7 @@ window.AGI_PARTNERSHIPS = {
           "result": "你们用 MiMo 辅助匹配授权目录里的订单与交付材料，附件齐全后才生成催款草稿。财务少翻了几层文件夹，原件仍由人确认；新同事先没学会催人，倒学会了不把空白附件寄出去。",
           "mode": "cooperate",
           "quarterDelta": {
-            "cash": 18,
+            "cash": -8,
             "research": 3,
             "team": 1,
             "trust": 2,
@@ -7844,7 +7893,7 @@ window.AGI_PARTNERSHIPS = {
           },
           "fromYear": 2026,
           "fromQuarter": 3,
-          "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。",
+          "rationale": "保留原事件历史背景；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。 质感修订：匹配订单附件、生成催款草稿尚未催款收账，是内部工具的部署支出。",
           "secondaryAffinities": {},
           "editorialSource": "research/company-balance-v21.json"
         }
@@ -8106,7 +8155,7 @@ window.AGI_PARTNERSHIPS = {
           "result": "你们改用 MiMo 辅助整理的本地成果包演示，再由人解释线上入口。域名笑话终于告一段落，客户看到了可检查的文件；会后第一件事，是把演示链接完整读一遍。",
           "mode": "cooperate",
           "quarterDelta": {
-            "cash": 15,
+            "cash": -5,
             "research": 2,
             "team": 1,
             "trust": 2,
@@ -8117,7 +8166,7 @@ window.AGI_PARTNERSHIPS = {
           },
           "fromYear": 2026,
           "fromQuarter": 4,
-          "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。",
+          "rationale": "保留原事件历史背景；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。 质感修订：整理本地成果包救场未发生签约回款，只计少量演示整理开销。",
           "secondaryAffinities": {},
           "editorialSource": "research/company-balance-v21.json"
         }
@@ -8723,7 +8772,7 @@ window.AGI_PARTNERSHIPS = {
           "result": "你们利用当次重置安排积压代码任务，把省下的周末还给值班同事。眼前工单减少，长期容量仍需付费计划；公开挖角玩笑没有写进人事档案，轮休写进了日历。",
           "mode": "cooperate",
           "quarterDelta": {
-            "cash": 16,
+            "cash": 0,
             "research": 3,
             "team": 3,
             "trust": 2,
@@ -8738,7 +8787,7 @@ window.AGI_PARTNERSHIPS = {
             "https://openai.com/index/introducing-codex/",
             "https://x.com/bcherny/status/2086173812253729118"
           ],
-          "rationale": "针对事件「招聘失败，额度到账」中的具体瓶颈，采用「把Codex福利变成团队轮休窗口」对应的公开技术能力。玩家实施、合同、成效和资源数值均为游戏虚构，不代表品牌背书。 时间依据：现代Codex云端编码Agent发布于2025-05-16。 帖子事实沿用输入研究中已完成的X官方嵌入核验；当次额度福利不构成长期承诺，公开挖角玩笑不等于正式谈判。"
+          "rationale": "针对事件「招聘失败，额度到账」中的具体瓶颈，采用「把Codex福利变成团队轮休窗口」对应的公开技术能力。玩家实施、合同、成效和资源数值均为游戏虚构，不代表品牌背书。 时间依据：现代Codex云端编码Agent发布于2025-05-16。 帖子事实沿用输入研究中已完成的X官方嵌入核验；当次额度福利不构成长期承诺，公开挖角玩笑不等于正式谈判。 质感修订：把额度福利换成轮休，已通过士气体现收益，不能再无理由给一笔现金。"
         },
         {
           "id": "tibo-not-going-anywhere-claude",

@@ -14,7 +14,7 @@ function fixture(raw=null,{failBackup=false,previousBackup=null}={}){
  vm.createContext(context);
  for(const file of ['story.js','strategies.js','partners.js','worldlines.js','worldline-engine.js'])vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),context,{filename:file});
  let source=fs.readFileSync(path.join(root,'game.js'),'utf8');
- source=source.replace('window.AGIGame={','window.__saveTest={getRun:()=>run,getCollected:()=>collected,save,newRun:()=>{run=makeRun();save();}};window.AGIGame={');
+ source=source.replace('window.AGIGame={','window.__saveTest={getRun:()=>run,getCollected:()=>collected,save};window.AGIGame={');
  // Exercise the real load/save and lifecycle handlers while replacing only DOM
  // painting. This keeps the test independent of number-wheel markup.
  const initial='render();if(isRevealing())scheduleReveal();addEventListener';
@@ -33,6 +33,7 @@ for(let index=0;index<2;index++){
 function saved(turns=picks,extra={}){return JSON.stringify({run:{started:true,picks:turns,eventIds:deck,offers:[],choiceOffers:[],awaiting:false,choice:null,strategies:[],decisionStage:'event',...extra},collected:['bankrupt']});}
 const original=saved(),valid=fixture(original);
 assert.equal(valid.q.getRun().picks.length,2,'valid old progress must not rewind');assert.equal(valid.store.has(BACKUP),false);assert.equal(valid.node('saveRecoveryNotice').hidden,true);assert.deepEqual([...valid.q.getCollected()],['bankrupt']);
+valid.node('restartButton').onclick();assert.equal(valid.q.getRun().started,false,'one click returns to the opening');assert.equal(valid.q.getRun().picks.length,0);assert.equal(JSON.parse(valid.store.get(SAVE)).run.picks.length,0,'restart immediately replaces current progress');assert.deepEqual([...valid.q.getCollected()],['bankrupt'],'restart keeps collected endings');
 const invalidPicks=JSON.parse(JSON.stringify(picks));invalidPicks[1].choiceOffers[2]='context:offer-removed-by-rules-update';
 const incompatible=saved(invalidPicks),recovered=fixture(incompatible);
 assert.equal(recovered.q.getRun().picks.length,1,'retain the longest valid prefix');assert.equal(recovered.g.calculate(recovered.q.getRun().picks).index,1);
@@ -42,10 +43,10 @@ assert.equal(recovered.node('saveRecoveryNotice').hidden,false);assert.match(rec
 recovered.node('dismissSaveRecovery').onclick();assert.equal(recovered.node('saveRecoveryNotice').hidden,true);
 const reload=fixture(recovered.store.get(SAVE),{previousBackup:incompatible});assert.equal(reload.q.getRun().picks.length,1);assert.equal(reload.store.get(BACKUP),incompatible);assert.equal(reload.writes.includes(BACKUP),false,'do not overwrite recovery backup on refresh');
 const blocked=fixture(incompatible,{failBackup:true});assert.equal(blocked.q.getRun().picks.length,1);assert.equal(blocked.store.get(SAVE),incompatible);assert.equal(blocked.writes.includes(SAVE),false,'backup failure blocks autosave');
-blocked.node('dismissSaveRecovery').onclick();blocked.q.save();assert.equal(blocked.store.get(SAVE),incompatible,'dismiss does not authorize overwriting');blocked.q.newRun();assert.equal(JSON.parse(blocked.store.get(SAVE)).run.picks.length,0,'explicit new game permits saving again');
+blocked.node('dismissSaveRecovery').onclick();blocked.q.save();assert.equal(blocked.store.get(SAVE),incompatible,'dismiss does not authorize overwriting');blocked.node('restartButton').onclick();assert.equal(JSON.parse(blocked.store.get(SAVE)).run.picks.length,0,'explicit new game permits saving again');
 const occupied=fixture(incompatible,{previousBackup:'older-backup'});assert.equal(occupied.store.get(BACKUP),'older-backup');assert.equal(occupied.store.get(SAVE),incompatible,'do not discard either original when a different backup exists');
 // Expired reveal after BFCache: render results once, without replaying the pick.
-const revealing=fixture(saved(picks.slice(0,1),{awaiting:true,revealAt:101600}));assert.equal(revealing.node('game').inert,true);revealing.emit('pagehide');assert.equal(revealing.timers.size,0);revealing.advance(2500);revealing.emit('pageshow');assert.equal(revealing.node('game').phase,'result');assert.equal(revealing.node('game').inert,false);assert.equal(revealing.node('restartButton').disabled,false);assert.equal(revealing.q.getRun().picks.length,1);assert.equal(revealing.q.getRun().revealAt,null);revealing.emit('pageshow');assert.equal(revealing.q.getRun().picks.length,1,'repeated restore must not append picks');
+const revealing=fixture(saved(picks.slice(0,1),{awaiting:true,revealAt:101600}));assert.equal(revealing.node('game').inert,true);revealing.node('restartButton').onclick();assert.equal(revealing.q.getRun().picks.length,1,'restart remains blocked during settlement');revealing.emit('pagehide');assert.equal(revealing.timers.size,0);revealing.advance(2500);revealing.emit('pageshow');assert.equal(revealing.node('game').phase,'result');assert.equal(revealing.node('game').inert,false);assert.equal(revealing.node('restartButton').disabled,false);assert.equal(revealing.q.getRun().picks.length,1);assert.equal(revealing.q.getRun().revealAt,null);revealing.emit('pageshow');assert.equal(revealing.q.getRun().picks.length,1,'repeated restore must not append picks');
 // Returning before the reveal deadline schedules just the remaining interval.
 const early=fixture(saved(picks.slice(0,1),{awaiting:true,revealAt:101600}));early.emit('pagehide');early.advance(300);early.emit('pageshow');assert.equal(early.node('game').phase,'settling');assert.equal(early.timers.size,1);early.advance(1299);assert.equal(early.node('game').inert,true);early.advance(1);assert.equal(early.node('game').phase,'result');assert.equal(early.q.getRun().picks.length,1);assert.equal(early.timers.size,0);
 console.log('PASS save-recovery: valid saves, prefix recovery, exact one-time backup, dismiss, backup failure protection, explicit restart, BFCache expired/remaining reveal and no duplicate picks.');

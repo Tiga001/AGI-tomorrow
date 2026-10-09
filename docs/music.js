@@ -5,15 +5,32 @@
 (() => {
 'use strict';
 const audio=document.getElementById('bgm'),button=document.getElementById('musicButton');
-const preference='agi-tomorrow-music-v1',musicLevel=.25;
+const control=document.getElementById('musicControl'),volumeWrap=document.getElementById('musicVolumeWrap'),volumeSlider=document.getElementById('musicVolume');
+const preference='agi-tomorrow-music-v1',volumePreference='agi-tomorrow-music-volume-v1',musicLevel=.25;
 const credits='Growing Threat — TESTUDO & Decerno · Millennium Dawn · CC BY-SA 4.0';
 let soundOn=true,pending=false,failed=false,operation=0,inIntro=false,pageActive=true;
 const retiringScores=new Set();
 let audioGraph,webAudioUnavailable=false,score,fadeFrame=0,pauseTimer,level=musicLevel,scene='cover',endingMood='neutral',endingId='';
+let volumeStep=5;
+function validStep(value){const number=Number(value);return value==null||value===''||!Number.isFinite(number)?5:Math.max(1,Math.min(5,Math.round(number)));}
 try{soundOn=localStorage.getItem(preference)!=='off';}catch{}
-audio.volume=level;
+try{volumeStep=validStep(localStorage.getItem(volumePreference));}catch{}
+audio.volume=level*volumeStep/5;
 function remember(value){try{localStorage.setItem(preference,value);}catch{}}
-function setVolume(value){level=value;if(audioGraph?.source)audioGraph.gain.gain.value=value;else audio.volume=value;}
+function setVolume(value){level=value;const output=value*volumeStep/5;if(audioGraph?.source)audioGraph.gain.gain.value=output;else audio.volume=output;}
+function selectVolume(){
+ volumeStep=validStep(volumeSlider.value);
+ try{localStorage.setItem(volumePreference,String(volumeStep));}catch{}
+ setVolume(level);
+ if(score)score.output.gain.value=volumeStep/5;
+ for(const retiring of retiringScores)retiring.output.gain.value=volumeStep/5;
+ update();
+ // A slider gesture can also unlock restored audio, without restarting an active
+ // track or replacing the intro/scene fade already in progress.
+ if(!soundOn||!pageActive)return;
+ if(pending&&audioGraph?.context.state==='suspended')unlockAudio().catch(()=>{});
+ else if(!pending&&(audioGraph?.context.state==='suspended'||(scene==='ending'&&audioGraph?!score:audio.paused)))start();
+}
 function unlockAudio(){
  // iOS ignores media-element volume. Prefer a gain node, retaining native playback
  // if a browser cannot attach this media element to Web Audio.
@@ -22,14 +39,14 @@ function unlockAudio(){
  if(!audioGraph){
   let context;
   try{context=new Audio();}catch{webAudioUnavailable=true;return Promise.resolve();}
-  const gain=context.createGain();gain.gain.value=level;gain.connect(context.destination);
+  const gain=context.createGain();gain.gain.value=level*volumeStep/5;gain.connect(context.destination);
   // Save the context before binding the element: a binding error must not leak a
   // fresh AudioContext on every retry or disable the separately synthesized ending.
   audioGraph={context,gain,source:null};
   try{
    const source=context.createMediaElementSource(audio);source.connect(gain);
    audioGraph.source=source;audio.volume=1;
-  }catch{audio.volume=level;}
+  }catch{audio.volume=level*volumeStep/5;}
  }
  return audioGraph.context.state==='running'?Promise.resolve():audioGraph.context.resume();
 }
@@ -46,10 +63,13 @@ function pauseBackground(duration=0){
 }
 function update(){
  const active=soundOn&&!failed;
- button.textContent=pending?'♫ 加载中':failed?'♫ 重试声音':soundOn?'♫ 声音开':'♫ 声音关';
+ button.textContent=pending?'♫ 加载中':failed?'♫ 重试声音':soundOn?'♫':'♫ 声音关';
  button.setAttribute('aria-pressed',String(active));
  button.setAttribute('aria-label',failed?'重新开启声音':soundOn?'关闭声音':'开启声音');
  button.title=(soundOn?'点击关闭':'点击播放')+' · '+(scene==='ending'?'原创结局配乐':credits);
+ if(control){control.dataset.sound=pending?'loading':failed?'error':soundOn?'on':'off';control.dataset.level=String(volumeStep);}
+ if(volumeWrap){volumeWrap.hidden=!soundOn||failed||pending;volumeWrap.style.setProperty('--volume-position',String((volumeStep-1)/4));}
+ if(volumeSlider){volumeSlider.value=String(volumeStep);volumeSlider.setAttribute('aria-valuetext',`第 ${volumeStep} 档，共 5 档`);}
 }
 const ENDING_SCORES={
  success:{chords:[[50,57,61,64],[47,54,57,62],[43,50,54,59],[45,52,57,61]],melody:[[74,78,81],[78,76,74],[71,74,78],[76,73,74]]},
@@ -79,12 +99,12 @@ function startScore(){
  const arrangement=ENDING_SCORES[endingMood]||ENDING_SCORES.neutral;
  const state={sources:new Set(),nodes:new Set(),startedAt:now,nextAt:now+.06,bar:0,volume:endingMood==='failure'?.8:.9,stopping:false,disposed:false};
  const node=value=>{state.nodes.add(value);return value;};
- const master=node(context.createGain()),filter=node(context.createBiquadFilter()),delay=node(context.createDelay(1)),echo=node(context.createGain()),feedback=node(context.createGain());
- state.master=master;score=state;
+ const master=node(context.createGain()),output=node(context.createGain()),filter=node(context.createBiquadFilter()),delay=node(context.createDelay(1)),echo=node(context.createGain()),feedback=node(context.createGain());
+ state.master=master;state.output=output;score=state;output.gain.value=volumeStep/5;
  master.gain.setValueAtTime(0,now);master.gain.linearRampToValueAtTime(state.volume,now+1.2);
  filter.type='lowpass';filter.frequency.value=1800;filter.Q.value=.5;
  delay.delayTime.value=.34;echo.gain.value=.13;feedback.gain.value=.2;
- filter.connect(master);filter.connect(delay);delay.connect(echo);echo.connect(master);delay.connect(feedback);feedback.connect(delay);master.connect(context.destination);
+ filter.connect(master);filter.connect(delay);delay.connect(echo);echo.connect(master);delay.connect(feedback);feedback.connect(delay);master.connect(output);output.connect(context.destination);
  function note(midi,at,duration,volume,kind='pad'){
   const oscillator=node(context.createOscillator()),gain=node(context.createGain());state.sources.add(oscillator);
   const attack=kind==='pad'?.55:kind==='bass'?.12:.018;
@@ -140,8 +160,10 @@ button.addEventListener('click',()=>{
  if(soundOn&&!failed)stop();
  else{soundOn=true;failed=false;remember('on');window.dispatchEvent(new Event('agi:unmute'));start();update();}
 });
+volumeSlider?.addEventListener('input',selectVolume);
+volumeSlider?.addEventListener('change',selectVolume);
 function firstInteraction(event){
- if(!event.isTrusted||!soundOn||!pageActive||event.target.closest('#musicButton')||inIntro)return;
+ if(!event.isTrusted||!soundOn||!pageActive||event.target.closest('#musicControl, #musicButton')||inIntro)return;
  if(event.type==='keydown'&&!['Enter',' ','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(event.key))return;
  if(!event.target.closest('.page,dialog'))return;
  if(pending&&audioGraph?.context.state==='suspended')unlockAudio().catch(()=>{});else start();

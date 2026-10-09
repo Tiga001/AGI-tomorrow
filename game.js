@@ -614,12 +614,10 @@ function next(){
  transition.timers.push(setTimeout(()=>{if(quarterTransition===transition)finishQuarterTransition();},1600));
  return stateView();
 }
-function closeRestart(){$('restartConfirm').hidden=true;$('game').inert=false;}
-function restart(){if(isRevealing()||introTransition||stageTransition)return;finishQuarterTransition(true);closeRestart();run=makeRun();characterPair=null;nextCharacterPair=null;nextCharacterTurn=null;render();focusMain();}
+function restart(){if(isRevealing()||introTransition||stageTransition||quarterTransition)return;run=makeRun();characterPair=null;nextCharacterPair=null;nextCharacterTurn=null;render();focusMain();}
 $('game').addEventListener('change',ev=>{if(ev.target.name==='strategyChoice')selectStrategy(ev.target.value,ev.target.checked);});
 $('game').addEventListener('click',ev=>{const btn=ev.target.closest('button');if(!btn)return;if(stageTransition||quarterTransition||introTransition||isRevealing())return;if(btn.dataset.choice)selectChoice(btn.dataset.choice);else if(btn.id==='startButton')start();else if(btn.id==='backToEvent')changeDecisionStage('event');else if(btn.id==='commitButton')commit();else if(btn.id==='nextButton')next();else if(btn.id==='replayButton')restart();});
-$('restartButton').onclick=()=>{if(isRevealing()||introTransition||stageTransition||quarterTransition)return;if(!run.picks.length&&!run.choice&&!run.strategies.length||calculate(run.picks).ending&&!run.awaiting)return restart();$('restartConfirm').hidden=false;$('game').inert=true;$('cancelRestart').focus();};
-$('cancelRestart').onclick=()=>{closeRestart();$('restartButton').focus();};$('confirmRestart').onclick=restart;
+$('restartButton').onclick=restart;
 $('relationsToggle').onclick=()=>{relationsCollapsed=!relationsCollapsed;updateRelationsDrawer();try{localStorage.setItem(RELATIONS_PREFERENCE,String(relationsCollapsed));}catch{}};
 updateRelationsDrawer();
 $('stats').addEventListener('click',ev=>{if(ev.target.closest('.stat-goal-trigger')&&!$('goalDialog').open)$('goalDialog').showModal();});
@@ -628,7 +626,7 @@ $('goalDialog').addEventListener('click',ev=>{const box=$('goalDialog').getBound
 $('scientists').onclick=()=>{if(!$('scientistDialog').open)$('scientistDialog').showModal();};
 $('closeScientists').onclick=()=>$('scientistDialog').close();
 $('scientistDialog').addEventListener('click',ev=>{const box=$('scientistDialog').getBoundingClientRect();if(ev.target===$('scientistDialog')&&(ev.clientX<box.left||ev.clientX>box.right||ev.clientY<box.top||ev.clientY>box.bottom))$('scientistDialog').close();});
-document.addEventListener('keydown',ev=>{if($('scientistDialog').open||$('goalDialog').open)return;if(isRevealing()||introTransition||stageTransition||quarterTransition)return;if(ev.key==='Escape'&&!$('restartConfirm').hidden){closeRestart();$('restartButton').focus();return;}if(ev.repeat||ev.ctrlKey||ev.metaKey||ev.altKey||!$('restartConfirm').hidden||/^(INPUT|TEXTAREA|BUTTON|A)$/.test(document.activeElement.tagName))return;if(ev.key==='Enter'){if(run.awaiting){ev.preventDefault();next();}else if(run.started&&run.decisionStage==='event'&&run.choice){ev.preventDefault();changeDecisionStage('strategy');}else if(run.decisionStage==='strategy'&&run.choice&&run.strategies.length===STRATEGY_COUNT){ev.preventDefault();commit();}}});
+document.addEventListener('keydown',ev=>{if($('scientistDialog').open||$('goalDialog').open)return;if(isRevealing()||introTransition||stageTransition||quarterTransition)return;if(ev.repeat||ev.ctrlKey||ev.metaKey||ev.altKey||/^(INPUT|TEXTAREA|BUTTON|A)$/.test(document.activeElement.tagName))return;if(ev.key==='Enter'){if(run.awaiting){ev.preventDefault();next();}else if(run.started&&run.decisionStage==='event'&&run.choice){ev.preventDefault();changeDecisionStage('strategy');}else if(run.decisionStage==='strategy'&&run.choice&&run.strategies.length===STRATEGY_COUNT){ev.preventDefault();commit();}}});
 window.AGIGame={calculate,getEnding,choiceCandidates,drawEventChoices,validChoiceOffers,peerWeight,peerActive,relationChanges,strategyAffinities,strategicAffinities,partners:PARTNERS,makeDeck,drawStrategies,eligibleStrategy,worldlines:WORLD,recruitChance,talentChance,talentCandidates,strategies:STRATEGIES,quarter,eventChanges,settleQuarter,strategyCost,goalStatus,agiRequirements:{...AGI},initial:{...INITIAL},getState:stateView};
 const ctx=document.modelContext;if(ctx?.registerTool){const lifecycle=new AbortController();for(const t of [
  {name:'read_agi_game',title:'读取季度经营状态',description:'读取当前季度、decisionStage（event事件或strategy策略）、切换状态、候选项及已选内容。',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true},execute:stateView},
@@ -645,6 +643,5 @@ addEventListener('pageshow',event=>{
  // Resume only the reveal; never commit or append the quarter a second time.
  if(run.awaiting&&!isRevealing())run.revealAt=null;
  render();if(isRevealing())scheduleReveal();
- if(!$('restartConfirm').hidden)$('game').inert=true;
 });
 })();

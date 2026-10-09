@@ -19,7 +19,7 @@ const STAT_ICONS={
 };
 function statIcon(key){return `<svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${STAT_ICONS[key]}</svg>`;}
 function statImpact(key,value){const label=STAT_LABELS[key],amount=signed(value);return `<span class="stat-impact" data-stat="${key}" title="${label} ${amount}">${statIcon(key)}<span class="sr-only">${label} </span><b>${amount}</b></span>`;}
-const BRANDS={google:{name:'Google / DeepMind',image:'assets/google.ico?v=f0556340af6d'},claude:{name:'Claude',image:'assets/claude.png?v=f0556340af6d'},deepseek:{name:'DeepSeek',image:'assets/deepseek.ico?v=f0556340af6d'},nvidia:{name:'NVIDIA',image:'assets/nvidia.svg?v=f0556340af6d'},xai:{name:'xAI',image:'assets/xai.ico?v=f0556340af6d'},openai:{"name": "OpenAI", "image": "assets/openai.svg?v=f0556340af6d"},kimi:{"name": "月之暗面 Kimi", "image": "assets/kimi.png?v=f0556340af6d"},gemini:{"name": "Google Gemini", "image": "assets/gemini.png?v=f0556340af6d"},qwen:{"name": "阿里千问", "image": "assets/qwen.png?v=f0556340af6d"},doubao:{"name": "字节豆包", "image": "assets/doubao.png?v=f0556340af6d"},wenxin:{"name": "百度文心", "image": "assets/wenxin.svg?v=f0556340af6d"},huawei:{"name": "华为盘古", "image": "assets/huawei.png?v=f0556340af6d"},hunyuan:{"name": "腾讯混元", "image": "assets/hunyuan.svg?v=f0556340af6d"},xiaomi:{name:'小米',image:'assets/xiaomi.png?v=f0556340af6d'}};
+const BRANDS={google:{name:'Google / DeepMind',image:'assets/google.ico?v=c1db79ea6145'},claude:{name:'Claude',image:'assets/claude.png?v=c1db79ea6145'},deepseek:{name:'DeepSeek',image:'assets/deepseek.ico?v=c1db79ea6145'},nvidia:{name:'NVIDIA',image:'assets/nvidia.svg?v=c1db79ea6145'},xai:{name:'xAI',image:'assets/xai.ico?v=c1db79ea6145'},openai:{"name": "OpenAI", "image": "assets/openai.svg?v=c1db79ea6145"},kimi:{"name": "月之暗面 Kimi", "image": "assets/kimi.png?v=c1db79ea6145"},gemini:{"name": "Google Gemini", "image": "assets/gemini.png?v=c1db79ea6145"},qwen:{"name": "阿里千问", "image": "assets/qwen.png?v=c1db79ea6145"},doubao:{"name": "字节豆包", "image": "assets/doubao.png?v=c1db79ea6145"},wenxin:{"name": "百度文心", "image": "assets/wenxin.svg?v=c1db79ea6145"},huawei:{"name": "华为盘古", "image": "assets/huawei.png?v=c1db79ea6145"},hunyuan:{"name": "腾讯混元", "image": "assets/hunyuan.svg?v=c1db79ea6145"},xiaomi:{name:'小米',image:'assets/xiaomi.png?v=c1db79ea6145'}};
 const STORAGE='agi-tomorrow-game', TOTAL=32, HISTORY_TURNS=24, OFFER_COUNT=9, STRATEGY_COUNT=3;
 const AGI={research:450,trust:55,team:40,scientists:2}, REVEAL_MS=1600;
 const TALENT_PROGRAM='open-talent-program', TALENT_BONUS={research:3,team:2}, TIBO_EXTRA_CHANCE=.18;
@@ -56,7 +56,7 @@ function makeDeck(){const used=new Set(),reserved=new Set(Object.values(DATA.fix
 function makeRun(){return {started:false,picks:[],awaiting:false,eventIds:makeDeck(),offers:[],choiceOffers:[],choice:null,strategies:[],decisionStage:'event'};}
 let run=makeRun(),collected=[],revealTimer,introTransition=null,stageTransition=null,quarterTransition=null;
 const CHARACTER_SIDES={left:['gpt','deepseek','gemini','qwen','minimax'],right:['claude','grok','kimi','glm']};
-const CHARACTER_IMAGES={gpt:'assets/cover/gpt-action-v2.png?v=f0556340af6d',deepseek:'assets/cover/deepseek-action-v2.png?v=f0556340af6d',claude:'assets/cover/claude-action-v2.png?v=f0556340af6d',gemini:'assets/cover/gemini-action-v2.png?v=f0556340af6d',grok:'assets/cover/grok-action-v2.png?v=f0556340af6d',qwen:'assets/cover/qwen-action-v2.png?v=f0556340af6d',kimi:'assets/cover/kimi-action-v2.png?v=f0556340af6d',minimax:'assets/cover/minimax-action-v2.png?v=f0556340af6d',glm:'assets/cover/glm-action-v2.png?v=f0556340af6d'};
+const CHARACTER_IMAGES={gpt:'assets/cover/gpt-action-v2.png?v=c1db79ea6145',deepseek:'assets/cover/deepseek-action-v2.png?v=c1db79ea6145',claude:'assets/cover/claude-action-v2.png?v=c1db79ea6145',gemini:'assets/cover/gemini-action-v2.png?v=c1db79ea6145',grok:'assets/cover/grok-action-v2.png?v=c1db79ea6145',qwen:'assets/cover/qwen-action-v2.png?v=c1db79ea6145',kimi:'assets/cover/kimi-action-v2.png?v=c1db79ea6145',minimax:'assets/cover/minimax-action-v2.png?v=c1db79ea6145',glm:'assets/cover/glm-action-v2.png?v=c1db79ea6145'};
 const characterBags={left:[],right:[]},characterPreloads=new Map();
 let characterPair=null,nextCharacterPair=null,nextCharacterTurn=null;
 function drawCharacterPair(previous=characterPair){
@@ -614,12 +614,10 @@ function next(){
  transition.timers.push(setTimeout(()=>{if(quarterTransition===transition)finishQuarterTransition();},1600));
  return stateView();
 }
-function closeRestart(){$('restartConfirm').hidden=true;$('game').inert=false;}
-function restart(){if(isRevealing()||introTransition||stageTransition)return;finishQuarterTransition(true);closeRestart();run=makeRun();characterPair=null;nextCharacterPair=null;nextCharacterTurn=null;render();focusMain();}
+function restart(){if(isRevealing()||introTransition||stageTransition||quarterTransition)return;run=makeRun();characterPair=null;nextCharacterPair=null;nextCharacterTurn=null;render();focusMain();}
 $('game').addEventListener('change',ev=>{if(ev.target.name==='strategyChoice')selectStrategy(ev.target.value,ev.target.checked);});
 $('game').addEventListener('click',ev=>{const btn=ev.target.closest('button');if(!btn)return;if(stageTransition||quarterTransition||introTransition||isRevealing())return;if(btn.dataset.choice)selectChoice(btn.dataset.choice);else if(btn.id==='startButton')start();else if(btn.id==='backToEvent')changeDecisionStage('event');else if(btn.id==='commitButton')commit();else if(btn.id==='nextButton')next();else if(btn.id==='replayButton')restart();});
-$('restartButton').onclick=()=>{if(isRevealing()||introTransition||stageTransition||quarterTransition)return;if(!run.picks.length&&!run.choice&&!run.strategies.length||calculate(run.picks).ending&&!run.awaiting)return restart();$('restartConfirm').hidden=false;$('game').inert=true;$('cancelRestart').focus();};
-$('cancelRestart').onclick=()=>{closeRestart();$('restartButton').focus();};$('confirmRestart').onclick=restart;
+$('restartButton').onclick=restart;
 $('relationsToggle').onclick=()=>{relationsCollapsed=!relationsCollapsed;updateRelationsDrawer();try{localStorage.setItem(RELATIONS_PREFERENCE,String(relationsCollapsed));}catch{}};
 updateRelationsDrawer();
 $('stats').addEventListener('click',ev=>{if(ev.target.closest('.stat-goal-trigger')&&!$('goalDialog').open)$('goalDialog').showModal();});
@@ -628,7 +626,7 @@ $('goalDialog').addEventListener('click',ev=>{const box=$('goalDialog').getBound
 $('scientists').onclick=()=>{if(!$('scientistDialog').open)$('scientistDialog').showModal();};
 $('closeScientists').onclick=()=>$('scientistDialog').close();
 $('scientistDialog').addEventListener('click',ev=>{const box=$('scientistDialog').getBoundingClientRect();if(ev.target===$('scientistDialog')&&(ev.clientX<box.left||ev.clientX>box.right||ev.clientY<box.top||ev.clientY>box.bottom))$('scientistDialog').close();});
-document.addEventListener('keydown',ev=>{if($('scientistDialog').open||$('goalDialog').open)return;if(isRevealing()||introTransition||stageTransition||quarterTransition)return;if(ev.key==='Escape'&&!$('restartConfirm').hidden){closeRestart();$('restartButton').focus();return;}if(ev.repeat||ev.ctrlKey||ev.metaKey||ev.altKey||!$('restartConfirm').hidden||/^(INPUT|TEXTAREA|BUTTON|A)$/.test(document.activeElement.tagName))return;if(ev.key==='Enter'){if(run.awaiting){ev.preventDefault();next();}else if(run.started&&run.decisionStage==='event'&&run.choice){ev.preventDefault();changeDecisionStage('strategy');}else if(run.decisionStage==='strategy'&&run.choice&&run.strategies.length===STRATEGY_COUNT){ev.preventDefault();commit();}}});
+document.addEventListener('keydown',ev=>{if($('scientistDialog').open||$('goalDialog').open)return;if(isRevealing()||introTransition||stageTransition||quarterTransition)return;if(ev.repeat||ev.ctrlKey||ev.metaKey||ev.altKey||/^(INPUT|TEXTAREA|BUTTON|A)$/.test(document.activeElement.tagName))return;if(ev.key==='Enter'){if(run.awaiting){ev.preventDefault();next();}else if(run.started&&run.decisionStage==='event'&&run.choice){ev.preventDefault();changeDecisionStage('strategy');}else if(run.decisionStage==='strategy'&&run.choice&&run.strategies.length===STRATEGY_COUNT){ev.preventDefault();commit();}}});
 window.AGIGame={calculate,getEnding,choiceCandidates,drawEventChoices,validChoiceOffers,peerWeight,peerActive,relationChanges,strategyAffinities,strategicAffinities,partners:PARTNERS,makeDeck,drawStrategies,eligibleStrategy,worldlines:WORLD,recruitChance,talentChance,talentCandidates,strategies:STRATEGIES,quarter,eventChanges,settleQuarter,strategyCost,goalStatus,agiRequirements:{...AGI},initial:{...INITIAL},getState:stateView};
 const ctx=document.modelContext;if(ctx?.registerTool){const lifecycle=new AbortController();for(const t of [
  {name:'read_agi_game',title:'读取季度经营状态',description:'读取当前季度、decisionStage（event事件或strategy策略）、切换状态、候选项及已选内容。',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true},execute:stateView},
@@ -645,6 +643,5 @@ addEventListener('pageshow',event=>{
  // Resume only the reveal; never commit or append the quarter a second time.
  if(run.awaiting&&!isRevealing())run.revealAt=null;
  render();if(isRevealing())scheduleReveal();
- if(!$('restartConfirm').hidden)$('game').inert=true;
 });
 })();

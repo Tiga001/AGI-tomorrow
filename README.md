@@ -1,7 +1,5 @@
 ![明天 AGI 游戏启动页面](docs/screenshots/start-screen.jpg)
 
-![DeepSeek 开放 AGI 结局：大肥鱼，游向全世界](docs/screenshots/deepseek-agi-ending.jpg)
-
 # 明天 AGI
 
 **距离 AGI 只剩最后一步。距离发工资也只剩最后一天。**
@@ -10,17 +8,28 @@
 
 每个季度，先处理一件行业事件，再选择三项公司策略。研发、现金、团队士气、公众评价和厂商关系，会把公司带向不同的未来。
 
-## 下载与打开
+## 运行游戏
 
-**普通玩家无需安装 Python、Node.js 或任何依赖。**
+### [⬇ 点击下载《明天 AGI》](https://github.com/Tiga001/AGI-tomorrow/releases/latest/download/AGI-tomorrow.html)
 
-1. 点击本页绿色 **Code → Download ZIP**，或[直接下载完整游戏](https://github.com/Tiga001/AGI-tomorrow/archive/refs/heads/main.zip)。
-2. 解压下载的 ZIP 文件。
-3. 用 Chrome、Edge、Firefox 或 Safari 打开 **`dist/index.html`**，点击“开始创业”。
+**无需安装，无需解压。下载后双击即可离线游玩。**
 
-`dist/index.html` 是完整的离线版，图片、音乐、音效和游戏代码都已内嵌。也可以在 GitHub 打开该文件后，点击 **Download raw file** 单独下载，再用浏览器打开。GitHub 的文件预览页不会直接运行游戏。
+1. 点击上方下载链接。
+2. 在电脑的“下载”文件夹找到 **`AGI-tomorrow.html`**，双击打开。
+3. 点击游戏里的“开始创业”。
 
-如果没有声音，点击右上角的声音开关；浏览器通常需要一次点击后才允许播放音频。
+如果没有自动用浏览器打开，右键点击文件 →“打开方式”→ 选择 Chrome、Edge、Firefox 或 Safari。没有声音时，点击游戏右上角的声音开关。
+
+## 结局截图
+
+<details>
+<summary>展开查看 DeepSeek 开放 AGI 结局（含剧透）</summary>
+
+**大肥鱼，游向全世界**
+
+![DeepSeek 开放 AGI 结局：大肥鱼，游向全世界](docs/screenshots/deepseek-agi-ending.jpg)
+
+</details>
 
 ## 免责声明
 

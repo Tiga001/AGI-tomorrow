@@ -1,5 +1,5 @@
 /* Growing Threat — TESTUDO & Decerno. Source: Millennium Dawn.
- * Original recording, unmodified. Upstream license: CC BY-SA 4.0.
+ * AAC copy for mobile compatibility; original Ogg retained. Upstream license: CC BY-SA 4.0.
  * Source and license details: assets/music/CREDITS.txt.
  */
 (() => {
@@ -8,14 +8,27 @@ const audio=document.getElementById('bgm'),button=document.getElementById('music
 const preference='agi-tomorrow-music-v1';
 const credits='Growing Threat — TESTUDO & Decerno · Millennium Dawn · CC BY-SA 4.0';
 let autoStart=true,pending=false,failed=false,operation=0,inIntro=false,soundOn=true,fadeFrame=0;
+let audioGraph,level=.25;
 try{soundOn=autoStart=localStorage.getItem(preference)!=='off';}catch{}
-audio.volume=.25;
+audio.volume=level;
 function remember(value){try{localStorage.setItem(preference,value);}catch{}}
+function setVolume(value){level=value;if(audioGraph)audioGraph.gain.gain.value=value;else audio.volume=value;}
+function unlockAudio(){
+ // iOS ignores media-element volume. Keep music and its intro fade on a real gain node.
+ const Audio=window.AudioContext||window.webkitAudioContext;
+ if(!Audio)return Promise.resolve();
+ if(!audioGraph){
+  const context=new Audio(),gain=context.createGain(),source=context.createMediaElementSource(audio);
+  gain.gain.value=level;source.connect(gain);gain.connect(context.destination);
+  audioGraph={context,gain,source};audio.volume=1;
+ }
+ return audioGraph.context.state==='running'?Promise.resolve():audioGraph.context.resume();
+}
 function volumeTo(target,duration=0){
  cancelAnimationFrame(fadeFrame);
- if(!duration){audio.volume=target;return;}
- const from=audio.volume,started=performance.now();
- function step(now){const fraction=Math.min(1,(now-started)/duration);audio.volume=from+(target-from)*fraction;if(fraction<1)fadeFrame=requestAnimationFrame(step);}
+ if(!duration){setVolume(target);return;}
+ const from=level,started=performance.now();
+ function step(now){const fraction=Math.min(1,(now-started)/duration);setVolume(from+(target-from)*fraction);if(fraction<1)fadeFrame=requestAnimationFrame(step);}
  fadeFrame=requestAnimationFrame(step);
 }
 function update(){
@@ -28,7 +41,11 @@ function update(){
 async function start(){
  if(!soundOn||pending||!audio.paused)return;
  const request=++operation;pending=true;failed=false;update();
- try{await audio.play();if(request!==operation)return;pending=false;update();}
+ try{
+  // Both calls happen before awaiting, inside the original click/keyboard gesture.
+  await Promise.all([unlockAudio(),audio.play()]);
+  if(request!==operation)return;pending=false;update();
+ }
  catch(error){if(request!==operation)return;pending=false;failed=error.name!=='AbortError';update();}
 }
 function stop(){operation++;pending=false;failed=false;autoStart=false;soundOn=false;cancelAnimationFrame(fadeFrame);audio.pause();remember('off');window.dispatchEvent(new Event('agi:mute'));update();}
@@ -42,7 +59,7 @@ function firstInteraction(event){
  if(event.type==='keydown'&&!['Enter',' ','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(event.key))return;
  autoStart=false;start();
 }
-document.addEventListener('pointerdown',firstInteraction);
+document.addEventListener('click',firstInteraction,true);
 document.addEventListener('keydown',firstInteraction);
 window.addEventListener('agi:intro-start',()=>{
  inIntro=true;autoStart=false;volumeTo(0);if(soundOn)start();update();

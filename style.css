@@ -387,3 +387,9 @@ main.quarter-switching[aria-busy="true"]{opacity:1;transition:none}
 @media(max-width:600px){.quarter-character{width:min(76vw,60svh);bottom:-10vw}.quarter-left{left:-18vw}.quarter-right{right:-18vw}.quarter-transition-label{align-self:start;margin-top:28svh;gap:16px}.quarter-transition-quarter{padding-left:16px}}
 @keyframes quarter-label-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.quarter-transition,.quarter-transition-label,.quarter-character,.result.quarter-result.quarter-leaving{animation:none;transition:none;transform:none}}
+
+/* The whole card is tappable; the smaller header controls need the same room. */
+@media(pointer:coarse){
+ .text-button,.restart-confirm button{min-height:44px;min-width:44px;font-size:14px}
+ button,label.choice,label.strategy-card{touch-action:manipulation}
+}

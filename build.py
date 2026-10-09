@@ -8,7 +8,7 @@ for name in ['story.js', 'strategies.js', 'partners.js', 'worldlines.js', 'world
     script = (root / name).read_text().replace('</script', '<\\/script')
     html = html.replace(f'<script src="{name}"></script>', '<script>\n' + script + '\n</script>')
 for asset in (root / 'assets').rglob('*'):
-    if asset.suffix in {'.png', '.svg', '.ico', '.ogg', '.wav'}:
+    if asset.suffix in {'.png', '.svg', '.ico', '.ogg', '.m4a', '.wav'}:
         mime = mimetypes.guess_type(asset.name)[0] or 'application/octet-stream'
         data = base64.b64encode(asset.read_bytes()).decode('ascii')
         html = html.replace('assets/' + asset.relative_to(root / 'assets').as_posix(), f'data:{mime};base64,{data}')

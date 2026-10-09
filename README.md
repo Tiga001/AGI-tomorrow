@@ -10,6 +10,12 @@
 
 ## 运行游戏
 
+### [▶ 手机、电脑直接玩](https://tiga001.github.io/AGI-tomorrow/)
+
+安卓和 iPhone 都可以打开链接游玩，无需下载或安装。可以把这个链接直接发到 QQ 群。
+
+进度保存在当前浏览器中，刷新可继续。QQ 内置浏览器与 Safari、Chrome 的进度各自独立；请尽量一直使用同一个浏览器。声音从第一次点击开始播放，也可以用右上角开关控制。
+
 ### [⬇ 点击下载《明天 AGI》](https://github.com/Tiga001/AGI-tomorrow/releases/latest/download/AGI-tomorrow.html)
 
 **无需安装，无需解压。下载后双击即可离线游玩。**
@@ -19,6 +25,12 @@
 3. 点击游戏里的“开始创业”。
 
 如果没有自动用浏览器打开，右键点击文件 →“打开方式”→ 选择 Chrome、Edge、Firefox 或 Safari。没有声音时，点击游戏右上角的声音开关。
+
+### 自己运行或部署
+
+运行 `python3 build_web.py` 生成 `web-dist/`，把该目录完整上传到静态网站托管服务。网页版本分开加载图片和音乐，入口约 3.5 KB；不依赖外部字体、CDN 或后端。
+
+GitHub Pages 使用 `codex/mobile-web` 分支的静态文件。更新游戏后，重新构建并同步 `web-dist/` 到发布分支。运行 `python3 build.py` 可另外生成 `dist/index.html` 离线单文件。
 
 ## 结局截图
 

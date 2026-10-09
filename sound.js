@@ -12,7 +12,7 @@ function enabled(){try{return localStorage.getItem('agi-tomorrow-music-v1')!=='o
 function stopEventSelection(){if(!eventSelection)return;eventSelection.pause();eventSelection.currentTime=0;}
 function playEventSelection(){
  if(!enabled()||muted||!eventSelection)return;
- // Dispatched only after game.js accepts the choice, still in its user gesture.
+ // Dispatched only after game.js?v=c44644f52cf8 accepts the choice, still in its user gesture.
  // Rewind the same element instead of layering duplicate confirmation impacts.
  try{stopEventSelection();eventSelection.play().catch(()=>{});}catch{}
 }

@@ -21,6 +21,18 @@
         "参考图/DeepSeek-Girl.png"
       ],
       "output": "claude-right.png"
+    },
+    {
+      "method": "built-in image_gen",
+      "date": "2026-10-09",
+      "prompt": "Use case: identity-preserve. Asset type: transparent anime character sprite for the Chinese indie game 明天 AGI, to appear alongside existing DeepSeek and Claude characters on a rich purple start screen. Image 1 is the exact identity and outfit reference for the GPT dragon woman; image 2 is only the companion illustration style and rendering polish reference, do not draw the orange-haired character. Redraw ONE adult GPT dragon woman as a beautiful clean cutout, from head to upper thighs, not a full-length illustration. Preserve the reference's silver-white very long hair with pale lavender shading, lavender eyes, pointed elf-like ears, two curved white segmented dragon horns, delicate white high-collar fantasy dress with silver diamond-shaped jewelry, separate white flowing sleeve pieces, small black-and-white interwoven OpenAI knot emblems on the hair ornament and clothing, white dragon wings and a hint of fluffy white-scaled dragon tail curving close behind her. Adult, nonsexual presentation, keep the costume elegant and fully covered at the chest. Frontal composition, head held upright, a soft knowing small smile and calm intelligent expression; eyes look subtly upward toward a title just above her, not down. One relaxed hand near the collar and the other gently lifted near waist height; natural anatomy and five fingers. Compact silhouette suitable for appearing from the bottom center of a webpage. Both horns, the head, shoulders and hands fully within frame with transparent margin, lower costume extends toward bottom. Match the precise flowing linework, refined anime cel shading and soft highlights of the companion sprite. Cool white and pale lavender remain dominant. No other people, no floating ghost, no scenery, no text, no caption, no frame, no ground, no glow, no cast shadow, no white rectangle and no checkerboard. Genuine transparent RGBA background with clean alpha edges. Portrait 1024x1536.",
+      "references": [
+        "用户提供的 GPT 龙娘参考图",
+        "assets/cover/claude-right.png（画风参考）"
+      ],
+      "transparent_background": true,
+      "output": "assets/cover/gpt.png",
+      "name": "gpt"
     }
   ]
 }

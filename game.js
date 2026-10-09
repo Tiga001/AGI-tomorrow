@@ -46,6 +46,9 @@ function makeDeck(){const used=new Set(),reserved=new Set(Object.values(DATA.fix
  for(let i=0;i<HISTORY_TURNS;i++){const q=quarter(i);let e=eventById(DATA.fixedEvents[i]);if(!e){let pool=DATA.catalog.filter(e=>e.year===q.year&&eligibleEvent(e,i)&&!used.has(e.memeId)&&!reserved.has(e.memeId));if(!pool.length)pool=DATA.catalog.filter(e=>eligibleEvent(e,i)&&!used.has(e.memeId)&&!reserved.has(e.memeId));e=randomItem(pool);}used.add(e.memeId);deck[i]=e.memeId;}return deck;}
 function makeRun(){return {started:false,picks:[],awaiting:false,eventIds:makeDeck(),offers:[],choiceOffers:[],choice:null,strategies:[],decisionStage:'event'};}
 let run=makeRun(),collected=[],revealTimer,introTransition=null,stageTransition=null,quarterTransition=null;
+const CHARACTER_PAIRS=[['deepseek','claude'],['gpt','claude'],['deepseek','gpt']];
+const CHARACTER_IMAGES={deepseek:'assets/cover/deepseek-left.png',claude:'assets/cover/claude-right.png',gpt:'assets/cover/gpt.png'};
+let characterPair=null;
 function isRevealing(){return run.awaiting&&Number.isFinite(run.revealAt)&&Date.now()<run.revealAt;}
 function goalStatus(s){return {research:s.stats.research>=AGI.research,trust:s.stats.trust>=AGI.trust,team:s.stats.team>=AGI.team,scientists:s.hired.length>=AGI.scientists,validated:s.validated};}
 function getEnding(stats,relations,turns,hired=[],validated=false,worldline=null){
@@ -305,7 +308,10 @@ function renderStats(s){
  }
  const i=s.index+(run.awaiting||s.ending?-1:0),q=quarter(Math.max(0,Math.min(i,TOTAL-1)));$('turnLabel').innerHTML=`<b>${q.year}</b><span>Q${q.quarter}</span>`;renderRelations(s);
 }
-function renderCharacterArt(prefix){return `<div class="${prefix}-art" aria-hidden="true"><img class="${prefix}-character ${prefix}-deepseek" src="assets/cover/deepseek-left.png" width="1024" height="1536" alt="" draggable="false"><img class="${prefix}-character ${prefix}-claude" src="assets/cover/claude-right.png" width="1024" height="1536" alt="" draggable="false"></div>`;}
+function renderCharacterArt(prefix){
+ if(!characterPair)characterPair=randomItem(CHARACTER_PAIRS);
+ return `<div class="${prefix}-art" aria-hidden="true">${characterPair.map((id,i)=>`<img class="${prefix}-character ${prefix}-${i?'right':'left'} ${prefix}-${id}" src="${CHARACTER_IMAGES[id]}" width="1024" height="1536" alt="" draggable="false">`).join('')}</div>`;
+}
 function renderIntro(){return renderCharacterArt('intro')+'<section class="start-screen" aria-labelledby="startTitle"><h1 id="startTitle">明天 AGI</h1><p><strong>2021年</strong>，你创建了一家人工智能公司，并向投资人承诺在<strong>2028年</strong>之前实现<strong>AGI</strong>。</p><button class="continue" id="startButton">开始创业<span aria-hidden="true"> →</span></button></section>';}
 function renderChoiceAffinities(choice,index){
  const peers=CORE_PEERS.filter(p=>peerActive(p,index)&&choice.affinities?.[p.id]).sort((a,b)=>Number(b.id===choice.brand)-Number(a.id===choice.brand));
@@ -497,7 +503,7 @@ function next(){
  return stateView();
 }
 function closeRestart(){$('restartConfirm').hidden=true;$('game').inert=false;}
-function restart(){if(isRevealing()||introTransition||stageTransition)return;finishQuarterTransition(true);closeRestart();run=makeRun();render();focusMain();}
+function restart(){if(isRevealing()||introTransition||stageTransition)return;finishQuarterTransition(true);closeRestart();run=makeRun();characterPair=null;render();focusMain();}
 $('game').addEventListener('change',ev=>{if(ev.target.name==='strategyChoice')selectStrategy(ev.target.value,ev.target.checked);});
 $('game').addEventListener('click',ev=>{const btn=ev.target.closest('button');if(!btn)return;if(stageTransition||quarterTransition||introTransition||isRevealing())return;if(btn.dataset.choice)selectChoice(btn.dataset.choice);else if(btn.id==='startButton')start();else if(btn.id==='commitButton')commit();else if(btn.id==='nextButton')next();else if(btn.id==='replayButton')restart();});
 $('restartButton').onclick=()=>{if(isRevealing()||introTransition||stageTransition||quarterTransition)return;if(!run.picks.length&&!run.choice&&!run.strategies.length||calculate(run.picks).ending&&!run.awaiting)return restart();$('restartConfirm').hidden=false;$('game').inert=true;$('cancelRestart').focus();};

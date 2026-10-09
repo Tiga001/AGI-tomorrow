@@ -46,7 +46,7 @@
 
 | 内容 | 来源与许可 |
 | --- | --- |
-| DeepSeek、Claude 同人角色图 | 参考上善无形与 ZipZipPipe 的角色设计，经 AI 辅助重新绘制；**CC BY-NC-SA 4.0**，含非商业限制。见[完整署名](assets/cover/CREDITS.txt)。 |
+| DeepSeek、Claude、GPT 同人角色图 | 参考上善无形与 ZipZipPipe 的角色设计，经 AI 辅助重新绘制；**CC BY-NC-SA 4.0**，含非商业限制。见[完整署名](assets/cover/CREDITS.txt)。 |
 | 背景音乐与事件结算声 | Millennium Dawn；**CC BY-SA 4.0**。见[音乐署名](assets/music/CREDITS.txt)、[音效署名](assets/sfx/CREDITS.txt)及各目录许可证。 |
 | 部分品牌图标 | Lobe Icons，**MIT**；标识相关权利仍归原权利人。见[许可证](assets/LOBE-ICONS-LICENSE.txt)与[图标来源](assets/sources.json)。 |
 | 事件选择确认音 | 为本游戏原创合成，并非《钢铁雄心 IV》的原版录音；详见[音效说明](assets/sfx/CREDITS.txt)。 |

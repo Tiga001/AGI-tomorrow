@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta name="agi-build" content="c1db79ea6145">
+<meta name="agi-build" content="497fe0b954e6">
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#f3f1eb">
 <meta name="description" content="一款关于研发 AGI 的极简文字游戏。做选择，管理资金，走向不同结局。">
 <title>明天 AGI</title>
 <link rel="icon" href="data:,">
-<link rel="stylesheet" href="style.css?v=c1db79ea6145">
+<link rel="stylesheet" href="style.css?v=497fe0b954e6">
 </head>
 <body>
 <div class="page">
-<header><span id="turnLabel">2021 · Q1</span><div class="header-actions"><div id="musicControl" class="music-control" data-sound="off" data-level="5"><button id="musicButton" class="text-button" aria-label="开启声音" aria-pressed="false">♫ 声音关</button><div id="musicVolumeWrap" class="music-volume" style="--volume-position:1" hidden><div class="music-volume-track" aria-hidden="true"><span class="music-volume-fill"></span><span class="music-volume-sparkles"></span></div><div class="music-volume-ticks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><input id="musicVolume" type="range" min="1" max="5" step="1" value="5" aria-label="背景音乐音量" aria-valuetext="第 5 档，共 5 档" title="背景音乐音量，最高档为原有音量"></div></div><button id="restartButton" class="text-button">重开</button></div></header>
+<header><span id="turnLabel">2021 · Q1</span><div class="header-actions"><div id="musicControl" class="music-control" data-sound="off"><button id="musicButton" class="text-button" aria-label="开启声音" aria-pressed="false">♫ 声音关</button><div id="musicVolumeWrap" class="music-volume" style="--volume-position:1"><div class="music-volume-track" aria-hidden="true"><span class="music-volume-fill"></span></div><input id="musicVolume" type="range" min="0" max="100" step="1" value="100" aria-label="背景音乐音量" aria-valuetext="100%" title="背景音乐音量，最左侧静音"></div></div><button id="restartButton" class="text-button">重开</button></div></header>
 <div id="saveRecoveryNotice" class="save-recovery-notice" role="status" hidden><span id="saveRecoveryText"></span><button id="dismissSaveRecovery" type="button" aria-label="关闭存档恢复提示">×</button></div>
 <div id="statusPanel" class="status-panel"><div id="stats" class="stats" aria-label="当前状态"></div><button id="scientists" class="scientists" type="button" aria-haspopup="dialog" aria-controls="scientistDialog">顶级科学家</button></div>
 <div class="play-layout"><aside id="relationsPanel" class="relations-panel" aria-label="友商态度" hidden><div class="relations-heading"><h2 title="好感越高，合作机会越多；联合发布需要60好感。仅显示有实际往来的厂商，好感回到0仍保留。">友商态度</h2><button id="relationsToggle" class="relations-toggle" type="button" aria-label="收起友商态度" aria-expanded="true" aria-controls="relationsContent" title="收起友商态度"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button></div><div id="relationsContent" class="relations-content"><div id="relationsList"></div></div></aside><main id="game" tabindex="-1"></main></div>
@@ -34,11 +34,11 @@ Downloaded: 2026-10-08
 SHA-256: cefacb4fd5478e5f7a7d9ab198ea186f031edb9afbc8907e319aefded7d1cedb
 User reference: https://www.bilibili.com/video/BV1r8411J71X/ (P1, Millennium Dawn Main Theme)
 -->
-<audio id="bgm" src="assets/music/millennium-dawn-main-theme.m4a?v=c1db79ea6145" loop preload="none"></audio>
+<audio id="bgm" src="assets/music/millennium-dawn-main-theme.m4a?v=497fe0b954e6" loop preload="none"></audio>
 <!-- Settlement SFX: Millennium Dawn event_popup_01.wav, CC BY-SA 4.0. See assets/sfx/CREDITS.txt. -->
-<audio id="settlementSound" src="assets/sfx/millennium-dawn-event-popup.wav?v=c1db79ea6145" preload="auto"></audio>
+<audio id="settlementSound" src="assets/sfx/millennium-dawn-event-popup.wav?v=497fe0b954e6" preload="auto"></audio>
 <!-- Original mechanical event-confirmation SFX; not a sampled HOI4 recording. -->
-<audio id="eventSelectionSound" src="assets/sfx/focus-select.wav?v=c1db79ea6145" preload="auto"></audio>
-<script src="story.js?v=c1db79ea6145"></script><script src="strategies.js?v=c1db79ea6145"></script><script src="partners.js?v=c1db79ea6145"></script><script src="worldlines.js?v=c1db79ea6145"></script><script src="worldline-engine.js?v=c1db79ea6145"></script><script src="game.js?v=c1db79ea6145"></script><script src="music.js?v=c1db79ea6145"></script><script src="sound.js?v=c1db79ea6145"></script>
+<audio id="eventSelectionSound" src="assets/sfx/focus-select.wav?v=497fe0b954e6" preload="auto"></audio>
+<script src="story.js?v=497fe0b954e6"></script><script src="strategies.js?v=497fe0b954e6"></script><script src="partners.js?v=497fe0b954e6"></script><script src="worldlines.js?v=497fe0b954e6"></script><script src="worldline-engine.js?v=497fe0b954e6"></script><script src="game.js?v=497fe0b954e6"></script><script src="music.js?v=497fe0b954e6"></script><script src="sound.js?v=497fe0b954e6"></script>
 </body>
 </html>

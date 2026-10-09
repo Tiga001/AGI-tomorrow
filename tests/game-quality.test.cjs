@@ -13,7 +13,7 @@ function gameContext(seed=42){
  vm.createContext(context);
  for(const file of ['story.js','strategies.js','partners.js','worldlines.js','worldline-engine.js'])vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),context,{filename:file});
  let source=fs.readFileSync(path.join(root,'game.js'),'utf8');
- source=source.replace('window.AGIGame={','window.__quality={failureReason,goalItems,syncMusicScene,renderDecision,renderEnding,ensureOffers,currentChoices,updatePreview,setRun:value=>run=value,getRun:()=>run};window.AGIGame={');
+ source=source.replace('window.AGIGame={','window.__quality={failureReason,renderIntro,selectDifficulty,goalItems,syncMusicScene,renderDecision,renderEnding,ensureOffers,currentChoices,updatePreview,setRun:value=>run=value,getRun:()=>run};window.AGIGame={');
  source=source.replace('render();if(isRevealing())scheduleReveal();addEventListener', 'if(isRevealing())scheduleReveal();addEventListener');
  vm.runInContext(source,context,{filename:'game.js'});return context;
 }

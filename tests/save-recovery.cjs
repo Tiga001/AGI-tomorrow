@@ -5,7 +5,7 @@ function fixture(raw=null,{failBackup=false,previousBackup=null}={}){
  let now=100000,serial=0,randomSeed=19;
  const timers=new Map(),handlers=new Map(),nodes=new Map(),store=new Map(),writes=[];
  if(raw!==null)store.set(SAVE,raw);if(previousBackup!==null)store.set(BACKUP,previousBackup);
- const node=id=>{if(!nodes.has(id))nodes.set(id,{hidden:true,dataset:{},children:[],classList:{toggle(){},add(){},remove(){}},setAttribute(){},addEventListener(type,fn){this['on'+type]=fn;},querySelectorAll(){return[];}});return nodes.get(id);};
+ const node=id=>{if(!nodes.has(id))nodes.set(id,{hidden:true,dataset:{},children:[],classList:{toggle(){},add(){},remove(){}},setAttribute(){},addEventListener(type,fn){this['on'+type]=fn;},querySelector(selector){return node(selector);},querySelectorAll(){return[];},style:{setProperty(key,value){this[key]=value;}}});return nodes.get(id);};
  const later=(fn,delay)=>{const id=++serial;timers.set(id,{fn,at:now+delay});return id;};
  const emit=type=>{for(const fn of handlers.get(type)||[])fn({type,persisted:true});};
  const advance=ms=>{now+=ms;for(let pass=0;pass<10;pass++){const due=[...timers].filter(([,t])=>t.at<=now);if(!due.length)return;for(const [id,t]of due){timers.delete(id);t.fn();}}throw Error('timer runaway');};
@@ -19,7 +19,7 @@ function fixture(raw=null,{failBackup=false,previousBackup=null}={}){
  // painting. This keeps the test independent of number-wheel markup.
  const initial='render();if(isRevealing())scheduleReveal();addEventListener';
  assert(source.includes(initial));
- source=source.replace(initial,`render=()=>{renderCount++;const s=calculate(run.picks);ensureOffers(s);$('game').inert=isRevealing();$('restartButton').disabled=isRevealing();$('game').phase=isRevealing()?'settling':run.awaiting?'result':'decision';save();};focusMain=()=>{};render();if(isRevealing())scheduleReveal();addEventListener`);
+ source=source.replace(initial,`render=()=>{renderCount++;const s=calculate(run.picks,run.difficulty);ensureOffers(s);$('game').inert=isRevealing();$('restartButton').disabled=isRevealing();$('game').phase=isRevealing()?'settling':run.awaiting?'result':'decision';save();};focusMain=()=>{};render();if(isRevealing())scheduleReveal();addEventListener`);
  vm.runInContext(source,context,{filename:'game.js'});
  return {c:context,g:context.AGIGame,q:context.__saveTest,store,writes,timers,node,emit,advance};
 }
@@ -49,4 +49,32 @@ const occupied=fixture(incompatible,{previousBackup:'older-backup'});assert.equa
 const revealing=fixture(saved(picks.slice(0,1),{awaiting:true,revealAt:101600}));assert.equal(revealing.node('game').inert,true);revealing.node('restartButton').onclick();assert.equal(revealing.q.getRun().picks.length,1,'restart remains blocked during settlement');revealing.emit('pagehide');assert.equal(revealing.timers.size,0);revealing.advance(2500);revealing.emit('pageshow');assert.equal(revealing.node('game').phase,'result');assert.equal(revealing.node('game').inert,false);assert.equal(revealing.node('restartButton').disabled,false);assert.equal(revealing.q.getRun().picks.length,1);assert.equal(revealing.q.getRun().revealAt,null);revealing.emit('pageshow');assert.equal(revealing.q.getRun().picks.length,1,'repeated restore must not append picks');
 // Returning before the reveal deadline schedules just the remaining interval.
 const early=fixture(saved(picks.slice(0,1),{awaiting:true,revealAt:101600}));early.emit('pagehide');early.advance(300);early.emit('pageshow');assert.equal(early.node('game').phase,'settling');assert.equal(early.timers.size,1);early.advance(1299);assert.equal(early.node('game').inert,true);early.advance(1);assert.equal(early.node('game').phase,'result');assert.equal(early.q.getRun().picks.length,1);assert.equal(early.timers.size,0);
-console.log('PASS save-recovery: valid saves, prefix recovery, exact one-time backup, dismiss, backup failure protection, explicit restart, BFCache expired/remaining reveal and no duplicate picks.');
+// Old saves keep standard economics; chosen rules survive reload, recovery and restart.
+assert.equal(valid.q.getRun().difficulty,3);
+for(const difficulty of [1,2,3,4,5]){
+ const selected=fixture(saved(picks,{difficulty})),state=selected.g.getState();
+ assert.equal(selected.q.getRun().difficulty,difficulty);
+ assert.equal(state.difficulty.level,difficulty);
+ assert.equal(state.stats.cash,selected.g.calculate(picks,difficulty).stats.cash);
+ const repaired=fixture(saved(invalidPicks,{difficulty}));
+ assert.equal(repaired.q.getRun().difficulty,difficulty,'recovery retains the original rules');
+ assert.equal(repaired.g.getState().stats.cash,repaired.g.calculate(picks.slice(0,1),difficulty).stats.cash);
+ selected.node('restartButton').onclick();
+ assert.equal(selected.q.getRun().difficulty,difficulty,'direct restart retains the selected difficulty');
+ assert.equal(selected.g.getState().stats.cash,selected.g.difficulties[difficulty-1].cash);
+ assert.equal(fixture(selected.store.get(SAVE)).q.getRun().difficulty,difficulty);
+}
+for(const invalid of [null,0,6,'invalid',2.5])assert.equal(fixture(saved(picks,{difficulty:invalid})).q.getRun().difficulty,3);
+const opening=fixture(saved([],{started:false})),paintCount=opening.c.renderCount;
+opening.node('game').oninput({target:{id:'difficultySlider',value:'5'}});
+assert.equal(opening.q.getRun().difficulty,5);
+assert.equal(opening.node('.start-screen').dataset.difficulty,'5');
+assert.equal(opening.node('difficultySliderWrap').style['--difficulty-position'],'1');
+assert.equal(opening.node('difficultyName').textContent,'极限');
+assert.equal(opening.c.renderCount,paintCount,'dragging updates controls in place without replacing the slider');
+assert.equal(JSON.parse(opening.store.get(SAVE)).run.difficulty,5);
+assert.equal(fixture(opening.store.get(SAVE)).g.getState().stats.cash,500);
+opening.q.getRun().started=true;
+opening.node('game').oninput({target:{id:'difficultySlider',value:'1'}});
+assert.equal(opening.q.getRun().difficulty,5,'an ongoing run cannot change difficulty');
+console.log('PASS save-recovery: valid saves, prefix recovery, exact one-time backup, dismiss, backup failure protection, explicit restart, five persisted difficulties, locked rules, BFCache expired/remaining reveal and no duplicate picks.');

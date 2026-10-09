@@ -1,0 +1,1443 @@
+{
+  "scope": "2021—2026事件回应归属与出场平衡；历史背景保留，新增合作、项目、对话与关系数值均为游戏虚构。",
+  "replacedGuestChoices": 53,
+  "addedChoices": 9,
+  "coreCompanyCount": 10,
+  "sampling": "每轮2个非硬件公司优先，第三席从其余核心公司抽取；华为与英伟达至多1家。按真实候选机会与累计曝光调整权重，近两季重复降权，好感只轻微加权。",
+  "historicalIdentitySources": [
+    {
+      "url": "https://deepmind.google/research/alphago/",
+      "supports": "DeepMind在2021年之前已有AlphaGo研究，早期Google关系可参与围棋等研究回应。"
+    },
+    {
+      "url": "https://www.anthropic.com/news/anthropic-raises-124-million-to-build-more-reliable-general-ai-systems",
+      "supports": "2021年5月Anthropic宣布可靠性、可解释性与人类反馈研究方向；初期只写研究交流。"
+    },
+    {
+      "url": "https://blog.google/technology/ai/google-gemini-ai/",
+      "supports": "Gemini于2023年12月发布；2023Q4以前使用Google / DeepMind身份和Google图标。"
+    }
+  ],
+  "choices": [
+    {
+      "eventId": "anthropic_codex_2021",
+      "originalOfferId": "anthropic_codex_2021-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "跟着 DeepMind 复现蛋白质结构",
+      "result": "你们照着 DeepMind 的公开代码和资料，选一条有实验结果的序列复现。生物顾问逐段检查哪里可信、哪里存疑。团队第一次围着一张结构图讨论了整下午，财务只问：这次实验的发票齐了吗？",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2021,
+      "fromQuarter": 3,
+      "quarterDelta": {
+        "cash": -24,
+        "research": 5,
+        "team": -2,
+        "trust": 3,
+        "risk": -1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。沿用 Google/DeepMind 同一关系ID；2023Q4之前不称Gemini。"
+    },
+    {
+      "eventId": "codex_copilot_2021",
+      "originalOfferId": "codex_copilot_2021-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "claude",
+      "label": "与 Anthropic 团队一起查模型胡说",
+      "result": "你们把编造的客户、抄反的账目和不存在的合同，整理成一套评审题，与 Anthropic 方向的研究同行交流。模型说得越自信，评审越要求它拿出依据；商业计划薄了几页，财务终于愿意翻到最后。",
+      "mode": "cooperate",
+      "affinities": {
+        "claude": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2021,
+      "fromQuarter": 3,
+      "quarterDelta": {
+        "cash": -20,
+        "research": 4,
+        "team": -2,
+        "trust": 4,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "liang_gpu_piano",
+      "originalOfferId": "liang_gpu_piano-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "沿 Google 的研究先练一个小模型",
+      "result": "你们参考 Google 的公开研究，在现有机器上做一个范围有限的文本任务，先把训练和评测跑完整。第一份结果比新机柜更早交付；采购把钢琴房的预算表收好，注明：等有人会弹再扩建。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2021,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": 12,
+        "research": 3,
+        "team": -1,
+        "trust": 2,
+        "risk": -1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。沿用 Google/DeepMind 同一关系ID；2023Q4之前不称Gemini。"
+    },
+    {
+      "eventId": "chatgpt_launch_2022",
+      "originalOfferId": "chatgpt_launch_2022-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "用 Google 的研究做带出处的问答",
+      "result": "你们参考 Google 的公开语言研究，把产品手册接进自建问答工具。回答必须附上对应段落，找不到就转人工。万能聊天的口号没用上，老客户却愿意为少翻几本说明书续费。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2022,
+      "fromQuarter": 4,
+      "quarterDelta": {
+        "cash": 18,
+        "research": 3,
+        "team": -1,
+        "trust": 3,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。沿用 Google/DeepMind 同一关系ID；2023Q4之前不称Gemini。"
+    },
+    {
+      "eventId": "chatgpt_prompt_2022",
+      "originalOfferId": "chatgpt_prompt_2022-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "参考 Google 方法，拆解专家的推理",
+      "result": "你们把复杂问题拆成几步，参考 Google 公开的推理研究逐项核验。换了十种专家头衔，答错的算术题仍然答错；客户看到检查记录，比看到十位虚构专家更放心。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2022,
+      "fromQuarter": 4,
+      "quarterDelta": {
+        "cash": 17,
+        "research": 3,
+        "team": -1,
+        "trust": 4,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。沿用 Google/DeepMind 同一关系ID；2023Q4之前不称Gemini。"
+    },
+    {
+      "eventId": "ernie_recorded_launch",
+      "originalOfferId": "ernie_recorded_launch-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "kimi",
+      "label": "邀月之暗面团队做一场现场测试",
+      "result": "你们与刚起步的月之暗面团队交流，拿真实客户资料设计一场不剪辑的测试。模型、流程和失败案例都留在台上。现场少了一些掌声，却多了几位愿意留下难题的客户；这回先约测试，再谈海报。",
+      "mode": "cooperate",
+      "affinities": {
+        "kimi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2023,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": -14,
+        "research": 3,
+        "team": -1,
+        "trust": 3,
+        "risk": 1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "claude-yellowstone-break",
+      "originalOfferId": "claude-yellowstone-break-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "xai",
+      "label": "让 Grok 先读完需求，再放行程假",
+      "result": "你们用 Grok 把客户需求拆成检查清单，演示前逐项对照实际结果。去黄石的行程终于没混进交付文档；工具能帮忙找漏项，最后签字的人仍得坐在办公室。",
+      "mode": "cooperate",
+      "affinities": {
+        "xai": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2024,
+      "fromQuarter": 4,
+      "quarterDelta": {
+        "cash": 20,
+        "research": 2,
+        "team": -1,
+        "trust": 2,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "autoglm_phone_food_delivery",
+      "originalOfferId": "autoglm_phone_food_delivery-doubao",
+      "originalBrand": "doubao",
+      "brand": "gemini",
+      "label": "让 Gemini 看清菜单，再生成订单",
+      "result": "你们给 Gemini 看菜单截图，把菜名、数量和备注整理成订单草稿，交给人确认后再下单。第一顿午饭准时到了；第二天菜单换了版，大家又多饿了十分钟。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2024,
+      "fromQuarter": 4,
+      "quarterDelta": {
+        "cash": 16,
+        "research": 3,
+        "team": -2,
+        "trust": 2,
+        "risk": 1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "funding_compute_2024",
+      "originalOfferId": "funding_compute_2024-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "kimi",
+      "label": "用 Kimi 先卖一份能查的资料库",
+      "result": "你们用 Kimi 整理客户的长文档，给每条回答附上原文位置，先接下小规模资料问答项目。预付款缓解了机房账单，销售也学会了一句话：知识库先能查，宏大愿景下次讲。",
+      "mode": "cooperate",
+      "affinities": {
+        "kimi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2024,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": 26,
+        "research": 2,
+        "team": -1,
+        "trust": 3,
+        "risk": -1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "autoglm_wechat_red_packet",
+      "originalOfferId": "autoglm_wechat_red_packet-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "kimi",
+      "label": "让 Kimi 先对账，再讨论发红包",
+      "result": "你们让 Kimi 读取授权导出的账目，把金额、对象和异常订单列成清单，付款仍由人确认。第一笔对账服务费到账时，财务决定请客；预算是人定的，红包也是人发的。",
+      "mode": "cooperate",
+      "affinities": {
+        "kimi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2024,
+      "fromQuarter": 4,
+      "quarterDelta": {
+        "cash": 26,
+        "research": 2,
+        "team": -2,
+        "trust": 2,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "autoglm_wechat_red_packet",
+      "originalOfferId": "autoglm_wechat_red_packet-doubao",
+      "originalBrand": "doubao",
+      "brand": "gemini",
+      "label": "让 Gemini 复核转账截图",
+      "result": "你们用 Gemini 检查获准使用的付款截图，逐项比对收款人、金额和取消提示，再交人工确认。演示终于不用真金白银地试错；截图模糊时，系统学会了先说看不清。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2024,
+      "fromQuarter": 4,
+      "quarterDelta": {
+        "cash": 20,
+        "research": 3,
+        "team": -1,
+        "trust": 2,
+        "risk": -1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "xai_colossus_122_days",
+      "originalOfferId": "xai_colossus_122_days-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "kimi",
+      "label": "用 Kimi 接长文档订单养实验室",
+      "result": "你们用 Kimi 承接客户资料整理，把每笔收入拆成可验收的小订单。训练计划暂时缩小，工资却不用等下一轮融资。看着十万张卡的新闻，工程师说：先让我们这几张今晚有电。",
+      "mode": "cooperate",
+      "affinities": {
+        "kimi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2024,
+      "fromQuarter": 3,
+      "quarterDelta": {
+        "cash": 32,
+        "research": 2,
+        "team": -2,
+        "trust": 2,
+        "risk": 0
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "deepseek_accidental_price_war",
+      "originalOfferId": "deepseek_accidental_price_war-doubao",
+      "originalBrand": "doubao",
+      "brand": "xai",
+      "label": "把 Grok 拉进短问答成本测试",
+      "result": "你们给 Grok 和现有服务出同一套短问答题，实测延迟、出错率和总账单，再接入适合的订单。报价终于有了自己的依据；便宜能写在广告里，返工还得算进工资里。",
+      "mode": "cooperate",
+      "affinities": {
+        "xai": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2024,
+      "fromQuarter": 3,
+      "quarterDelta": {
+        "cash": 30,
+        "research": 2,
+        "team": -2,
+        "trust": 0,
+        "risk": 3
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "musk_openai_bid_twitter_counterjoke",
+      "originalOfferId": "musk_openai_bid_twitter_counterjoke-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "kimi",
+      "label": "与 Kimi 做一份可迁移的客户档案",
+      "result": "你们把客户资料整理成通用格式，用 Kimi 验证检索和迁移流程。客户拿到可带走的数据，愿意先付一笔服务费。收购新闻还在涨零，你们先在工资表上填对小数点。",
+      "mode": "cooperate",
+      "affinities": {
+        "kimi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": 22,
+        "research": 3,
+        "team": -3,
+        "trust": 3,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "musk_openai_bid_twitter_counterjoke",
+      "originalOfferId": "musk_openai_bid_twitter_counterjoke-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "用 Gemini 把项目拆成验收清单",
+      "result": "你们让 Gemini 辅助梳理合同材料，再由项目经理划出能逐项验收的范围。每一笔款都有对应成果，估值笑话退回茶水间。财务说，这份合同最动人的地方是付款日期。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": 28,
+        "research": 2,
+        "team": -2,
+        "trust": 3,
+        "risk": -1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "leijun_are_you_ok_1999",
+      "originalOfferId": "leijun_are_you_ok_1999-doubao",
+      "originalBrand": "doubao",
+      "brand": "xai",
+      "label": "用 Grok 测清每份套餐能聊多久",
+      "result": "你们拿 Grok 实测短问答的调用量，把峰值、失败重试和人工客服一并算进套餐。第一批订阅到账，财务终于能回答还好到底值多少钱；销售偷偷删掉了无限量三个字。",
+      "mode": "cooperate",
+      "affinities": {
+        "xai": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": 30,
+        "research": 3,
+        "team": -2,
+        "trust": 2,
+        "risk": 2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "gemini_demo_prompting",
+      "originalOfferId": "gemini_demo_prompting-doubao",
+      "originalBrand": "doubao",
+      "brand": "xai",
+      "label": "让 Grok 接受现场临时出题",
+      "result": "你们接入 Grok 做文字问答，允许观众临时改题，把答错和等待的时间一起留在演示里。没有剪辑救场，现场反而问得更认真；客户签下试点，附带一页难题。",
+      "mode": "cooperate",
+      "affinities": {
+        "xai": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": 12,
+        "research": 3,
+        "team": -2,
+        "trust": 3,
+        "risk": 2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "gpt4o_sycophancy_2025",
+      "originalOfferId": "gpt4o_sycophancy_2025-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "xiaomi",
+      "label": "给 MiMo 做老板与实习生换名测试",
+      "result": "你们固定 MiMo 的模型版本，把同一建议分别署名老板、实习生和匿名用户，检查回答有没有变。第一轮报告摆上桌后，老板决定先去倒水；团队则开始补充更多能复测的反例。",
+      "mode": "cooperate",
+      "affinities": {
+        "xiaomi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": -20,
+        "research": 4,
+        "team": -2,
+        "trust": 3,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "gpt4o_sycophancy_2025",
+      "originalOfferId": "gpt4o_sycophancy_2025-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "让 Gemini 先查证据，再夸老板",
+      "result": "你们把公司制度和真实经营数据交给 Gemini，要求每条建议指出依据，再由人复核。漂亮话少了一些，能落地的修改多了一些；资料过期时，它仍然会一本正经地夸错方向。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": 12,
+        "research": 3,
+        "team": -1,
+        "trust": 3,
+        "risk": -1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "claude-vend-blue-blazer",
+      "originalOfferId": "claude-vend-blue-blazer-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "xiaomi",
+      "label": "用 MiMo 核对订单有没有人送",
+      "result": "你们用 MiMo 整理订单和履约记录，没有承运人的单子一律交给真人处理。客服不再承诺亲自步行送货，旧系统缺的字段却全露了出来；蓝西装没买成，数据库先补了几列。",
+      "mode": "cooperate",
+      "affinities": {
+        "xiaomi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": 18,
+        "research": 2,
+        "team": -2,
+        "trust": 3,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "claude-vend-ceo-transcendence",
+      "originalOfferId": "claude-vend-ceo-transcendence-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "xiaomi",
+      "label": "让 MiMo 查库存，暂停宇宙董事会",
+      "result": "你们用 MiMo 辅助读取库存和销售记录，把缺货项列成待办，再交店员确认。小卖部的试点费按时到账，宏大战略只剩一行：周五前补可乐。那块宇宙董事会的牌子，被翻面写了进货单。",
+      "mode": "cooperate",
+      "affinities": {
+        "xiaomi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 4,
+      "quarterDelta": {
+        "cash": 26,
+        "research": 2,
+        "team": -1,
+        "trust": 3,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "grok-creators-preferences",
+      "originalOfferId": "grok-creators-preferences-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "xiaomi",
+      "label": "拿 MiMo 复测换个老板会怎样",
+      "result": "你们固定 MiMo 版本，把同一段意见换上不同姓名，记录答案如何变化。测试没有替任何老板争到冠军，却让团队抓到了几类偏差。以后谁想改评分，得先解释为什么只改自己的那一项。",
+      "mode": "cooperate",
+      "affinities": {
+        "xiaomi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 4,
+      "quarterDelta": {
+        "cash": -24,
+        "research": 4,
+        "team": -2,
+        "trust": 3,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "baidu_luo_digital_livestream",
+      "originalOfferId": "baidu_luo_digital_livestream-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "xiaomi",
+      "label": "用 MiMo 审核数字人的商品承诺",
+      "result": "你们用 MiMo 整理商品说明和优惠条件，人工通过后才交给数字人播报。第一份直播服务合同签了，夸张话术少了几句；真人终于能休息，值班审核仍得看着优惠什么时候到期。",
+      "mode": "cooperate",
+      "affinities": {
+        "xiaomi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": 26,
+        "research": 3,
+        "team": -2,
+        "trust": 3,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "baidu_luo_digital_livestream",
+      "originalOfferId": "baidu_luo_digital_livestream-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "gemini",
+      "label": "让 Gemini 对照画面检查商品讲解",
+      "result": "你们用 Gemini 辅助比对商品画面、说明和讲解稿，找出说的与展示的不一致的地方。素材多过了一道检查，直播临场问题仍交给真人。第一条返工意见很朴素：镜头里那台不是这个型号。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": 22,
+        "research": 3,
+        "team": -2,
+        "trust": 3,
+        "risk": -1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "baidu_luo_digital_livestream",
+      "originalOfferId": "baidu_luo_digital_livestream-doubao",
+      "originalBrand": "doubao",
+      "brand": "xai",
+      "label": "用 Grok 接住直播后的追问",
+      "result": "你们让 Grok 根据批准过的商品资料整理答复，涉及退换货争议就转给客服。直播结束后还有服务收入，重复问题也少了一些；数字人下播了，售后群并不会自动安静。",
+      "mode": "cooperate",
+      "affinities": {
+        "xai": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": 20,
+        "research": 3,
+        "team": -2,
+        "trust": 2,
+        "risk": 1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "claude-vend-tungsten",
+      "originalOfferId": "claude-vend-tungsten-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "xiaomi",
+      "label": "让 MiMo 查一遍钨块到底赚不赚钱",
+      "result": "你们用 MiMo 辅助核对采购价、库存和售价，把低于毛利底线的建议交给财务。小卖部试点愿意付服务费，前提是价格表有人更新。钨块终于从重点投资项目，变回了桌上的样品。",
+      "mode": "cooperate",
+      "affinities": {
+        "xiaomi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": 22,
+        "research": 3,
+        "team": -1,
+        "trust": 3,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "grok-musk-holistic-fitness",
+      "originalOfferId": "grok-musk-holistic-fitness-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "用 Gemini 给运动评分补齐证据",
+      "result": "你们用 Gemini 整理比赛记录和训练资料，每个评分都必须能追到依据。老板的名字和其他人一样被遮住，评审终于开始讨论真实数据；缺资料的格子留白，没有人再替它补一句天赋异禀。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 4,
+      "quarterDelta": {
+        "cash": -20,
+        "research": 3,
+        "team": -1,
+        "trust": 4,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "huawei_cann_open_source",
+      "originalOfferId": "huawei_cann_open_source-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "kimi",
+      "label": "和 Kimi 一起检查模型迁移结果",
+      "result": "你们围绕 Kimi 的开放模型整理迁移测试，在新环境里逐项比较输出、精度和运行日志。维护工作增加了，验收也更有底气；屏幕上出现第一句话之后，工程师终于拿出真正的测试表。",
+      "mode": "cooperate",
+      "affinities": {
+        "kimi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 3,
+      "quarterDelta": {
+        "cash": -26,
+        "research": 5,
+        "team": -2,
+        "trust": 3,
+        "risk": 0
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "worldlabs_marble_world_model",
+      "originalOfferId": "worldlabs_marble_world_model-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "xiaomi",
+      "label": "用 MiMo 给场景工具写检查脚本",
+      "result": "你们用 MiMo 辅助编写脚本，检查场景素材的命名、缺失引用和加载报错，再交美术检查实际画面。第一份整理服务赚到了钱；虚拟豪宅还需要人工装修，至少门把手不再丢在另一个文件夹里。",
+      "mode": "cooperate",
+      "affinities": {
+        "xiaomi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2025,
+      "fromQuarter": 4,
+      "quarterDelta": {
+        "cash": 18,
+        "research": 4,
+        "team": -2,
+        "trust": 2,
+        "risk": 1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "deepseek_harness_everything_plugin",
+      "originalOfferId": "deepseek_harness_everything_plugin-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "xiaomi",
+      "label": "用 MiMo 接管能验收的工单",
+      "result": "你们用 MiMo 处理授权范围内的工单分类与草稿，把收费点放在按时完成的任务上。预付款缓解了现金压力，复杂例外仍需工程师处理；插件列表短了，客户的验收单却终于打了勾。",
+      "mode": "cooperate",
+      "affinities": {
+        "xiaomi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 3,
+      "quarterDelta": {
+        "cash": 30,
+        "research": 3,
+        "team": -3,
+        "trust": 1,
+        "risk": 3
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "doubao_gala_red_packets",
+      "originalOfferId": "doubao_gala_red_packets-doubao",
+      "originalBrand": "doubao",
+      "brand": "xai",
+      "label": "让 Grok 帮值班组读懂拥堵日志",
+      "result": "你们用 Grok 归纳脱敏后的告警与日志，给运维列出需要优先检查的地方，再由人调整队列。活动服务费到账，系统没因为口播就获得无穷算力；值班同事终于能轮流吃口热饺子。",
+      "mode": "cooperate",
+      "affinities": {
+        "xai": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": 27,
+        "research": 3,
+        "team": -2,
+        "trust": 1,
+        "risk": 3
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "doubao_gala_red_packets",
+      "originalOfferId": "doubao_gala_red_packets-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "让 Gemini 帮客服核对领奖材料",
+      "result": "你们用 Gemini 辅助读取获准使用的凭证截图，将重复记录和缺件交给人工复核。核对工具投入了预算，也少了几轮反复追问；春晚散场以后，客服终于看清谁在等哪份礼品。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": -19,
+        "research": 3,
+        "team": 2,
+        "trust": 3,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "qwen_milk_tea_frenzy",
+      "originalOfferId": "qwen_milk_tea_frenzy-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "xiaomi",
+      "label": "让 MiMo 整理奶茶售后工单",
+      "result": "你们用 MiMo 核对商家授权的订单与退款记录，把异常情况交给真人。售后服务费到账，晚班仍要有人听用户解释。模型整理完了第三百杯奶茶，客服给自己点了一杯不加班。",
+      "mode": "cooperate",
+      "affinities": {
+        "xiaomi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": 29,
+        "research": 3,
+        "team": -3,
+        "trust": 1,
+        "risk": 2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "qwen_milk_tea_frenzy",
+      "originalOfferId": "qwen_milk_tea_frenzy-doubao",
+      "originalBrand": "doubao",
+      "brand": "xai",
+      "label": "用 Grok 做只收预约的取餐助手",
+      "result": "你们用 Grok 整理预订信息，只接受商家确认过的取餐时段，最后由用户确认。预付款先到账，爆单时也不许偷偷改成马上送达。顾客少等了一会儿，店员终于有空把封口贴正。",
+      "mode": "cooperate",
+      "affinities": {
+        "xai": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": 23,
+        "research": 2,
+        "team": -1,
+        "trust": 2,
+        "risk": 2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "tencent_yao_react_hunyuan",
+      "originalOfferId": "tencent_yao_react_hunyuan-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "kimi",
+      "label": "让 Kimi 看到回执才说完成",
+      "result": "你们用 Kimi 调用受限的查询工具，执行后必须读取系统回执，再把结果交给用户。试点客户愿意付钱，复杂流程仍要逐个接入；前端同事终于不用替后端还没做完的事画绿色对勾。",
+      "mode": "cooperate",
+      "affinities": {
+        "kimi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": 21,
+        "research": 5,
+        "team": -2,
+        "trust": 2,
+        "risk": 1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "openai-dots-cloud-colleague",
+      "originalOfferId": "openai-dots-cloud-colleague-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "用 Gemini 先找齐发票和订单",
+      "result": "你们用 Gemini 整理获准读取的票据图片与订单记录，把无法对应的项目交给财务。预算花在了旧资料上，自动报销还没实现；但那张找了半个月的发票，终于从截图堆里露了面。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 3,
+      "quarterDelta": {
+        "cash": -18,
+        "research": 3,
+        "team": 2,
+        "trust": 4,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "openai-dots-cloud-colleague",
+      "originalOfferId": "openai-dots-cloud-colleague-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "xiaomi",
+      "label": "让 MiMo 整理催款前缺的附件",
+      "result": "你们用 MiMo 辅助匹配授权目录里的订单与交付材料，附件齐全后才生成催款草稿。财务少翻了几层文件夹，原件仍由人确认；新同事先没学会催人，倒学会了不把空白附件寄出去。",
+      "mode": "cooperate",
+      "affinities": {
+        "xiaomi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 3,
+      "quarterDelta": {
+        "cash": 18,
+        "research": 3,
+        "team": 1,
+        "trust": 2,
+        "risk": 1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "dot-domain-grok-detour",
+      "originalOfferId": "dot-domain-grok-detour-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "xiaomi",
+      "label": "拿 MiMo 整理好的交付文件救场",
+      "result": "你们改用 MiMo 辅助整理的本地成果包演示，再由人解释线上入口。域名笑话终于告一段落，客户看到了可检查的文件；会后第一件事，是把演示链接完整读一遍。",
+      "mode": "cooperate",
+      "affinities": {
+        "xiaomi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 4,
+      "quarterDelta": {
+        "cash": 15,
+        "research": 2,
+        "team": 1,
+        "trust": 2,
+        "risk": 1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "trae_solo_more_than_coding",
+      "originalOfferId": "trae_solo_more_than_coding-doubao",
+      "originalBrand": "doubao",
+      "brand": "xai",
+      "label": "让 Grok 先做一份范围固定的周报",
+      "result": "你们用 Grok 汇总各部门批准使用的材料，交付一份约定范围的周报。服务费到账，缺数据仍要找人补，临时加需求也得重新报价。一个模型可以同时读几个部门，项目经理不能同时答应所有部门。",
+      "mode": "cooperate",
+      "affinities": {
+        "xai": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": 28,
+        "research": 4,
+        "team": -3,
+        "trust": 1,
+        "risk": 3
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "trae_solo_more_than_coding",
+      "originalOfferId": "trae_solo_more_than_coding-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "用 Gemini 先把扫描附件读清楚",
+      "result": "你们用 Gemini 辅助整理各部门的扫描表与图片，关键数字再由人工对照原件。准备工作多花一轮预算，报告里少了几个离谱的零；演示终于不用把错误那页翻得特别快。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": -22,
+        "research": 3,
+        "team": 1,
+        "trust": 3,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "workbuddy_local_files",
+      "originalOfferId": "workbuddy_local_files-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "xiaomi",
+      "label": "让 MiMo 只在文件副本里练手",
+      "result": "你们给 MiMo 接上受限的自建文件工具，只允许整理副本并提交变更清单。客户愿意为这份省心付费，替换原件仍需本人确认；那个叫别动的文件，这次真的没动。",
+      "mode": "cooperate",
+      "affinities": {
+        "xiaomi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": 19,
+        "research": 3,
+        "team": 1,
+        "trust": 3,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "workbuddy_local_files",
+      "originalOfferId": "workbuddy_local_files-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "让 Gemini 救回扫描版旧预算",
+      "result": "你们用 Gemini 辅助读取旧预算扫描件，把数字与现有表格并排核验。整理耗了一轮工时，却找出漏掉的关键附件；原来绝对最终版后面，还有一页老板亲手签过字的纸。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": -17,
+        "research": 3,
+        "team": 1,
+        "trust": 4,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "qoder_repo_wiki_quest",
+      "originalOfferId": "qoder_repo_wiki_quest-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "xiaomi",
+      "label": "让 MiMo 整理祖传代码的搬家清单",
+      "result": "你们用 MiMo 梳理代码索引和旧工单，列出模块依赖、负责人以及待确认的问题。迁移顺序清楚了，隐含规则还得找老同事问；族谱的第一页，终于写上了谁还记得这个接口。",
+      "mode": "cooperate",
+      "affinities": {
+        "xiaomi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": -20,
+        "research": 4,
+        "team": -1,
+        "trust": 3,
+        "risk": -1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "tang_jie_glm_pvz_bugs",
+      "originalOfferId": "tang_jie_glm_pvz_bugs-doubao",
+      "originalBrand": "doubao",
+      "brand": "xai",
+      "label": "用 Grok 拆关卡，先交能玩的版本",
+      "result": "你们让 Grok 辅助拆解关卡和编写小段代码，再由开发者逐项测试拼接。可玩的演示按时交付，服务费也按时到账；植物守住了后院，项目经理保住了最后一个周末。",
+      "mode": "cooperate",
+      "affinities": {
+        "xai": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": 27,
+        "research": 4,
+        "team": -3,
+        "trust": 1,
+        "risk": 3
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "yang_splay_band",
+      "originalOfferId": "yang_splay_band-doubao",
+      "originalBrand": "doubao",
+      "brand": "deepseek",
+      "label": "让 DeepSeek 帮忙把乐队网站搭起来",
+      "result": "你们用 DeepSeek 辅助制作排练报名和原创作品展示页，让同事自己上传歌曲。研发没有立刻变成收入，报名表却热闹了；老板终于发现，大家写团建曲目的介绍比写周报快。",
+      "mode": "cooperate",
+      "affinities": {
+        "deepseek": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": -23,
+        "research": 4,
+        "team": 3,
+        "trust": 2,
+        "risk": 1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "yang_splay_band",
+      "originalOfferId": "yang_splay_band-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "xai",
+      "label": "用 Grok 赶完周报，再放排练假",
+      "result": "你们用 Grok 归纳各组提供的工作记录，负责人核对完就提前结束会议。客户交付没有耽误，排练室也第一次准点开门；鼓手今天没有迟到，因为他终于不用主持第二场组会。",
+      "mode": "cooperate",
+      "affinities": {
+        "xai": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": 18,
+        "research": 3,
+        "team": 2,
+        "trust": 1,
+        "risk": 2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "sujianlin_cool_papers",
+      "originalOfferId": "sujianlin_cool_papers-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "让 Gemini 给旧论文补上可查的目录",
+      "result": "你们用 Gemini 辅助整理获准使用的扫描论文，记录题目、作者与原文位置，再由研究员核对。冷门旧文重新出现在检索结果里，整理花的工时也远超预期；新网站先救活了一个被遗忘的硬盘。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": -25,
+        "research": 4,
+        "team": -1,
+        "trust": 3,
+        "risk": -1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "deepseek_fat_fish_white_rice",
+      "originalOfferId": "deepseek_fat_fish_white_rice-hunyuan",
+      "originalBrand": "hunyuan",
+      "brand": "xai",
+      "label": "让 Grok 整理月底缺件，早点开饭",
+      "result": "你们让 Grok 汇总各组批准使用的交付清单，找出还缺哪些附件，再分给负责人收尾。月底回款没有停，群里的追问少了一些；能不能摸鱼以后再议，今天先让大家吃上热饭。",
+      "mode": "cooperate",
+      "affinities": {
+        "xai": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2026,
+      "fromQuarter": 3,
+      "quarterDelta": {
+        "cash": 20,
+        "research": 3,
+        "team": 2,
+        "trust": 2,
+        "risk": 1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "dalle_avocado_chair_2021q1",
+      "originalOfferId": "dalle_avocado_chair_2021q1-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "沿 DeepMind 的棋路，做会复盘的陪练",
+      "result": "你们参考 DeepMind 公开的围棋研究，在获授权的棋谱上训练小型陪练，再请棋友逐步检查复盘。它还赢不了高手，已经能指出几处漏算；第一位测试用户下完棋，主动约了下一局。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2021,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": -19,
+        "research": 4,
+        "team": -1,
+        "trust": 3,
+        "risk": -1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。沿用 Google/DeepMind 同一关系ID；2023Q4之前不称Gemini。"
+    },
+    {
+      "eventId": "webgpt_browsing_2021q4",
+      "originalOfferId": "webgpt_browsing_2021q4-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "用 Google 的研究把网页资料排好队",
+      "result": "你们参考 Google 的公开语言研究，把搜集到的网页按主题整理，保留日期和原文链接。自建工具先做好资料入口，结论仍由人审核；标签页少开了十几个，研究员终于找回昨天那篇文章。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2021,
+      "fromQuarter": 4,
+      "quarterDelta": {
+        "cash": -18,
+        "research": 4,
+        "team": -2,
+        "trust": 3,
+        "risk": -1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。沿用 Google/DeepMind 同一关系ID；2023Q4之前不称Gemini。"
+    },
+    {
+      "eventId": "instructgpt_human_feedback_2022q1",
+      "originalOfferId": "instructgpt_human_feedback_2022q1-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "参考 Google 的评测方法，先改错再打分",
+      "result": "你们沿 Google 的公开研究方法设计小型对照测试，让评审先查项目名、数字与依据，再评价答案是否好听。人工评审多花了预算，报告却终于能交接；机器得到的第一条批语是：别把销售额写成利润。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2022,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": -15,
+        "research": 3,
+        "team": -1,
+        "trust": 4,
+        "risk": -2
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。沿用 Google/DeepMind 同一关系ID；2023Q4之前不称Gemini。"
+    },
+    {
+      "eventId": "dalle2_astronaut_horse_2022q2",
+      "originalOfferId": "dalle2_astronaut_horse_2022q2-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "gemini",
+      "label": "沿 Google 的图文研究，查清谁骑着谁",
+      "result": "你们参考 Google 公开的图文研究，制作成对的图片与描述，专查人物、动作和位置有没有对上。评审逐张标出错处，客户收到的图片少了几分离奇；骑马的宇航员终于不用替马背合同。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2022,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": -19,
+        "research": 4,
+        "team": -2,
+        "trust": 4,
+        "risk": -1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。沿用 Google/DeepMind 同一关系ID；2023Q4之前不称Gemini。"
+    },
+    {
+      "eventId": "gpt4_exam_2023q1",
+      "originalOfferId": "gpt4_exam_2023q1-wenxin",
+      "originalBrand": "wenxin",
+      "brand": "kimi",
+      "label": "和月之暗面团队整理中文难题",
+      "result": "你们与月之暗面团队交流测试方法，把行业缩写、歧义和绕口的客户需求单列成题。通用考试的分数暂时放在一边，客服带来的真实问题反而最难；第一轮讨论结束，大家都同意先把题目读懂。",
+      "mode": "cooperate",
+      "affinities": {
+        "kimi": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2023,
+      "fromQuarter": 1,
+      "quarterDelta": {
+        "cash": -17,
+        "research": 4,
+        "team": -1,
+        "trust": 3,
+        "risk": -1
+      },
+      "rationale": "保留原事件历史背景与数值；改为现有核心公司的玩家自建试验或虚构合作，不声称真实签约或尚未发布的产品能力。"
+    },
+    {
+      "eventId": "stable_diffusion_weights_2022q3",
+      "originalOfferId": null,
+      "newOfferId": "stable_diffusion_weights_2022q3-google-research",
+      "brand": "gemini",
+      "label": "参考 Google 图文研究，先做图片验收工具",
+      "result": "你们参考 Google 的公开图文研究，给客户的生成图片做一份人工可复核的验收表。图像生成仍交给现有工具，团队先解决题图不符的问题。机房暂时没有扩建，第一位客户已经带着一百张怪图来敲门。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2022,
+      "fromQuarter": 3,
+      "quarterDelta": {
+        "cash": -24,
+        "research": 4,
+        "team": -1,
+        "trust": 3
+      },
+      "rationale": "补充非硬件回应，避免两个硬件厂商长期占据事件池；2023Q4前使用Google名称，具体评测与交付为玩家自建试验。"
+    },
+    {
+      "eventId": "redpajama_llama_recipe_2023q2",
+      "originalOfferId": null,
+      "newOfferId": "redpajama_llama_recipe_2023q2-google-research",
+      "brand": "gemini",
+      "label": "沿 Google 的研究，核对开放训练配方",
+      "result": "你们参考 Google 的公开研究逐项检查数据处理、训练记录和评测方法，再用小实验比较配方差异。没有一夜训练出新巨头，倒是找到了几处会白烧预算的设置；财务破例给读论文也记了一次交付。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2023,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": -24,
+        "research": 4,
+        "team": -1,
+        "trust": 3
+      },
+      "rationale": "补充非硬件回应，避免两个硬件厂商长期占据事件池；2023Q4前使用Google名称，具体评测与交付为玩家自建试验。"
+    },
+    {
+      "eventId": "anthropic_codex_2021",
+      "originalOfferId": null,
+      "newOfferId": "anthropic_codex_2021-claude-research",
+      "brand": "claude",
+      "label": "与 Anthropic 交流模型的不确定性",
+      "result": "你们与 Anthropic 方向的研究同行交流评估方法，先把工具说不准的地方标出来，再请生物顾问核对。团队暂时没得到万能答案，倒知道了哪些结果不能拿去给客户拍胸脯。融资材料又薄了一页，实验计划却终于能往下做。",
+      "mode": "cooperate",
+      "affinities": {
+        "claude": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2021,
+      "fromQuarter": 3,
+      "quarterDelta": {
+        "cash": -24,
+        "research": 4,
+        "team": 1,
+        "trust": 3,
+        "risk": -1
+      },
+      "rationale": "补充早期非硬件研究回应；仅为玩家自建评估或虚构研究交流，不将Claude/Gemini等后来的产品提前到成立初期。"
+    },
+    {
+      "eventId": "liang_gpu_piano",
+      "originalOfferId": null,
+      "newOfferId": "liang_gpu_piano-claude-research",
+      "brand": "claude",
+      "label": "与 Anthropic 先做小模型评估",
+      "result": "你们与 Anthropic 方向的研究同行交流小模型的测试方案，先摸清现有机器能做什么。规模没有立刻扩大，几项老问题却复现得更清楚了。采购问还买不买卡，研究员第一次能拿着实验记录回答。",
+      "mode": "cooperate",
+      "affinities": {
+        "claude": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2021,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": -23,
+        "research": 4,
+        "team": 1,
+        "trust": 2,
+        "risk": -1
+      },
+      "rationale": "补充早期非硬件研究回应；仅为玩家自建评估或虚构研究交流，不将Claude/Gemini等后来的产品提前到成立初期。"
+    },
+    {
+      "eventId": "dalle2_astronaut_horse_2022q2",
+      "originalOfferId": null,
+      "newOfferId": "dalle2_astronaut_horse_2022q2-claude-research",
+      "brand": "claude",
+      "label": "和 Anthropic 一起制定图片评审题",
+      "result": "你们与 Anthropic 方向的研究同行交流评估方法，请人工评审把人物、动作和画面关系逐项标清。谁骑着谁终于不能靠气势糊弄过去；一张图让三位评审吵了半小时，下一张图倒是很快有了共识。",
+      "mode": "cooperate",
+      "affinities": {
+        "claude": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2022,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": -22,
+        "research": 4,
+        "team": -1,
+        "trust": 4,
+        "risk": -1
+      },
+      "rationale": "补充早期非硬件研究回应；仅为玩家自建评估或虚构研究交流，不将Claude/Gemini等后来的产品提前到成立初期。"
+    },
+    {
+      "eventId": "codex_copilot_2021",
+      "originalOfferId": null,
+      "newOfferId": "codex_copilot_2021-gemini-research",
+      "brand": "gemini",
+      "label": "沿 Google 的公开研究，拆开模型的账本",
+      "result": "你们参考 Google 的公开语言研究，把商业计划中的名称、数字和出处拆成待核验条目。模型还能写漂亮话，编造的客户却不再轻易混进最终报告。财务说，这个产品至少先帮公司避开了一个坏计划。",
+      "mode": "cooperate",
+      "affinities": {
+        "gemini": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2021,
+      "fromQuarter": 3,
+      "quarterDelta": {
+        "cash": -24,
+        "research": 4,
+        "team": -1,
+        "trust": 3
+      },
+      "rationale": "补充早期非硬件研究回应；仅为玩家自建评估或虚构研究交流，不将Claude/Gemini等后来的产品提前到成立初期。"
+    },
+    {
+      "eventId": "pangu_does_work",
+      "originalOfferId": null,
+      "newOfferId": "pangu_does_work-deepseek-research",
+      "brand": "deepseek",
+      "label": "与 DeepSeek 新团队研究巡检数据怎么用",
+      "result": "你们与刚起步的 DeepSeek 团队交流训练方法，把巡检照片和故障说明整理成小规模试验材料。模型还没大到能开发布会，哪些标签会误导训练却查清了。回到办公室，工程师把安全帽放在机箱旁：以后谈行业数据，先想想这顶帽子。",
+      "mode": "cooperate",
+      "affinities": {
+        "deepseek": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2023,
+      "fromQuarter": 3,
+      "quarterDelta": {
+        "cash": -24,
+        "research": 5,
+        "team": -2,
+        "trust": 3
+      },
+      "rationale": "补充2023年新进入公司的可选研究回应；合作与对话为游戏虚构，不使用尚未发布的Grok或DeepSeek具体模型，不声称获得闭源训练配方或权重。"
+    },
+    {
+      "eventId": "pangu_does_work",
+      "originalOfferId": null,
+      "newOfferId": "pangu_does_work-xai-research",
+      "brand": "xai",
+      "label": "与 xAI 新团队交流模型怎样才算懂了",
+      "result": "你们与刚成立的 xAI 团队交流评估问题，用相同设备在不同现场的记录设计测试，专门找模型认错的地方。项目还需要自己训练和部署，团队却不再把记住样本当成懂了业务。甲方没有听到颂诗，倒收到了一份能拿去现场核验的清单。",
+      "mode": "cooperate",
+      "affinities": {
+        "xai": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2023,
+      "fromQuarter": 3,
+      "quarterDelta": {
+        "cash": -22,
+        "research": 4,
+        "team": -1,
+        "trust": 4
+      },
+      "rationale": "补充2023年新进入公司的可选研究回应；合作与对话为游戏虚构，不使用尚未发布的Grok或DeepSeek具体模型，不声称获得闭源训练配方或权重。"
+    },
+    {
+      "eventId": "redpajama_llama_recipe_2023q2",
+      "originalOfferId": null,
+      "newOfferId": "redpajama_llama_recipe_2023q2-qwen-research",
+      "brand": "qwen",
+      "label": "对照通义千问，整理中文数据配方",
+      "result": "你们围绕当时通义千问的中文任务表现整理测试题，再给自家语料记录来源、清洗与去重步骤。团队先把中文数据处理做扎实，模型训练仍从小实验开始。硬盘没有立刻装满，研究员已经删掉了三份内容一模一样的好资料。",
+      "mode": "cooperate",
+      "affinities": {
+        "qwen": 10
+      },
+      "secondaryAffinities": {},
+      "fromYear": 2023,
+      "fromQuarter": 2,
+      "quarterDelta": {
+        "cash": -23,
+        "research": 5,
+        "team": -2,
+        "trust": 3
+      },
+      "rationale": "补充2023年新进入公司的可选研究回应；合作与对话为游戏虚构，不使用尚未发布的Grok或DeepSeek具体模型，不声称获得闭源训练配方或权重。"
+    }
+  ]
+}

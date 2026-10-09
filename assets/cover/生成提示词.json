@@ -1,0 +1,26 @@
+{
+  "method": "built-in image_gen",
+  "date": "2026-10-08",
+  "assets": [
+    {
+      "name": "deepseek",
+      "prompt": "Use case: identity-preserve. Create one polished anime character cutout for the LEFT edge of a purple website hero. Image 1 is the exact DeepSeek whale-maid identity/design reference; Image 2 is a companion style reference only. Draw ONLY the DeepSeek character. Preserve her blue-to-pale-blue long wavy hair, blue eyes, prominent curved ahoge, whale fin ears (not cat ears), white maid headband, navy blue and white modest long-sleeved maid dress, dark bow with blue gem at collar, white apron with small whale emblem, a glimpse of whale tail curling behind her OUTER left side. Adult anime proportions matching the reference, clean fine linework, elegant cel shading and soft highlights. New pose: she is peeking and leaning into a scene from the LEFT screen boundary, body diagonally inclined to the RIGHT; hips/lower torso toward the lower LEFT, head toward upper RIGHT. Her face and both eyes look unmistakably to the RIGHT toward the center of a webpage, 3/4 profile, warm playful smile. One hand near her collar in a curious pose, the other rests lightly near the imagined LEFT boundary. Compose an upper-thigh-up portrait with generous transparent margins; preserve whole head, hair tips and fingers, lower skirt may leave the bottom edge. Overall silhouette tall and compact, no arm extending far right. This must look like a character entering from offscreen, not a standing full-length front-facing portrait. TRUE transparent RGBA background with clean alpha edges, NO white background, NO checkerboard, no background scenery, no monitor/window/frame, no ground, no text, no typography, no drop shadow or glow. Match the reference identity closely; keep normal anatomy and five fingers. Only ONE character. Portrait 1024x1536.",
+      "transparent_background": true,
+      "referenced_image_paths": [
+        "参考图/DeepSeek-Girl.png",
+        "参考图/Claude-Girl.png"
+      ],
+      "output": "deepseek-left.png"
+    },
+    {
+      "name": "claude",
+      "prompt": "Use case: identity-preserve. Create one polished anime character cutout for the RIGHT edge of a purple website hero. Image 1 is the exact Claude identity/design reference; Image 2 is a companion style reference only. Draw ONLY the Claude character. Preserve her very long copper-orange hair, amber eyes, orange flower/starburst hair ornament with black ribbon, cream white high-neck blouse and elegant cream/black/burnt-orange scholarly dress, small capelet bearing an orange starburst, black collar bow and starburst brooch, fine gold details, brown hardbound book bearing a small orange starburst. Adult anime proportions matching the reference, clean fine linework, elegant cel shading and soft highlights. New pose: she is peeking and leaning into a scene from the RIGHT screen boundary, body diagonally inclined to the LEFT; hips/lower torso toward the lower RIGHT, head toward upper LEFT. Her face and both eyes look unmistakably to the LEFT toward the center of a webpage, 3/4 profile. A calm intelligent slightly amused expression, soft small smile. Hold the closed book close to her chest with natural hands; hair streams toward outer RIGHT. Compose an upper-thigh-up portrait with generous transparent margins; preserve whole head, hair tips and fingers, lower skirt may leave the bottom edge. Overall silhouette tall and compact, no arm extending far left. This must look like a character entering from offscreen, not a standing full-length front-facing portrait. TRUE transparent RGBA background with clean alpha edges, NO white background, NO checkerboard, no background scenery, no monitor/window/frame, no ground, no text, no typography, no drop shadow or glow. Match the reference identity closely; keep normal anatomy and five fingers. Only ONE character. Portrait 1024x1536.",
+      "transparent_background": true,
+      "referenced_image_paths": [
+        "参考图/Claude-Girl.png",
+        "参考图/DeepSeek-Girl.png"
+      ],
+      "output": "claude-right.png"
+    }
+  ]
+}

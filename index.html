@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#4424a5">
+<meta name="description" content="一款关于研发 AGI 的极简文字游戏。做选择，管理资金，走向不同结局。">
+<title>明天 AGI</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+<header><span id="turnLabel">2021 · Q1</span><div class="header-actions"><button id="musicButton" class="text-button" aria-label="开启声音" aria-pressed="false">♫ 声音关</button><button id="restartButton" class="text-button">重开</button></div></header>
+<div id="restartConfirm" class="restart-confirm" hidden>结束当前这一局？ <button id="cancelRestart">继续玩</button><button id="confirmRestart">确认重开</button></div>
+<div id="statusPanel" class="status-panel"><div id="stats" class="stats" aria-label="当前状态"></div><div id="scientists" class="scientists">顶级科学家：暂无</div></div>
+<div class="play-layout"><aside id="relationsPanel" class="relations-panel" aria-label="友商好感度" hidden><h2 title="好感越高，合作机会越多；联合发布需要60好感。仅显示有实际往来的厂商，好感回到0仍保留。">友商好感</h2><p class="peer-guide">60 好感 · 联合发布</p><div id="relationsList"></div></aside><main id="game" tabindex="-1"></main></div>
+
+</div>
+<div class="sr-only" id="announcement" aria-live="polite"></div>
+<!--
+Growing Threat (Millennium Dawn Main Theme)
+Authors: TESTUDO & Decerno
+Source project: Millennium Dawn: A Modern Day Mod
+Official source: https://github.com/MillenniumDawn/Millennium-Dawn/blob/main/music/MD_maintheme.ogg
+Downloaded from: https://raw.githubusercontent.com/MillenniumDawn/Millennium-Dawn/main/music/MD_maintheme.ogg
+Upstream license: Creative Commons Attribution-ShareAlike 4.0 International
+License: https://creativecommons.org/licenses/by-sa/4.0/
+Upstream license file: https://github.com/MillenniumDawn/Millennium-Dawn/blob/main/LICENSE
+Original recording is included unchanged. The game sets playback volume to 25% and loops it; the audio file is not edited.
+Downloaded: 2026-10-08
+SHA-256: cefacb4fd5478e5f7a7d9ab198ea186f031edb9afbc8907e319aefded7d1cedb
+User reference: https://www.bilibili.com/video/BV1r8411J71X/ (P1, Millennium Dawn Main Theme)
+-->
+<audio id="bgm" src="assets/music/millennium-dawn-main-theme.ogg" loop preload="none"></audio>
+<!-- Settlement SFX: Millennium Dawn event_popup_01.wav, CC BY-SA 4.0. See assets/sfx/CREDITS.txt. -->
+<audio id="settlementSound" src="assets/sfx/millennium-dawn-event-popup.wav" preload="auto"></audio>
+<!-- Original mechanical event-confirmation SFX; not a sampled HOI4 recording. -->
+<audio id="eventSelectionSound" src="assets/sfx/focus-select.wav" preload="auto"></audio>
+<script src="story.js"></script><script src="strategies.js"></script><script src="partners.js"></script><script src="worldlines.js"></script><script src="worldline-engine.js"></script><script src="game.js"></script><script src="music.js"></script><script src="sound.js"></script>
+</body>
+</html>

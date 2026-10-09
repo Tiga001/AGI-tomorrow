@@ -1,0 +1,89 @@
+{
+  "checkedOn": "2026-10-09",
+  "scope": "10项新增策略，一手论文与官方研究核验。季度是对应具体方案的公开时间，不代表整个领域的起点。",
+  "economics": "费用单位百万元，研发/士气/风评/风险为虚构游戏数值，不是论文结果。",
+  "compatibility": "纯新增ID，保留既有145项全部数据和v14规则，现有未提交牌面不会重抽。",
+  "bounds": "训练新模型需重新验收；解释、防护和监控不等于AGI能力验证。STOP/DGM/SEAL均为受限研究，不宣称完整RSI。",
+  "strategies": [
+    {
+      "strategyId": "constitutional-ai-training",
+      "label": "宪法式对齐 · RLAIF",
+      "available": "2022 Q4",
+      "sourceDate": "2022-12-15",
+      "source": "https://arxiv.org/abs/2212.08073",
+      "basis": "复现 Constitutional AI 的自我批评、修订与 AI 偏好反馈训练；不能保证完全对齐。"
+    },
+    {
+      "strategyId": "process-reward-training",
+      "label": "PRM800K · 逐步奖励推理",
+      "available": "2023 Q2",
+      "sourceDate": "2023-05-31",
+      "source": "https://openai.com/index/improving-mathematical-reasoning-with-process-supervision/",
+      "basis": "对应公开 PRM800K 的过程监督方案，不声称过程监督始于2023，也不外推到全部领域。"
+    },
+    {
+      "strategyId": "sae-feature-audit",
+      "label": "SAE · 拆解模型特征",
+      "available": "2023 Q4",
+      "sourceDate": "2023-10-05",
+      "source": "https://www.anthropic.com/research/towards-monosemanticity-decomposing-language-models-with-dictionary-learning",
+      "basis": "对应 Towards Monosemanticity 的具体字典学习实验；并非 SAE 首次提出或完整解释大模型。"
+    },
+    {
+      "strategyId": "weak-to-strong-supervision",
+      "label": "弱到强监督 · 小老师教大模型",
+      "available": "2023 Q4",
+      "sourceDate": "2023-12-14",
+      "source": "https://openai.com/index/weak-to-strong-generalization/",
+      "basis": "弱到强泛化是有限设置下的概念验证，偏好数据等场景仍有限制；因此保留风险代价。"
+    },
+    {
+      "strategyId": "instruction-hierarchy-training",
+      "label": "指令层级训练 · 抵抗提示注入",
+      "available": "2024 Q2",
+      "sourceDate": "2024-04-19",
+      "source": "https://openai.com/index/the-instruction-hierarchy/",
+      "basis": "对应指令层级训练方案；提升抗提示注入能力，不保证所有攻击都被消除。"
+    },
+    {
+      "strategyId": "constitutional-classifier-guard",
+      "label": "宪法分类器 · 守住输入输出",
+      "available": "2025 Q1",
+      "sourceDate": "2025-02-03",
+      "source": "https://www.anthropic.com/news/constitutional-classifiers",
+      "basis": "独立输入输出防护，不改变底座权重；持续推理开销、人工复核和误拒均有代价，不是 AGI 能力验收。"
+    },
+    {
+      "strategyId": "reasoning-trace-monitor",
+      "label": "推理链监控 · 查奖励投机",
+      "available": "2025 Q1",
+      "sourceDate": "2025-03-10",
+      "source": "https://openai.com/index/chain-of-thought-monitoring/",
+      "basis": "推理链可提供不当行为信号，但不总是忠实或完整；不能靠惩罚表面坏思路保证对齐。"
+    },
+    {
+      "strategyId": "stop-self-improvement-scaffold",
+      "label": "RSI 前置 · STOP 优化脚手架",
+      "available": "2023 Q4",
+      "sourceDate": "2023-10-03",
+      "source": "https://arxiv.org/abs/2310.02304",
+      "basis": "STOP 递归改进调用语言模型的优化脚手架，不修改底座权重；属于有限自改进实验，不是完整 RSI。"
+    },
+    {
+      "strategyId": "dgm-sandbox-self-rewrite",
+      "label": "RSI 实验 · DGM 自改代码",
+      "available": "2025 Q2",
+      "sourceDate": "2025-05-30",
+      "source": "https://sakana.ai/dgm/",
+      "basis": "DGM 改写 Agent 代码并维护候选分支档案，以编程基准筛选；不宣称底座权重或通用智能无限自我提升。"
+    },
+    {
+      "strategyId": "seal-self-adaptation",
+      "label": "SEAL · 自写学习材料再微调",
+      "available": "2025 Q2",
+      "sourceDate": "2025-06-12",
+      "source": "https://arxiv.org/abs/2506.10943",
+      "basis": "SEAL 生成微调数据与更新指令，以更新后的下游表现作为奖励；是受限自适应研究，不是无界 RSI。"
+    }
+  ]
+}

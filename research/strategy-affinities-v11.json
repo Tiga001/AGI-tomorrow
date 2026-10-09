@@ -1,0 +1,85 @@
+{
+  "scope": "游戏招募带来科研往来，好感为虚构数值；按公开研究阶段映射，不声称现实招募、公司支持或精确入离职日期。未在主厂商池中的来源组织单独记录，避免把SSI/World Labs/Tesla错记成其他公司。历史v10及更早季度保持旧关系规则。",
+  "rules": {
+    "recruit": 8,
+    "computePrimary": 5,
+    "computeAlternative": -2,
+    "scientistProject": 2
+  },
+  "timeline": {
+    "recruit-yao-shunyu": [
+      [
+        2025,
+        1,
+        "openai"
+      ],
+      [
+        2026,
+        2,
+        "hunyuan"
+      ]
+    ],
+    "recruit-su-jianlin": [
+      [
+        2023,
+        1,
+        "zhuiyi"
+      ],
+      [
+        2025,
+        1,
+        "kimi"
+      ]
+    ],
+    "recruit-luo-fuli": [
+      [
+        2024,
+        1,
+        "deepseek"
+      ],
+      [
+        2025,
+        4,
+        "xiaomi"
+      ]
+    ],
+    "recruit-ilya": [
+      [
+        2021,
+        1,
+        "openai"
+      ],
+      [
+        2024,
+        2,
+        "ssi"
+      ]
+    ],
+    "recruit-karpathy": [
+      [
+        2021,
+        1,
+        "tesla"
+      ],
+      [
+        2023,
+        1,
+        "openai"
+      ],
+      [
+        2024,
+        3,
+        "eureka"
+      ]
+    ]
+  },
+  "sources": [
+    "https://www.worldlabs.ai/about",
+    "https://ssi.inc/",
+    "https://eurekalabs.ai/",
+    "https://karpathy.ai/",
+    "https://kexue.fm/me.html",
+    "https://arxiv.org/abs/2502.16982"
+  ],
+  "existingSourceArchive": "memes.json: 腾讯Hy3、MiMo-V2-Flash、DeepSeek Harness与研究者公开记录"
+}

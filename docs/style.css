@@ -400,7 +400,6 @@ main.quarter-switching[aria-busy="true"]{opacity:1;transition:none}
 .page{max-width:1240px;padding:28px 36px 48px}
 header{min-height:42px;margin-bottom:20px;gap:24px}
 .report-brand{display:flex;align-items:baseline;gap:15px;color:var(--accent);font-weight:750;font-size:18px;letter-spacing:-.03em;white-space:nowrap}
-.report-brand>span{color:var(--muted);font-size:12px;font-weight:400;letter-spacing:.1em}
 #turnLabel{margin-left:auto;color:var(--ink);gap:10px}
 #turnLabel b{font-size:21px}
 #turnLabel>span{border-color:var(--rule);color:var(--muted);font-size:12px;padding-left:10px}
@@ -502,10 +501,10 @@ h1,.decision-screen .event-section h1,.result-title h1{font-family:"Songti SC","
 .start-screen p strong{color:var(--accent)}
 .start-screen .continue{border-radius:3px;box-shadow:none}
 .start-screen .continue:active{box-shadow:none}
-body.is-starting .report-brand,body.is-starting .report-brand>span,body.is-starting .text-button{color:#eee7ff}
+body.is-starting .report-brand,body.is-starting .text-button{color:#eee7ff}
 @media(max-width:1059px){
  .page{padding:22px 26px 40px}.play-layout{grid-template-columns:138px minmax(0,1fr);gap:26px}
- .report-brand>span{display:none}.status-panel .stat{padding-left:16px;grid-template-columns:1fr;grid-template-rows:auto auto auto}
+ .status-panel .stat{padding-left:16px;grid-template-columns:1fr;grid-template-rows:auto auto auto}
  .status-panel .stat-change{grid-column:1}.status-panel .stat b{font-size:26px}.status-panel .stat[data-stat="cash"] b{font-size:29px}
  .decision-screen .strategies{grid-template-columns:repeat(2,minmax(0,1fr))}
 }

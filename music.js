@@ -6,7 +6,7 @@
 'use strict';
 const audio=document.getElementById('bgm'),button=document.getElementById('musicButton');
 const control=document.getElementById('musicControl'),volumeWrap=document.getElementById('musicVolumeWrap'),volumeSlider=document.getElementById('musicVolume');
-const preference='agi-tomorrow-music-v1',volumePreference='agi-tomorrow-music-volume-v2',legacyVolumePreference='agi-tomorrow-music-volume-v1',musicLevel=.25;
+const preference='agi-tomorrow-music-v1',volumePreference='agi-tomorrow-music-volume-v2',legacyVolumePreference='agi-tomorrow-music-volume-v1',musicLevel=.25,backgroundMix=.75;
 const credits='Growing Threat — TESTUDO & Decerno · Millennium Dawn · CC BY-SA 4.0';
 let soundOn=true,pending=false,failed=false,needsGesture=false,operation=0,inIntro=false,pageActive=true;
 const retiringScores=new Set();
@@ -25,10 +25,11 @@ try{
 // The existing on/off preference represents silence, while this value remembers
 // the last audible setting so the mute button can restore it after a reload.
 if(!volumePercent){volumePercent=100;soundOn=false;remember('off');}
-audio.volume=soundOn?level*volumePercent/100:0;
+function outputRatio(){return volumePercent/100*backgroundMix;}
+audio.volume=soundOn?level*outputRatio():0;
 function remember(value){try{localStorage.setItem(preference,value);}catch{}}
 function rememberVolume(){try{localStorage.setItem(volumePreference,String(volumePercent));}catch{}}
-function setVolume(value){level=value;const output=soundOn?value*volumePercent/100:0;if(audioGraph?.source)audioGraph.gain.gain.value=output;else audio.volume=output;}
+function setVolume(value){level=value;const output=soundOn?value*outputRatio():0;if(audioGraph?.source)audioGraph.gain.gain.value=output;else audio.volume=output;}
 function selectVolume(){
  const selected=validVolume(volumeSlider.value);
  if(!selected){if(soundOn||failed||pending)stop();else update();return;}
@@ -36,8 +37,8 @@ function selectVolume(){
  if(!soundOn){soundOn=true;remember('on');window.dispatchEvent(new Event('agi:unmute'));}
  failed=false;
  setVolume(level);
- if(score)score.output.gain.value=volumePercent/100;
- for(const retiring of retiringScores)retiring.output.gain.value=volumePercent/100;
+ if(score)score.output.gain.value=outputRatio();
+ for(const retiring of retiringScores)retiring.output.gain.value=outputRatio();
  update();
  // A slider gesture can also unlock restored audio, without restarting an active
  // track or replacing the intro/scene fade already in progress.
@@ -52,14 +53,14 @@ function unlockAudio(){
  if(!audioGraph){
   let context;
   try{context=new Audio();}catch{webAudioUnavailable=true;return Promise.resolve();}
-  const gain=context.createGain();gain.gain.value=level*volumePercent/100;gain.connect(context.destination);
+  const gain=context.createGain();gain.gain.value=level*outputRatio();gain.connect(context.destination);
   // Save the context before binding the element: a binding error must not leak a
   // fresh AudioContext on every retry or disable the separately synthesized ending.
   audioGraph={context,gain,source:null};
   try{
    const source=context.createMediaElementSource(audio);source.connect(gain);
    audioGraph.source=source;audio.volume=1;
-  }catch{audio.volume=level*volumePercent/100;}
+  }catch{audio.volume=level*outputRatio();}
  }
  return audioGraph.context.state==='running'?Promise.resolve():audioGraph.context.resume();
 }
@@ -113,7 +114,7 @@ function startScore(){
  const state={sources:new Set(),nodes:new Set(),startedAt:now,nextAt:now+.06,bar:0,volume:endingMood==='failure'?.8:.9,stopping:false,disposed:false};
  const node=value=>{state.nodes.add(value);return value;};
  const master=node(context.createGain()),output=node(context.createGain()),filter=node(context.createBiquadFilter()),delay=node(context.createDelay(1)),echo=node(context.createGain()),feedback=node(context.createGain());
- state.master=master;state.output=output;score=state;output.gain.value=volumePercent/100;
+ state.master=master;state.output=output;score=state;output.gain.value=outputRatio();
  master.gain.setValueAtTime(0,now);master.gain.linearRampToValueAtTime(state.volume,now+1.2);
  filter.type='lowpass';filter.frequency.value=1800;filter.Q.value=.5;
  delay.delayTime.value=.34;echo.gain.value=.13;feedback.gain.value=.2;

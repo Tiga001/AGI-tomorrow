@@ -8,7 +8,7 @@ License: https://creativecommons.org/licenses/by-sa/4.0/
 Upstream license file: https://github.com/MillenniumDawn/Millennium-Dawn/blob/main/LICENSE
 The original Ogg recording is retained unchanged in this source directory.
 millennium-dawn-main-theme.m4a is an AAC-LC 96 kbps encoding of that recording, created on 2026-10-09 for older iPhone browsers. No cut, remix, or musical change was made; only the encoding changed. It retains the same attribution and upstream CC BY-SA 4.0 license.
-The game loops the AAC copy with a continuous volume slider. The right end retains the original 25% playback volume; the left end mutes audio, and positions between them scale that volume proportionally.
+The game loops the AAC copy with a continuous volume slider. The right end uses 18.75% playback volume (25% quieter than the earlier 25% maximum); the left end mutes audio, and positions between them scale that volume proportionally. All background music, including procedural ending arrangements and the native ending fallback, receives the same 0.75 mix adjustment; sound-effect volumes are unchanged.
 Downloaded: 2026-10-08
 SHA-256: cefacb4fd5478e5f7a7d9ab198ea186f031edb9afbc8907e319aefded7d1cedb
 User reference: https://www.bilibili.com/video/BV1r8411J71X/ (P1, Millennium Dawn Main Theme)

@@ -18,8 +18,9 @@ q.setRun({...q.getRun(),difficulty:5,started:false,picks:[]});
 assert.equal(g.calculate([]).stats.cash,1000,'pure replay does not inherit the currently selected difficulty');
 assert.match(q.renderIntro(),/data-difficulty="5"/);
 assert.match(q.renderIntro(),/id="difficultySlider" type="range" min="1" max="5" step="1" value="5"/);
-assert.match(q.renderIntro(),/初始资金 <strong>5 亿<\/strong>/);
-assert.match(q.renderIntro(),/风险上限 <strong>50<\/strong>/);
+assert.match(q.renderIntro(),/<label for="difficultySlider">难度<\/label>/);
+assert.match(q.renderIntro(),/aria-label="难度" aria-valuetext="第 5 档，共 5 档，极限，初始资金 5 亿，风险上限 50"/);
+assert.doesNotMatch(q.renderIntro(),/difficultyName|difficultyStats|aria-describedby=/);
 
 const boosted=g.settleQuarter({...g.initial,trust:98,team:98,risk:98},0,{quarterDelta:{trust:20,team:20,risk:20}},[]);
 assert.equal(boosted.stats.trust,118);assert.equal(boosted.changes.trust,20);

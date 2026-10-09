@@ -8,7 +8,7 @@ const audio=document.getElementById('bgm'),button=document.getElementById('music
 const control=document.getElementById('musicControl'),volumeWrap=document.getElementById('musicVolumeWrap'),volumeSlider=document.getElementById('musicVolume');
 const preference='agi-tomorrow-music-v1',volumePreference='agi-tomorrow-music-volume-v2',legacyVolumePreference='agi-tomorrow-music-volume-v1',musicLevel=.25;
 const credits='Growing Threat — TESTUDO & Decerno · Millennium Dawn · CC BY-SA 4.0';
-let soundOn=true,pending=false,failed=false,operation=0,inIntro=false,pageActive=true;
+let soundOn=true,pending=false,failed=false,needsGesture=false,operation=0,inIntro=false,pageActive=true;
 const retiringScores=new Set();
 let audioGraph,webAudioUnavailable=false,score,fadeFrame=0,pauseTimer,level=musicLevel,scene='cover',endingMood='neutral',endingId='';
 let volumePercent=100;
@@ -42,8 +42,7 @@ function selectVolume(){
  // A slider gesture can also unlock restored audio, without restarting an active
  // track or replacing the intro/scene fade already in progress.
  if(!pageActive)return;
- if(pending&&audioGraph?.context.state==='suspended')unlockAudio().catch(()=>{});
- else if(!pending&&(audioGraph?.context.state==='suspended'||(scene==='ending'&&audioGraph?!score:audio.paused)))start();
+ if(audioGraph?.context.state==='suspended'||(scene==='ending'&&audioGraph?!score:audio.paused))startFromGesture();
 }
 function unlockAudio(){
  // iOS ignores media-element volume. Prefer a gain node, retaining native playback
@@ -76,11 +75,11 @@ function pauseBackground(duration=0){
  if(duration)pauseTimer=setTimeout(()=>audio.pause(),duration);else audio.pause();
 }
 function update(){
- const active=soundOn&&!failed;
- button.textContent=pending?'♫ 加载中':failed?'♫ 重试声音':soundOn?'♫':'♫ 声音关';
+ const active=soundOn&&!failed&&!needsGesture;
+ button.textContent=pending?'♫ 加载中':failed?'♫ 重试声音':needsGesture?'♫ 播放':soundOn?'♫':'♫ 声音关';
  button.setAttribute('aria-pressed',String(active));
- button.setAttribute('aria-label',failed?'重新开启声音':soundOn?'关闭声音':'开启声音');
- button.title=(soundOn?'点击关闭':'点击播放')+' · '+(scene==='ending'?'原创结局配乐':credits);
+ button.setAttribute('aria-label',failed?'重新开启声音':needsGesture?'播放声音':soundOn?'关闭声音':'开启声音');
+ button.title=(soundOn&&!needsGesture?'点击关闭':'点击播放')+' · '+(scene==='ending'?'原创结局配乐':credits);
  if(control)control.dataset.sound=pending?'loading':failed?'error':soundOn?'on':'off';
  if(volumeWrap){volumeWrap.hidden=false;volumeWrap.style.setProperty('--volume-position',String((soundOn?volumePercent:0)/100));}
  if(volumeSlider){volumeSlider.value=String(soundOn?volumePercent:0);volumeSlider.setAttribute('aria-valuetext',soundOn?`${volumePercent}%`:'静音');}
@@ -146,9 +145,10 @@ function startScore(){
  schedule();
 }
 async function start({quietFailure=false}={}){
- if(!soundOn||!pageActive||pending||scene==='cover'&&!inIntro)return;
- if(scene==='ending'&&score&&audioGraph?.context.state==='running')return;
- if(scene!=='ending'&&!audio.paused&&audioGraph?.context.state==='running'){clearTimeout(pauseTimer);volumeTo(inIntro?0:musicLevel,400);return;}
+ if(!soundOn||!pageActive||pending)return;
+ needsGesture=false;
+ if(scene==='ending'&&score&&audioGraph?.context.state==='running'){update();return;}
+ if(scene!=='ending'&&!audio.paused&&(!audioGraph||audioGraph.context.state==='running')){clearTimeout(pauseTimer);volumeTo(inIntro?0:musicLevel,400);update();return;}
  const request=++operation,targetScene=scene;pending=true;failed=false;update();
  try{
   // Invoke resume and play before awaiting so Safari receives the original user gesture.
@@ -164,15 +164,22 @@ async function start({quietFailure=false}={}){
   await Promise.all([resumed,playing]);
   if(request!==operation||targetScene!==scene||!pageActive||!soundOn)return;
   pending=false;if(scene==='ending'&&audioGraph)startScore();update();
- }catch(error){if(request!==operation)return;pending=false;failed=!quietFailure&&error.name!=='AbortError';update();}
+ }catch(error){if(request!==operation)return;pending=false;needsGesture=quietFailure&&error.name!=='AbortError';failed=!quietFailure&&error.name!=='AbortError';update();}
+}
+function startFromGesture(){
+ // Autoplay can leave resume()/play() pending until a trusted interaction. Start
+ // a fresh attempt in that gesture so an older pending request cannot block it.
+ if(pending&&(audioGraph?.context.state==='suspended'||audio.paused)){operation++;pending=false;}
+ start();
 }
 function stop(){
- operation++;pending=false;failed=false;soundOn=false;pauseBackground();stopScore();remember('off');
+ operation++;pending=false;failed=false;needsGesture=false;soundOn=false;pauseBackground();stopScore();remember('off');
  window.dispatchEvent(new Event('agi:mute'));update();
 }
 button.addEventListener('click',()=>{
- if(soundOn&&!failed)stop();
- else{soundOn=true;failed=false;remember('on');rememberVolume();window.dispatchEvent(new Event('agi:unmute'));start();update();}
+ const awaitingUnlock=pending&&(audioGraph?.context.state==='suspended'||audio.paused);
+ if(soundOn&&!failed&&!needsGesture&&!awaitingUnlock)stop();
+ else{soundOn=true;failed=false;remember('on');rememberVolume();window.dispatchEvent(new Event('agi:unmute'));startFromGesture();update();}
 });
 volumeSlider?.addEventListener('input',selectVolume);
 volumeSlider?.addEventListener('change',selectVolume);
@@ -180,7 +187,7 @@ function firstInteraction(event){
  if(!event.isTrusted||!soundOn||!pageActive||event.target.closest('#musicControl, #musicButton')||inIntro)return;
  if(event.type==='keydown'&&!['Enter',' ','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(event.key))return;
  if(!event.target.closest('.page,dialog'))return;
- if(pending&&audioGraph?.context.state==='suspended')unlockAudio().catch(()=>{});else start();
+ startFromGesture();
 }
 document.addEventListener('click',firstInteraction,true);
 document.addEventListener('keydown',firstInteraction);
@@ -189,21 +196,21 @@ function syncScene(){
  const mood=Object.prototype.hasOwnProperty.call(ENDING_SCORES,data.endingMood)?data.endingMood:'neutral',id=data.endingId||'';
  if(next===scene&&(next!=='ending'||mood===endingMood&&id===endingId)){update();return;}
  operation++;pending=false;failed=false;stopScore(300);scene=next;endingMood=mood;endingId=id;
- if(scene==='cover'){inIntro=false;pauseBackground(300);}else if(scene==='ending'){pauseBackground(650);if(audioGraph?.context.state==='running'||!audio.paused)start({quietFailure:true});}else if(soundOn&&(audioGraph?.context.state==='running'||!audio.paused))start({quietFailure:true});
+ if(scene==='cover'){inIntro=false;if(soundOn)start({quietFailure:true});}else if(scene==='ending'){pauseBackground(650);if(audioGraph?.context.state==='running'||!audio.paused)start({quietFailure:true});}else if(soundOn&&(audioGraph?.context.state==='running'||!audio.paused))start({quietFailure:true});
  update();
 }
 window.addEventListener('agi:music-scene',syncScene);
 window.addEventListener('agi:intro-start',()=>{
- inIntro=true;stopScore();pauseBackground();if(soundOn)start();update();
+ operation++;pending=false;failed=false;inIntro=true;stopScore();pauseBackground();if(soundOn)start();update();
 });
-window.addEventListener('agi:intro-end',event=>{
+window.addEventListener('agi:intro-end',()=>{
  inIntro=false;
- if(!event.detail?.cancelled&&soundOn){start();volumeTo(musicLevel,900);}else if(scene==='cover')pauseBackground();
+ if(soundOn){start();if(scene!=='ending')volumeTo(musicLevel,900);}
  update();
 });
 audio.addEventListener('playing',update);audio.addEventListener('pause',update);
-audio.addEventListener('error',()=>{if(scene==='ending'&&audioGraph)return;operation++;pending=false;failed=soundOn&&scene!=='cover';update();});
+audio.addEventListener('error',()=>{if(scene==='ending'&&audioGraph)return;operation++;pending=false;needsGesture=false;failed=soundOn;update();});
 window.addEventListener('pagehide',()=>{pageActive=false;operation++;pending=false;inIntro=false;pauseBackground();stopScore();if(audioGraph?.context.state==='running')audioGraph.context.suspend().catch(()=>{});});
 window.addEventListener('pageshow',()=>{pageActive=true;syncScene();if(soundOn)start({quietFailure:true});});
-syncScene();update();
+syncScene();if(scene==='cover'&&soundOn)start({quietFailure:true});update();
 })();

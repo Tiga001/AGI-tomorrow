@@ -70,7 +70,6 @@ opening.node('game').oninput({target:{id:'difficultySlider',value:'5'}});
 assert.equal(opening.q.getRun().difficulty,5);
 assert.equal(opening.node('.start-screen').dataset.difficulty,'5');
 assert.equal(opening.node('difficultySliderWrap').style['--difficulty-position'],'1');
-assert.equal(opening.node('difficultyName').textContent,'极限');
 assert.equal(opening.c.renderCount,paintCount,'dragging updates controls in place without replacing the slider');
 assert.equal(JSON.parse(opening.store.get(SAVE)).run.difficulty,5);
 assert.equal(fixture(opening.store.get(SAVE)).g.getState().stats.cash,500);

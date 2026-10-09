@@ -6,7 +6,7 @@
 
 一款中文 AI 创业经营文字游戏。你带着 10 亿元，从 2021 年出发，在 2028 年末前向投资人兑现 AGI 的承诺。
 
-每个季度，先处理一件行业事件，再选择三项公司策略。研发、现金、团队士气、公众评价和厂商关系，会把公司带向不同的未来。
+每个季度，先处理一件行业事件，再从九项公司策略中选择三项。研发、现金、团队士气、公众评价和友商关系，会把公司带向不同的未来。
 
 ## 运行游戏
 
@@ -14,32 +14,32 @@
 
 安卓和 iPhone 都可以打开链接游玩，无需下载或安装。可以把这个链接直接发到 QQ 群。
 
-进度保存在当前浏览器中，刷新可继续。QQ 内置浏览器与 Safari、Chrome 的进度各自独立；请尽量一直使用同一个浏览器。声音从第一次点击开始播放，也可以用右上角开关控制。
+进度保存在当前浏览器中，刷新可继续。不同浏览器、设备及在线版与离线版的进度各自独立。声音从首次交互开始播放，也可以用右上角开关控制。
 
 ### [⬇ 点击下载《明天 AGI》](https://github.com/Tiga001/AGI-tomorrow/releases/latest/download/AGI-tomorrow.html)
 
 **无需安装，无需解压。下载后双击即可离线游玩。**
 
-1. 点击上方下载链接。
-2. 在电脑的“下载”文件夹找到 **`AGI-tomorrow.html`**，双击打开。
+1. 下载 **`AGI-tomorrow.html`**。
+2. 双击文件，用 Chrome、Edge、Firefox 或 Safari 打开。
 3. 点击游戏里的“开始创业”。
 
-如果没有自动用浏览器打开，右键点击文件 →“打开方式”→ 选择 Chrome、Edge、Firefox 或 Safari。没有声音时，点击游戏右上角的声音开关。
+图片、音乐和音效均已内嵌。使用旧离线版遇到声音问题时，请重新下载最新版。
 
 ### 自己运行或部署
 
 运行 `python3 build_web.py` 生成 `web-dist/`，把该目录完整上传到静态网站托管服务。网页版本分开加载图片和音乐，不依赖外部字体、CDN 或后端。
 
-本仓库的 GitHub Pages 使用 `main` 分支的 `/docs` 目录。更新游戏后，运行 `python3 build_web.py --pages`，将构建结果同步到 `docs/`，再把源文件和 `docs/` 一起提交到 `main`。运行 `python3 build.py` 可另外生成 `dist/index.html` 离线单文件。
+GitHub Pages 从 `main` 分支的 `/docs` 发布。更新后运行 `python3 build_web.py --pages`，将源码与 `docs/` 一起提交；运行 `python3 build.py` 可生成 `dist/index.html` 离线单文件。
 
-## 结局截图
+## 游戏截图
 
 <details>
-<summary>展开查看 DeepSeek 开放 AGI 结局（含剧透）</summary>
+<summary>展开查看当前游戏界面</summary>
 
-**大肥鱼，游向全世界**
+![行业事件与公司决策](docs/screenshots/quarter-event.jpg)
 
-![DeepSeek 开放 AGI 结局：大肥鱼，游向全世界](docs/screenshots/deepseek-agi-ending.jpg)
+![季度结算](docs/screenshots/quarter-result.jpg)
 
 </details>
 
